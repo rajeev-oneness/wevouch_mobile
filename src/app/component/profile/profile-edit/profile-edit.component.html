@@ -6,20 +6,22 @@
       </div>
     </div>
 
-    <form action="">
+    <form #userUpadteForm="ngForm" (ngSubmit)="updateUser(userUpadteForm)">
       <label for="fullName">Full Name</label>
-      <input type="text" placeholder="Meera Nautiyal">
-      <input type="email" placeholder="Meera@gmail.com">
-      <input type="number" placeholder="+91  |">
-
+      <input class="" type="text" name="name" #name="ngModel" [(ngModel)]="userDetail.name" [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+      <label for="fullName">Eamil</label>
+      <input class="" type="email" name="email" #email="ngModel" [(ngModel)]="userDetail.email" [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
+      
+      <label for="fullName">Mobile</label>
+      <input class="" type="number" name="mobile" #mobile="ngModel" [(ngModel)]="userDetail.mobile" [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
       <div class="ageSection">
         <div class="age">
           <label for="age">Age</label>
-          <input type="number" placeholder="52">
+          <input class="" type="number" name="age" #age="ngModel" [(ngModel)]="userDetail.age" [ngClass]="{'is-invalid':age?.invalid && age?.touched}">
         </div>
         <div class="gender">
           <label for="gender">Gender</label>
-          <select>
+          <select class="" name="gender" #gender="ngModel" [(ngModel)]="userDetail.gender" [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Others">Others</option>
@@ -27,7 +29,8 @@
         </div>
       </div>
       <label for="address">Address</label>
-      <textarea placeholder="123, Abc Street."></textarea>
+      <textarea class="" type="number" name="address" #address="ngModel" [(ngModel)]="userDetail.address" [ngClass]="{'is-invalid':address?.invalid && address?.touched}"></textarea>
+    
       <div class="addWarranty-btns">
         <button class="save-btn" type="submit" value="Save">Save</button>
         <button class="cancel-btn" type="button" onclick="location.href = 'account.html'">Cancel</button>
