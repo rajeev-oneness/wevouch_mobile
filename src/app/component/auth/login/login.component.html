@@ -7,7 +7,7 @@
    
     <form #userLoginForm="ngForm" (ngSubmit)="loginUser(userLoginForm)">
         <label for="email">Email</label>
-        <input #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
+        <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
         
         <label for="password">Password</label>
         <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">

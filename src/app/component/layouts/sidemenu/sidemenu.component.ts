@@ -9,7 +9,9 @@ export class SidemenuComponent implements OnInit {
 
   constructor(private _api:ApiService) { }
 
+  public user : any = {}
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
   }
 
   logoutUser() {

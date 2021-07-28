@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class ProductListComponent implements OnInit {
 
   constructor() { }
+  public user : any = {}
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
   }
 
 }

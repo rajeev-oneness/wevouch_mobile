@@ -1,3 +1,4 @@
+<ngx-ui-loader loaderId="loader" fgsColor="#FFFFFF" overlayColor="rgba(40,40,40,0.1)"></ngx-ui-loader>
 <section id="sign_up" class="text-center login-wrapper wrapper">
     <header>
       <a routerLink="/login">
@@ -16,15 +17,34 @@
 
     <h2>Create an Account</h2>
 
-    <form action="otp.html">
+    <form #userSignUpForm="ngForm" (ngSubmit)="signUpUser(userSignUpForm)">
+      <label>Name</label>
+      <input class="form-control" #name="ngModel" ngModel type="text" name="name" placeholder="Your name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+
       <label>Email Address</label>
-      <input type="email" name="email" placeholder="john.doe@gmail.com" />
+      <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
+      
+      <label>Mobile</label>
+      <input class="form-control" #mobile="ngModel" ngModel type="number" name="mobile" placeholder="Your mobile" required [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
 
       <label>Password</label>
-      <input type="password" name="password" placeholder="********" />
+      <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
+      
+      <label>Age</label>
+      <input class="form-control" tabindex="2" #age="ngModel" ngModel type="age" name="age" placeholder="age" required [ngClass]="{'is-invalid':age?.invalid && age?.touched}">
+      
+      <label>Gender</label>
+      <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Others">Others</option>
+      </select>
 
-      <label>Confirm Password</label>
-      <input type="password" name="c-password" placeholder="********" />
+      <label>Address</label>
+      <input class="form-control" tabindex="2" #address="ngModel" ngModel type="address" name="address" placeholder="address" required [ngClass]="{'is-invalid':address?.invalid && address?.touched}">
+
+      <!-- <label>Confirm Password</label>
+      <input class="form-control"> -->
 
       <button class="submit-btn" type="submit" value="Sign up">Sign up</button>
     </form>

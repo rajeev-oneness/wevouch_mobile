@@ -8,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   constructor() { }
+  public user : any = {}
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    console.log(this.user);
   }
 
 }

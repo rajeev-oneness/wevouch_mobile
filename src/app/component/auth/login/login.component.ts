@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   }
   public errorMessage = '';
   ngOnInit(): void {
+    window.scrollTo(0,0);
     if(this._api.isAuthenticated()){
       this._router.navigate(['/home']);
     }
