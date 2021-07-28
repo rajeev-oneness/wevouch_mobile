@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  dasboardPath: '/home',
+  projectPath : '/login',
+  apiUrl : 'https://boiling-dawn-74925.herokuapp.com/api/',
 };
 
 /*

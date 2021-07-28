@@ -1,0 +1,36 @@
+<section class="account-info-edit ">
+    <div class="user-img text-center position-relative">
+      <img src="./assets/images/user-pic-square.png" class="rounded-circle" alt="">
+      <div class="edit-icon" onclick="panelAddRemove()">
+        <img src="./assets/images/edit-2.svg" alt="">
+      </div>
+    </div>
+
+    <form action="">
+      <label for="fullName">Full Name</label>
+      <input type="text" placeholder="Meera Nautiyal">
+      <input type="email" placeholder="Meera@gmail.com">
+      <input type="number" placeholder="+91  |">
+
+      <div class="ageSection">
+        <div class="age">
+          <label for="age">Age</label>
+          <input type="number" placeholder="52">
+        </div>
+        <div class="gender">
+          <label for="gender">Gender</label>
+          <select>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+      </div>
+      <label for="address">Address</label>
+      <textarea placeholder="123, Abc Street."></textarea>
+      <div class="addWarranty-btns">
+        <button class="save-btn" type="submit" value="Save">Save</button>
+        <button class="cancel-btn" type="button" onclick="location.href = 'account.html'">Cancel</button>
+      </div>
+    </form>
+  </section>
