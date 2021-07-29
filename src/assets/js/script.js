@@ -60,20 +60,20 @@ function claimWarrantyPopup() {
 
 // Home Carousel
 
-$("#homeCarousel.owl-carousel").owlCarousel({
-  loop: true,
-  margin: 10,
-  nav: false,
-  dots: false,
-  responsive: {
-    0: {
-      items: 1,
-    },
-    360: {
-      items: 1.6,
-    },
-  },
-});
+// $("#homeCarousel.owl-carousel").owlCarousel({
+//   loop: true,
+//   margin: 10,
+//   nav: false,
+//   dots: false,
+//   responsive: {
+//     0: {
+//       items: 1,
+//     },
+//     360: {
+//       items: 1.6,
+//     },
+//   },
+// });
 
 $("#plansCarosel.owl-carousel").owlCarousel({
   stagePadding:40,

@@ -1,5 +1,7 @@
+
 import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -7,6 +9,51 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 })
 export class DashboardComponent implements OnInit {
 
+  title = 'angularowlslider';
+    elecTronics: any = {
+    loop: false,
+    margin: 10,
+    nav: false,
+    dots: false,
+    autoplay:true,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: true,
+    responsiveClass: true,
+    responsive: {
+      0:{
+				items:2,
+			},
+			600:{
+				items:2,
+			},
+			760:{
+				items:3,
+			}
+    },
+  }
+
+  planUpgrade: any = {
+    loop: false,
+    margin: 10,
+    nav: false,
+    dots: false,
+    autoplay:true,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: true,
+    responsiveClass: true,
+    responsive: {
+      0:{
+				items:1,
+			},
+			600:{
+				items:1,
+			},
+			760:{
+				items:1,
+			}
+    },
+  }
+  
   constructor(private _loader:NgxUiLoaderService) { }
   public user : any = {}
 
