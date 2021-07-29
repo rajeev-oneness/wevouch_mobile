@@ -22,30 +22,14 @@ import { CommonModule } from "@angular/common";
 import { FormsModule , ReactiveFormsModule, FormControl} from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    SidemenuComponent,
-    NotificationComponent,
-    NavigationComponent,
-    DashboardComponent,
-    TicketComponent,
-    SupportComponent,
-    ProductAddComponent,
-    ProductListComponent,
-    ProfileDetailsComponent,
-    ProfileEditComponent,
-    PackageListComponent,
-    LoginComponent,
-    RegisterComponent
+    AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent
   ],
   imports: [
-    BrowserModule,
-    CarouselModule,
-    AppRoutingModule,NgxUiLoaderModule,CommonModule,
-    FormsModule,ReactiveFormsModule,HttpClientModule
+    BrowserModule,CarouselModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
