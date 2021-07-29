@@ -13,7 +13,46 @@
     <h3>Electronics (1)</h3>
   </div>
 
-  <div id="homeCarousel" class="owl-carousel owl-theme">
+  <div class="carousel-body">
+    <owl-carousel-o [options]="productList">
+      <ng-template carouselSlide>
+        <div class="item">
+          <div onclick="claimWarrantyPopup()" class="addedProductBox">
+            <img src="./assets/images/lg-front.png" alt="" />
+            <h6>LG OLED TV</h6>
+            <p>Expires on March 14, 2024</p>
+          </div>
+        </div>
+      </ng-template>  
+      <ng-template carouselSlide>
+        <div class="item">
+          <div class="addAnotherProduct">
+            <div onclick="panelAddRemove()" class="file-input-box">
+              <div class="file-box-bg">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-plus"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template> 
+    </owl-carousel-o>
+  </div>
+
+
+  <!--<div id="homeCarousel" class="owl-carousel owl-theme">
     <div class="item">
       <div onclick="claimWarrantyPopup()" class="addedProductBox">
         <img src="./assets/images/lg-front.png" alt="" />
@@ -46,4 +85,4 @@
     <div class="item">
       <div class="addAnotherProduct"></div>
     </div>
-  </div>
+  </div>-->

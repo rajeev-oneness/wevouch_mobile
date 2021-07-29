@@ -21,6 +21,7 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { CommonModule } from "@angular/common";
 import { FormsModule , ReactiveFormsModule, FormControl} from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { HttpClientModule } from "@angular/common/http";
   ],
   imports: [
     BrowserModule,
+    CarouselModule,
     AppRoutingModule,NgxUiLoaderModule,CommonModule,
     FormsModule,ReactiveFormsModule,HttpClientModule
   ],
