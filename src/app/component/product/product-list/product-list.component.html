@@ -52,37 +52,137 @@
   </div>
 
 
-  <!--<div id="homeCarousel" class="owl-carousel owl-theme">
+<!-- Take picture  -->
+<div onclick="panelAddRemove()" id="ex-warr-b-overlay" class=""></div>
+<section id="takePicturePanel">
+  <i><svg onclick="panelAddRemove()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+  <div class="takePhoto">
+    <img src="./assets/images/takePhoto.png" alt="" />
+    <a href="#">Take A Picture</a>
+    <input type="file" placeholder="Take A Photo" />
+  </div>
+  <div class="pickGallery">
+    <img src="./assets/images/gallery.png" alt="" />
+    <a href="#">Import From Gallery</a>
+    <input type="file" placeholder="Import from Gallery" />
+  </div>
+</section>
+<!-- Take picture  -->
+
+<!-- Claim Warranty  -->
+
+<div onclick="claimWarrantyPopup()" id="AMC-b-overlay" class=""></div>
+
+<section id="claimWarranty">
+  <div style="text-align: right;">
+    <i style="color: black;"><svg onclick="claimWarrantyPopup()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+  </div>
+  <header>
+    <h5>MY LIVING ROOM TV</h5>
+    <h1>
+      LG 139 cm (55 inches) 4K UHD Smart LED TV 55UM7290PTD (Ceramic BK +
+      Dark Steel Silver)
+    </h1>
+    <p>Consumer Electronic</p>
+  </header>
+
+  <div id="productsCarousel" class="owl-carousel owl-theme">
+    
     <div class="item">
-      <div onclick="claimWarrantyPopup()" class="addedProductBox">
+      <div class="claimWarrantyProductBox">
         <img src="./assets/images/lg-front.png" alt="" />
-        <h6>LG OLED TV</h6>
-        <p>Expires on March 14, 2024</p>
-      </div>
-    </div>
-    <div class="item">
-      <div class="addAnotherProduct">
-        <div onclick="panelAddRemove()" class="file-input-box">
-          <div class="file-box-bg">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-plus"
-            >
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
+        <div class="claimWarrantyText">
+          <div class="brand">
+            <h6>Brand</h6>
+            <p>LG</p>
+          </div>
+          <div class="modelNo">
+            <h6>Model No.</h6>
+            <p>SC-J509K</p>
           </div>
         </div>
       </div>
     </div>
+    
     <div class="item">
-      <div class="addAnotherProduct"></div>
+      <div class="claimWarrantyProductBox">
+        <img src="./assets/images/lg-front.png" alt="" />
+        <div class="claimWarrantyText">
+          <div class="brand">
+            <h6>Brand</h6>
+            <p>LG</p>
+          </div>
+          <div class="modelNo">
+            <h6>Model No.</h6>
+            <p>SC-J509K</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>-->
+
+  </div>
+
+  <div class="warrantyDetailsBox">
+    <h3>Warranty Details</h3>
+    <div class="invoice-pic">
+      <img src="./assets/images/blank-image.png" alt="">
+    </div>
+    <div class="purchaseDate">
+      <h6>Validity</h6>
+      <p>18 Months</p>
+
+      <h6>Purchase Date</h6>
+      <p>30 Mar 2018</p>
+    </div>
+    <div class="expiresDate">
+      <h6>Validity Till</h6>
+      <p>29 Mar 2021</p>
+      <p class="daysLeft">50 Days Left</p>
+    </div>
+  </div>
+
+  <div class="warrantyDetailsBox">
+    <h3>Extended Warranty</h3>
+    <div class="invoice-pic">
+      <img src="./assets/images/blank-image.png" alt="">
+    </div>
+    <div class="purchaseDate">
+      <h6>Service Provider</h6>
+      <p>Vijay Sales</p>
+
+      <h6>Validity </h6>
+      <p>18 Months</p>
+    </div>
+    <div class="expiresDate">
+      <div class="call-img">
+        <img src="./assets/images/call.png" alt="">
+      </div>
+      <h6>Policy No.</h6>
+      <p>LG31795YT39</p>
+    </div>
+  </div>
+
+  <div class="warrantyDetailsBox">
+    <h3>Annual maintainance (quaterly)</h3>
+    <div class="invoice-pic">
+      <img src="./assets/images/blank-image.png" alt="">
+    </div>
+    <div class="purchaseDate">
+      <h6>Service Provider</h6>
+      <p>Vijay Sales</p>
+
+      <h6>Validity Till</h6>
+      <p>29 Mar 2021</p>
+      <p class="daysLeft">50 Days Left</p>
+    </div>
+    <div class="expiresDate">
+      <div class="call-img">
+        <img src="./assets/images/call.png" alt="">
+      </div>
+      <h6>Contract No.</h6>
+      <p>DBHKN042090</p>
+    </div>
+  </div>
+
+  <button class="claimWarrantyBTN">Claim Warranty</button>
+</section>
