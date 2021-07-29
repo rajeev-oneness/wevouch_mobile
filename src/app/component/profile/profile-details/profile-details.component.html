@@ -1,48 +1,60 @@
 <section class="account-details">
-    <div class="account-holder mt-3">
-      <div class="accHolderImg">
-        <img
-          class="rounded-circle"
-          src="./assets/images/user-pic-square.png"
-          alt=""
-        />
-      </div>
-      <div class="accHolderTxt">
-        <h2>Meera Noutiyal</h2>
-        <p>Mumbai, India</p>
-      </div>
-      <a class="editProfileBTN" routerLink="/profile/edit">Edit</a>
+  <div class="account-holder mt-3">
+    <div class="accHolderImg">
+      <img
+        class="rounded-circle"
+        src="./assets/images/user-pic-square.png"
+        alt=""
+      />
     </div>
-
-    <h5>Email</h5>
-    <h4>Meera@gmail.com</h4>
-
-    <h5>Mobile</h5>
-    <h4>+91 9876543210</h4>
-
-    <div class="accDtlMid">
-      <div class="age">
-        <h5>Age</h5>
-        <h4>52</h4>
-      </div>
-      <div class="gender">
-        <h5>Gender</h5>
-        <h4>Male</h4>
-      </div>
+    <div class="accHolderTxt">
+      <h2>{{userDetail.name}}</h2>
+      <!-- <p>Mumbai, India</p> -->
     </div>
+    <a class="editProfileBTN" routerLink="/profile/edit">Edit</a>
+  </div>
 
-    <h5>Address</h5>
-    <h4>
-      Suit# 806, Merlin Infinite. DN 51, Sector-V Salt Lake, Kolkata 700091
-    </h4>
+  <h5>Email</h5>
+  <h4>{{userDetail.email}}</h4>
 
-    <div class="upgradePlanBox">
-      <div class="upgradePlanBoxtxt">
-        <h5>Membership</h5>
-        <h4>Free Trial</h4>
-      </div>
-      <a class="upgradeBTN" routerLink="/package/list">
-        Upgrade <span><img src="./assets/images/right-arrow.png" alt="" /></span>
-      </a>
+  <h5>Mobile</h5>
+  <span *ngIf="userDetail.mobile; else mobileNotFound">
+    <h4>+91 {{userDetail.mobile}}</h4>
+  </span>
+  <ng-template #mobileNotFound><h4>N/A</h4></ng-template>
+
+  <div class="accDtlMid">
+    <div class="age">
+      <h5>Age</h5>
+      <span *ngIf="userDetail.age; else ageNotFound">
+        <h4>{{userDetail.age}}</h4>
+      </span>
+      <ng-template #ageNotFound><h4>N/A</h4></ng-template>
     </div>
-  </section>
+    <div class="gender">
+      <h5>Gender</h5>
+      <span *ngIf="userDetail.gender; else genderNotFound">
+        <h4>{{userDetail.gender}}</h4>
+      </span>
+      <ng-template #genderNotFound><h4>N/A</h4></ng-template>
+    </div>
+  </div>
+
+  <h5>Address</h5>
+  <h4>
+    <span *ngIf="userDetail.address; else addressNotFound">
+      <h4>{{userDetail.address}}</h4>
+    </span>
+    <ng-template #addressNotFound><h4>N/A</h4></ng-template>
+  </h4>
+
+  <div class="upgradePlanBox">
+    <div class="upgradePlanBoxtxt">
+      <h5>Membership</h5>
+      <h4>Free Trial</h4>
+    </div>
+    <a class="upgradeBTN" routerLink="/package/list">
+      Upgrade <span><img src="./assets/images/right-arrow.png" alt="" /></span>
+    </a>
+  </div>
+</section>

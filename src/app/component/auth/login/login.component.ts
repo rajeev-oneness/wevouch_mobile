@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router) {
+    window.scrollTo(0, 0);
     this._loader.startLoader('loader');
   }
   public errorMessage = '';

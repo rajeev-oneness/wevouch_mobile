@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
   selector: 'app-product-list',
@@ -30,9 +31,14 @@ export class ProductListComponent implements OnInit {
     },
   }
 
-  constructor() { }
+  constructor(private _loader:NgxUiLoaderService) { }
+  public user : any = {}
 
   ngOnInit(): void {
+    this._loader.startLoader('loader');
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    console.log(this.user);
+    this._loader.stopLoader('loader');
   }
 
 }

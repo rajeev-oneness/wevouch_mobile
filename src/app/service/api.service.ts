@@ -60,4 +60,14 @@ export class ApiService {
   userLoginApi(formData : any) {
     return this._http.post<any>(_apiUrl+'user/login',formData);
   }
+  userSignupApi(formData : any){
+    return this._http.post<any>(_apiUrl+'user/add',formData);
+  }
+  userDetails(userId : any) {
+    return this._http.get<any>(_apiUrl+'user/get/'+userId);
+  }
+  updateUserDetails(userId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'user/update/'+userId, formData);
+  }
+
 }
