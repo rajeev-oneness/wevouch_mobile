@@ -1,0 +1,14 @@
+<section id="home" class="text-center login-wrapper wrapper" *ngIf="showTab; else loginReg">
+  <app-header></app-header>
+  
+  <router-outlet></router-outlet>
+
+  <app-navigation></app-navigation>
+</section>
+
+<ng-template #loginReg>
+  <router-outlet></router-outlet>
+</ng-template>
+
+<app-sidemenu></app-sidemenu>
+<app-notification></app-notification>

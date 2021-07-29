@@ -1,0 +1,229 @@
+
+      <div class="dashboard-intro">
+        <div class="intro-text">
+          <h1><span>Hi</span> Santosh</h1>
+          <p>0 Products listed</p>
+        </div>
+        <div class="intro-img">
+          <img src="./assets/images/user-pic-square.png" alt="" />
+        </div>
+      </div>
+
+      <!-- Carousel  -->
+      <div class="carousel-header mt-3">
+        <h3>Electronics (1)</h3>
+      </div>
+      <div class="carousel-body">
+        <owl-carousel-o [options]="elecTronics">
+          <ng-template carouselSlide>
+            <div class="item">
+              <div onclick="claimWarrantyPopup()" class="addedProductBox">
+                <img src="./assets/images/lg-front.png" alt="" />
+                <h6>LG OLED TV</h6>
+                <p>Expires on March 14, 2024</p>
+              </div>
+            </div>
+          </ng-template>  
+          <ng-template carouselSlide>
+            <div class="item">
+              <div class="addAnotherProduct">
+                <div onclick="panelAddRemove()" class="file-input-box">
+                  <div class="file-box-bg">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-plus"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template> 
+        </owl-carousel-o>
+      </div>
+
+      <!-- Carousel  -->
+
+      <!-- Raise Issue -->
+
+      <div class="raiseIssue mt-4">
+        <h6>Facing Problems?</h6>
+        <p>Raise an issue here, we'll follow up for you.</p>
+        <button class="raiseIssueBTN">Raise Issue</button>
+        <img class="wash-m" src="./assets/images/washing-m.png" alt="" />
+        <img class="fridge" src="./assets/images/raise-issue.png" alt="" />
+      </div>
+
+      <!-- Raise Issue ends -->
+
+      <!-- Offers -->
+
+      <section id="offers" class="mt-5">
+        <div class="carousel-body">
+          <owl-carousel-o [options]="planUpgrade">
+            <ng-template carouselSlide>
+              <div class="item">
+                <div class="premium" onclick="location.href='subscribe.html'">
+                  <div class="premium-img">
+                    <img src="./assets/images/fav-logo.png" alt="" />
+                  </div>
+                  <div class="premium-text">
+                    <p>10% Off</p>
+                    <h1 class="text-uppercase">upgrade to <span>premium</span></h1>
+                  </div>
+                </div>
+              </div>
+            </ng-template>  
+            <ng-template carouselSlide>
+              <div class="item">
+                <div class="free-ticket">
+                  <h1>Get a FREE Ticket!</h1>
+                  <button onclick="location.href='addProduct.html'">Add 5 Products</button>
+                </div>
+              </div>
+            </ng-template> 
+          </owl-carousel-o>
+        </div>
+      </section>
+
+      <!-- Offers  -->
+
+    <!-- Take picture  -->
+    <div onclick="panelAddRemove()" id="ex-warr-b-overlay" class=""></div>
+    <section id="takePicturePanel">
+      <div class="takePhoto">
+        <img src="./assets/images/takePhoto.png" alt="" />
+        <a href="#">Take A Picture</a>
+        <input type="file" placeholder="Take A Photo" />
+      </div>
+      <div class="pickGallery">
+        <img src="./assets/images/gallery.png" alt="" />
+        <a href="#">Import From Gallery</a>
+        <input type="file" placeholder="Import from Gallery" />
+      </div>
+    </section>
+    <!-- Take picture  -->
+
+    <!-- Claim Warranty  -->
+
+    <div onclick="claimWarrantyPopup()" id="AMC-b-overlay" class=""></div>
+
+    <section id="claimWarranty">
+      <header>
+        <h5>MY LIVING ROOM TV</h5>
+        <h1>
+          LG 139 cm (55 inches) 4K UHD Smart LED TV 55UM7290PTD (Ceramic BK +
+          Dark Steel Silver)
+        </h1>
+        <p>Consumer Electronic</p>
+      </header>
+
+      <div id="productsCarousel" class="owl-carousel owl-theme">
+        <div class="item">
+          <div class="claimWarrantyProductBox">
+            <img src="./assets/images/lg-front.png" alt="" />
+            <div class="claimWarrantyText">
+              <div class="brand">
+                <h6>Brand</h6>
+                <p>LG</p>
+              </div>
+              <div class="modelNo">
+                <h6>Model No.</h6>
+                <p>SC-J509K</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="item">
+          <div class="claimWarrantyProductBox">
+            <img src="./assets/images/lg-front.png" alt="" />
+            <div class="claimWarrantyText">
+              <div class="brand">
+                <h6>Brand</h6>
+                <p>LG</p>
+              </div>
+              <div class="modelNo">
+                <h6>Model No.</h6>
+                <p>SC-J509K</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="warrantyDetailsBox">
+        <h3>Warranty Details</h3>
+        <div class="invoice-pic">
+          <img src="./assets/images/blank-image.png" alt="">
+        </div>
+        <div class="purchaseDate">
+          <h6>Validity</h6>
+          <p>18 Months</p>
+
+          <h6>Purchase Date</h6>
+          <p>30 Mar 2018</p>
+        </div>
+        <div class="expiresDate">
+          <h6>Validity Till</h6>
+          <p>29 Mar 2021</p>
+          <p class="daysLeft">50 Days Left</p>
+        </div>
+      </div>
+
+      <div class="warrantyDetailsBox">
+        <h3>Extended Warranty</h3>
+        <div class="invoice-pic">
+          <img src="./assets/images/blank-image.png" alt="">
+        </div>
+        <div class="purchaseDate">
+          <h6>Service Provider</h6>
+          <p>Vijay Sales</p>
+
+          <h6>Validity </h6>
+          <p>18 Months</p>
+        </div>
+        <div class="expiresDate">
+          <div class="call-img">
+            <img src="./assets/images/call.png" alt="">
+          </div>
+          <h6>Policy No.</h6>
+          <p>LG31795YT39</p>
+        </div>
+      </div>
+
+      <div class="warrantyDetailsBox">
+        <h3>Annual maintainance (quaterly)</h3>
+        <div class="invoice-pic">
+          <img src="./assets/images/blank-image.png" alt="">
+        </div>
+        <div class="purchaseDate">
+          <h6>Service Provider</h6>
+          <p>Vijay Sales</p>
+
+          <h6>Validity Till</h6>
+          <p>29 Mar 2021</p>
+          <p class="daysLeft">50 Days Left</p>
+        </div>
+        <div class="expiresDate">
+          <div class="call-img">
+            <img src="./assets/images/call.png" alt="">
+          </div>
+          <h6>Contract No.</h6>
+          <p>DBHKN042090</p>
+        </div>
+      </div>
+
+      <button class="claimWarrantyBTN">Claim Warranty</button>
+    </section>
+

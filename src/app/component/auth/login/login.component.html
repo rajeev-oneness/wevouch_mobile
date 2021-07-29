@@ -1,0 +1,37 @@
+<ngx-ui-loader loaderId="loader" fgsColor="#FFFFFF" overlayColor="rgba(40,40,40,0.1)"></ngx-ui-loader>
+<section class="text-center login-wrapper wrapper">
+
+    <img class="logo" src="./assets/images/login-logo.png" alt="">
+
+    <h2>Login</h2>
+   
+    <form #userLoginForm="ngForm" (ngSubmit)="loginUser(userLoginForm)">
+        <label for="email">Email</label>
+        <input #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
+        
+        <label for="password">Password</label>
+        <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
+
+        <a class="f-pass" href="#">Forgot Password?</a>
+
+        <span class="text-danger">{{errorMessage}}</span>
+        <button class="submit-btn" type="submit" value="Login">Login</button>
+        <!-- <a class="submit-btn" type="submit" value="Login" routerLink="/home">Login</a> -->
+    </form>
+
+    <div class="login-options">
+        <div></div>
+        <p>or connect with</p>
+        <div></div>
+    </div>
+    <div class="social-icons">
+        <a href="#"><img src="./assets/images/google.png" alt=""></a>
+        <a href="#"><img src="./assets/images/fb.png" alt=""></a>
+        <a href="#"><img src="./assets/images/twitter.png" alt=""></a>
+        <a href="#"><img src="./assets/images/mobile.png" alt=""></a>
+    </div>
+    <div class="register-link">
+        <p>Don't have an account?</p>
+        <a routerLink="/register">Sign up</a>
+    </div>
+</section>

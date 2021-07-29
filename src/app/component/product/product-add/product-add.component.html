@@ -1,0 +1,37 @@
+  <header>
+    <a routerLink="/home">
+      <img src="./assets/images/back.png" alt="">
+    </a>
+    <h2>Add Products</h2>
+    <a routerLink="/home">
+      <img src="./assets/images/cut-icon.png" alt="">
+    </a>
+  </header>
+
+  <div class="progress-bar-container pt-4">
+      <ul class="progress_bar">
+          <li id="f-child-none" class="active white">Products</li>
+          <li>Warranty</li>
+          <li>Finish</li>
+      </ul>
+  </div>
+
+  <form class="addProductForm" action="addProduct_warranty.html">
+    <label>Nick Name <span class="op">(Optional)</span></label>
+    <input type="email" placeholder="My Living Room TV" />
+
+    <label>Brand Name <span>*</span></label>
+    <input type="text" placeholder="LG" />
+
+    <label>Category <span>*</span></label>
+    <input type="text" placeholder="Audio-Visual" />
+
+    <label>Sub-category <span>*</span></label>
+    <input type="text" placeholder="OLED TV" />
+
+    <label>Model No. <span>*</span></label>
+    <input type="number" placeholder="********" />
+
+
+    <button class="submit-btn" type="submit" value="+ Add Products">+ Add Products</button>
+  </form>
