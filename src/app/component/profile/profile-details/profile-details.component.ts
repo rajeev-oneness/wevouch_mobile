@@ -13,6 +13,7 @@ export class ProfileDetailsComponent implements OnInit {
   constructor(private _loader: NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
   public userDetail : any = {};
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this._loader.startLoader('loader');
     
     let user = JSON.parse(localStorage.getItem('userInfo') || '{}');

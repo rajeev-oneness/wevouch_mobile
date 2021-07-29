@@ -35,6 +35,7 @@ export class ProductListComponent implements OnInit {
   public user : any = {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this._loader.startLoader('loader');
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     console.log(this.user);
