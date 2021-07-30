@@ -8,7 +8,8 @@ import { NotificationComponent } from './component/layouts/notification/notifica
 import { NavigationComponent } from './component/layouts/navigation/navigation.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
-import { TicketComponent } from './component/ticket/ticket.component';
+import { TicketDetailsComponent } from './component/ticket/ticket-details/ticket-details.component';
+import { TicketListComponent } from './component/ticket/ticket-list/ticket-list.component';
 import { SupportComponent } from './component/support/support.component';
 import { ProductListComponent } from './component/product/product-list/product-list.component';
 import { ProductAddComponent } from './component/product/product-add/product-add.component';
@@ -22,11 +23,13 @@ import { CommonModule } from "@angular/common";
 import { FormsModule , ReactiveFormsModule, FormControl} from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SettingsComponent } from './component/settings/settings.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent
+    AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketDetailsComponent, TicketListComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent, SettingsComponent
   ],
   imports: [
     BrowserModule,CarouselModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule

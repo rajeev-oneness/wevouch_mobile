@@ -37,7 +37,7 @@ export class ApiService {
 
   updateUserLocally(data : any){
     localStorage.removeItem('userInfo');
-    localStorage.setItem('userInfo',JSON.stringify(data.data));
+    localStorage.setItem('userInfo',JSON.stringify(data));
   }
 
   // Logging Out the Current User
@@ -69,5 +69,39 @@ export class ApiService {
   updateUserDetails(userId : any, formData : any) {
     return this._http.patch<any>(_apiUrl+'user/update/'+userId, formData);
   }
+
+  //product
+  productList(userId : any) {
+    return this._http.get<any>(_apiUrl+'product/get-by-user/'+userId);
+  }
+  productListByCategory(categoryId : any) {
+    return this._http.get<any>(_apiUrl+'product/get-by-category/'+categoryId);
+  }
+  allProductList() {
+    return this._http.get<any>(_apiUrl+'product/list');
+  }
+  addProduct(formData : any) {
+    return this._http.post<any>(_apiUrl+'product/add', formData);
+  }
+  categoryList() {
+    return this._http.get<any>(_apiUrl+'category/list');
+  }
+  subCategoryListByCategoryId(id : any) {
+    return this._http.get<any>(_apiUrl+'sub-category/get-by-category/'+id);
+  }
+  brandList() {
+    return this._http.get<any>(_apiUrl+'brand/list');
+  }
+
+  //ticket
+  ticketList(userId : any) {
+    return this._http.get<any>(_apiUrl+'ticket/get-by-user/'+userId);
+  }
+  
+  //package
+  packageList() {
+    return this._http.get<any>(_apiUrl+'sub/list');
+  }
+  
 
 }

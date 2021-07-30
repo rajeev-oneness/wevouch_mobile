@@ -15,15 +15,17 @@
       </div>
       <div class="carousel-body">
         <owl-carousel-o [options]="elecTronics">
-          <ng-template carouselSlide>
-            <div class="item">
-              <div onclick="claimWarrantyPopup()" class="addedProductBox">
-                <img src="./assets/images/lg-front.png" alt="" />
-                <h6>LG OLED TV</h6>
-                <p>Expires on March 14, 2024</p>
+          <ng-container *ngFor="let product of products">
+            <ng-template carouselSlide>
+              <div class="item">
+                <div onclick="claimWarrantyPopup()" class="addedProductBox">
+                  <img src="{{product.productImagesUrl}}" alt="Product Image" />
+                  <h6>{{product.name}}</h6>
+                  <p>Expires on March 14, 2024</p>
+                </div>
               </div>
-            </div>
-          </ng-template>  
+            </ng-template>
+          </ng-container>
           <ng-template carouselSlide>
             <div class="item">
               <div class="addAnotherProduct">

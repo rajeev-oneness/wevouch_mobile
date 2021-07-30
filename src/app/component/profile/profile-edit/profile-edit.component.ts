@@ -11,11 +11,14 @@ export class ProfileEditComponent implements OnInit {
 
   constructor(private _loader: NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
   public userDetail : any = {};
+  public errorMessage : any = '';
+  public user_id : any = '';
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
     
     let user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    this.user_id = user._id;
     this.getUser(user._id);
     
   }
@@ -32,7 +35,30 @@ export class ProfileEditComponent implements OnInit {
   }
 
   updateUser(formData : any) {
-    
+    this.errorMessage = '';
+    for( let i in formData.controls ){
+      formData.controls[i].markAsTouched();
+    }
+    if( formData?.valid ){
+      console.log(formData.value);
+      const mainForm = formData.value;
+      this._loader.startLoader('loader');
+      this._api.updateUserDetails(this.user_id, mainForm).subscribe(
+        res => {
+          this.errorMessage = res.message;
+          this._api.updateUserLocally(res);
+          this._router.navigate(['/profile/details']);
+          this._loader.stopLoader('loader');
+        },
+        err => {
+          this.errorMessage = "something went wrong please check credentials and try after sometimes";
+          this._loader.stopLoader('loader');
+        }
+        
+      )
+    }else{
+      this.errorMessage = 'Please fill out all the details';
+    }
   }
 
 }
