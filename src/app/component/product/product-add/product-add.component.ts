@@ -102,29 +102,9 @@ export class ProductAddComponent implements OnInit {
     
   }
 
-  addWarranty(formData : any) {
-    for (let i in formData.controls) {
-      formData.controls[i].markAsTouched();
-    }
-    console.log(formData.value);
-    if (formData?.valid) {
-      this.addProductValue = formData.value;
-    } else {
-      this.errorMessage = ' Please give the required fields';
-    }
-  }
+  addWarranty(formData : any) {}
   
-  addAmc(formData : any) {
-    for (let i in formData.controls) {
-      formData.controls[i].markAsTouched();
-    }
-    console.log(formData.value);
-    if (formData?.valid) {
-      this.addProductValue = formData.value;
-    } else {
-      this.errorMessage = ' Please give the required fields';
-    }
-  }
+  addAmc(formData : any) {}
   
   addFinish() {
     this._loader.startLoader('loader');

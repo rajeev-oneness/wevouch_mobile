@@ -15,7 +15,7 @@ import { RegisterComponent } from "./component/auth/register/register.component"
 import { AuthCheckService } from "./service/auth-check.service";
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, pathMatch:'full', canActivate:[AuthCheckService] },
+  { path: '', pathMatch:'full', redirectTo: 'home'},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: DashboardComponent, canActivate:[AuthCheckService] },

@@ -10,7 +10,7 @@ export class ProductListComponent implements OnInit {
 
   title = 'angularowlslider';
   productList: any = {
-    loop: false,
+    loop: true,
     margin: 10,
     nav: false,
     dots: false,

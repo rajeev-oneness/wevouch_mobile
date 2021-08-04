@@ -10,7 +10,7 @@ export class DashboardComponent implements OnInit {
 
   title = 'angularowlslider';
     elecTronics: any = {
-    loop: false,
+    loop: true,
     margin: 10,
     nav: false,
     dots: false,
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   }
 
   planUpgrade: any = {
-    loop: false,
+    loop: true,
     margin: 10,
     nav: false,
     dots: false,

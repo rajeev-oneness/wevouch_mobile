@@ -74,7 +74,7 @@
           <owl-carousel-o [options]="planUpgrade">
             <ng-template carouselSlide>
               <div class="item">
-                <div class="premium" onclick="location.href='subscribe.html'">
+                <div class="premium" routerLink="/package/list">
                   <div class="premium-img">
                     <img src="./assets/images/fav-logo.png" alt="" />
                   </div>
@@ -89,7 +89,7 @@
               <div class="item">
                 <div class="free-ticket">
                   <h1>Get a FREE Ticket!</h1>
-                  <button onclick="location.href='addProduct.html'">Add 5 Products</button>
+                  <button routerLink="/product/add">Add 5 Products</button>
                 </div>
               </div>
             </ng-template> 
