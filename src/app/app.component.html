@@ -1,6 +1,6 @@
 <ngx-ui-loader loaderId="loader" fgsColor="#FFFFFF" overlayColor="rgba(40,40,40,0.1)"></ngx-ui-loader>
 <section id="home" class="text-center login-wrapper wrapper" *ngIf="showTab; else loginReg">
-  <app-header></app-header>
+  <app-header *ngIf="showHeader"></app-header>
   
   <router-outlet></router-outlet>
 

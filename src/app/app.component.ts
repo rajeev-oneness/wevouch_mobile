@@ -7,7 +7,8 @@ import { NavigationStart, Router } from "@angular/router";
 })
 export class AppComponent {
   title = 'WeVouchMobile';
-  public showTab: boolean = false;
+  public showTab: boolean = true;
+  public showHeader: boolean = true;
 
   constructor(private _router:Router) {
     _router.events.forEach((event) => {
@@ -16,6 +17,11 @@ export class AppComponent {
           this.showTab = false;
         } else {
           this.showTab = true;
+        }
+        if(event['url'] == '/product/add') {
+          this.showHeader = false;
+        } else {
+          this.showHeader = true;
         }
       }
     });

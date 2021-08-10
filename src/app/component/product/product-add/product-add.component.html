@@ -10,9 +10,9 @@
 
   <div class="progress-bar-container pt-4">
       <ul class="progress_bar">
-          <li id="f-child-none" class="active white">Products</li>
-          <li>Warranty</li>
-          <li>Finish</li>
+          <li id="f-child-none" [ngClass]="{'active':productTab || warantyTab || finishTab,'white':productTab}">Products</li>
+          <li [ngClass]="{'active':warantyTab || finishTab,'white':warantyTab}">Warranty</li>
+          <li [ngClass]="{'active white':finishTab}">Finish</li>
       </ul>
   </div>
 
@@ -84,7 +84,7 @@
           </select>
         </div>
         <div class="col-5 ml-1">
-          <select #warrantyType="ngModel" ngModel name="warrantyType" id="warrantyType" class="form-control">
+          <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control">
             <option value="year">Years</option>
             <option value="month">Month</option>
           </select>
