@@ -154,7 +154,7 @@ $secondary-color: #00c2cb;
       font-weight: 500;
       color: #a1adc0;
     }
-    input {
+    input, select {
       width: 100%;
       padding: 10px 18px;
       border-radius: 10px;
@@ -164,6 +164,13 @@ $secondary-color: #00c2cb;
       &::placeholder {
         color: #b0b9c7;
         font-size: 12px;
+      }
+      &:focus{
+        color: #fff !important;
+        background-color: #202c40 !important;
+        border-color: transparent;
+        outline: 0;
+        box-shadow:inherit;
       }
     }
     .f-pass {

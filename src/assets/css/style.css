@@ -136,7 +136,7 @@ body {
   font-weight: 500;
   color: #a1adc0;
 }
-.login-wrapper form input {
+.login-wrapper form input, .login-wrapper form select {
   width: 100%;
   padding: 10px 18px;
   border-radius: 10px;
@@ -144,17 +144,24 @@ body {
   background-color: #202c40;
   color: #fff;
 }
-.login-wrapper form input::-moz-placeholder {
+.login-wrapper form input::-moz-placeholder, .login-wrapper form select::-moz-placeholder {
   color: #b0b9c7;
   font-size: 12px;
 }
-.login-wrapper form input:-ms-input-placeholder {
+.login-wrapper form input:-ms-input-placeholder, .login-wrapper form select:-ms-input-placeholder {
   color: #b0b9c7;
   font-size: 12px;
 }
-.login-wrapper form input::placeholder {
+.login-wrapper form input::placeholder, .login-wrapper form select::placeholder {
   color: #b0b9c7;
   font-size: 12px;
+}
+.login-wrapper form input:focus, .login-wrapper form select:focus {
+  color: #fff !important;
+  background-color: #202c40 !important;
+  border-color: transparent;
+  outline: 0;
+  box-shadow: inherit;
 }
 .login-wrapper form .f-pass {
   display: inline-block;
