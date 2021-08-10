@@ -52,10 +52,34 @@ export class DashboardComponent implements OnInit {
 			}
     },
   }
+
+  productDetailList: any = {
+    loop: false,
+    margin: 200,
+    nav: false,
+    dots: false,
+    autoplay:true,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: true,
+    responsiveClass: true,
+    responsive: {
+      0:{
+				items:1,
+			},
+			600:{
+				items:1,
+			},
+			760:{
+				items:1,
+			}
+    },
+  }
   
   constructor(private _loader:NgxUiLoaderService, private _api:ApiService) { }
   public user : any = {}
   public products : any = ''
+  public showDetail: boolean = false 
+  public productDeatil : any = []
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -69,6 +93,18 @@ export class DashboardComponent implements OnInit {
       }, err => {}
     )
     this._loader.stopLoader('loader');
+  }
+
+  showHideProductDetail(productId = '') {
+    this.showDetail = !this.showDetail;
+    if(productId != '') {
+      this._api.productDetail(productId).subscribe(
+        res => {
+          console.log(res);
+          this.productDeatil = res;
+        }, err => {}
+      )
+    }
   }
 
 }

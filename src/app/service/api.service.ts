@@ -80,6 +80,9 @@ export class ApiService {
   allProductList() {
     return this._http.get<any>(_apiUrl+'product/list');
   }
+  productDetail(productId : any) {
+    return this._http.get<any>(_apiUrl+'product/get/'+productId);
+  }
   addProduct(formData : any) {
     return this._http.post<any>(_apiUrl+'product/add', formData);
   }
