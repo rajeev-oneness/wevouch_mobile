@@ -25,16 +25,39 @@ import { HttpClientModule } from "@angular/common/http";
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SettingsComponent } from './component/settings/settings.component';
-
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'angularx-social-login';
 
 @NgModule({
   declarations: [
     AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketDetailsComponent, TicketListComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent, SettingsComponent
   ],
   imports: [
-    BrowserModule,CarouselModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule
+    BrowserModule,CarouselModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule,SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '735488008597-ulevdo2cq8pe45bg0b1i8idbvp9u5fs3.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

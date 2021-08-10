@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
+import { SocialAuthService } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router) {
+  constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router,private authService: SocialAuthService) {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
   }
@@ -48,6 +50,34 @@ export class LoginComponent implements OnInit {
       this.errorMessage = 'Please fill out all the details';
     }
     // console.log('Form Data SUbmitted');
+  }
+
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( (userData) => {
+      let user = {'name': userData.name, 'email': userData.email, 'status': 'active', 'mobile': "9999999999", 'password': "123456"};
+      // this._api.userSignupApi(user).subscribe( 
+      //   res => {
+      //     console.log(res);
+      //     // this._api.storeUserLocally(res.user);
+      //   }, err => {
+      //     this.errorMessage = err;
+      //     this._loader.stopLoader('loader');
+      //   }
+      // );
+      // this._api.storeUserLocally(userData);
+      // this._router.navigate(['/home']);
+      console.log('Google login', userData);
+      console.log(user);
+      
+    });
+  }
+
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  signOut(): void {
+    this.authService.signOut();
   }
 
 }
