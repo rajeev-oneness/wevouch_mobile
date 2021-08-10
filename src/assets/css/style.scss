@@ -978,35 +978,8 @@ nav {
 // Add Product Finish
 #addProductFinish {
   min-height: 120vh;
-  .add-prod-img-container {
-    width: 70%;
-    margin: 0 auto;
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    place-content: center;
-    .Product-img-box {
-      position: relative;
-      border: 6px solid #202c40;
-      border-radius: 15px;
-      width: 85%;
-      margin: 0 auto;
-      img {
-        width: 90%;
-        text-align: center;
-      }
-      .del-icon {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 20px;
-        cursor: pointer;
-        z-index: 100;
-      }
-    }
-  }
-  .progress {
+  
+  /*.progress {
     height: 10px;
     position: relative;
     background: #242233;
@@ -1025,35 +998,8 @@ nav {
     100% {
       width: 70%;
     }
-  }
-  .img-uploading-container {
-    width: 85%;
-    margin: 0 auto;
-    background-color: #202c40;
-    border-radius: 15px;
-    padding: 20px 15px;
-    margin-top: 20px;
-    justify-content: space-between;
-    align-items: center;
-    .img-uploading-left {
-      width: 72%;
-      h6 {
-        width: 100%;
-        font-size: 12px;
-        color: $secondary-color;
-        text-align: left;
-        span {
-          font-size: 10px;
-          float: right;
-          color: #818181;
-          padding-left: 6px;
-        }
-      }
-    }
-    .img-uploading-right {
-      width: 25%;
-    }
-  }
+  }*/
+  
 }
 
 // Product Added
@@ -2332,6 +2278,121 @@ $crimsonColor: #ed4767;
     .SerQstNo{
       background-color: $crimsonColor;
       color: $white;
+    }
+  }
+}
+
+.img-uploading-container {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #202c40;
+  border-radius: 15px;
+  padding: 20px 15px;
+  margin-top: 20px;
+  justify-content: space-between;
+  align-items: center;
+  .img-uploading-left {
+    width: 72%;
+    h6 {
+      width: 100%;
+      font-size: 12px;
+      color: $secondary-color;
+      text-align: left;
+      span {
+        font-size: 10px;
+        float: right;
+        color: #818181;
+        padding-left: 6px;
+      }
+    }
+  }
+  .img-uploading-right {
+    width: 25%;
+  }
+}
+.add-prod-img-container {
+  width: 70%;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  place-content: center;
+  .Product-img-box {
+    position: relative;
+    border: 6px solid #202c40;
+    border-radius: 15px;
+    width: 85%;
+    margin: 0 auto;
+    img {
+      width: 90%;
+      text-align: center;
+    }
+    .del-icon {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 20px;
+      cursor: pointer;
+      z-index: 100;
+    }
+  }
+}
+.progress {
+  height: 10px;
+  position: relative;
+  background: #242233;
+  overflow: hidden;
+  font-size: 10px;
+}
+.progress .animated-progress {
+  background-image: linear-gradient(to right, #00c1cb, #1b2c2d);
+  animation: progressBar 3s ease-in-out;
+  animation-fill-mode: both;
+}
+@keyframes progressBar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 70%;
+  }
+}
+.add-prod-img-container{
+  .file-input-box{
+    width: 80px !important;
+    height: 80px !important;
+    margin: 0 auto;
+    border: 1px dotted #00c2cb !important;
+    border-radius: 25px !important;
+    position: relative;
+    .file-box-bg{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 6px solid #00c1cb8e !important;
+      border-radius: 25px;
+      -webkit-transform: scale(1.15);
+      transform: scale(1.15);
+    }
+  }
+}
+.invoice-upload{
+  .file-input-box{
+    width: 80px !important;
+    height: 80px !important;
+    margin: 0 auto;
+    border: 1px dotted #00c2cb !important;
+    border-radius: 25px !important;
+    position: relative;
+    .file-box-bg{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 6px solid #00c1cb8e !important;
+      border-radius: 25px;
+      -webkit-transform: scale(1.15);
+      transform: scale(1.15);
     }
   }
 }
