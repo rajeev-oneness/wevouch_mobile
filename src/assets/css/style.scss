@@ -2403,3 +2403,9 @@ $crimsonColor: #ed4767;
     }
   }
 }
+
+.scroll-section{
+  height: 458px;
+  overflow: hidden;
+  overflow-y: auto;
+}

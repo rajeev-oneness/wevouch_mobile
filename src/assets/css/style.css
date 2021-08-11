@@ -2512,4 +2512,10 @@ nav ul .active::after {
   border: 6px solid #00c1cb8e !important;
   border-radius: 25px;
   transform: scale(1.15);
+}
+
+.scroll-section {
+  height: 458px;
+  overflow: hidden;
+  overflow-y: auto;
 }/*# sourceMappingURL=style.css.map */

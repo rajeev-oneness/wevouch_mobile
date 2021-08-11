@@ -76,161 +76,163 @@
 <!-- <div onclick="claimWarrantyPopup()" id="AMC-b-overlay" class=""></div> -->
 
 <section id="claimWarranty" [ngClass]="{'claimWarrantyPopup': showDetail}">
-  <div style="text-align: right;">
-    <i style="color: black;"><svg (click)="showHideProductDetail()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
-  </div>
-  <header>
-    <h5>{{productDeatil?.name}}</h5>
-    <h1>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam lacinia, dui ac auctor efficitur,
-    </h1>
-    <p>{{productDeatil?.category?.name}}</p>
-  </header>
+    <div style="text-align: right;">
+      <i style="color: black;"><svg (click)="showHideProductDetail()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+    </div>
+    <div class="scroll-section">
+    <header>
+      <h5>{{productDeatil?.name}}</h5>
+      <h1>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam lacinia, dui ac auctor efficitur,
+      </h1>
+      <p>{{productDeatil?.category?.name}}</p>
+    </header>
 
-  <!-- <div id="productsCarousel" class="owl-carousel owl-theme">
-    
-    <div class="item">
-      <div class="claimWarrantyProductBox">
-        <img src="./assets/images/lg-front.png" alt="" />
-        <div class="claimWarrantyText">
-          <div class="brand">
-            <h6>Brand</h6>
-            <p>LG</p>
-          </div>
-          <div class="modelNo">
-            <h6>Model No.</h6>
-            <p>SC-J509K</p>
+    <!-- <div id="productsCarousel" class="owl-carousel owl-theme">
+      
+      <div class="item">
+        <div class="claimWarrantyProductBox">
+          <img src="./assets/images/lg-front.png" alt="" />
+          <div class="claimWarrantyText">
+            <div class="brand">
+              <h6>Brand</h6>
+              <p>LG</p>
+            </div>
+            <div class="modelNo">
+              <h6>Model No.</h6>
+              <p>SC-J509K</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <div class="item">
-      <div class="claimWarrantyProductBox">
-        <img src="./assets/images/lg-front.png" alt="" />
-        <div class="claimWarrantyText">
-          <div class="brand">
-            <h6>Brand</h6>
-            <p>LG</p>
-          </div>
-          <div class="modelNo">
-            <h6>Model No.</h6>
-            <p>SC-J509K</p>
+      
+      <div class="item">
+        <div class="claimWarrantyProductBox">
+          <img src="./assets/images/lg-front.png" alt="" />
+          <div class="claimWarrantyText">
+            <div class="brand">
+              <h6>Brand</h6>
+              <p>LG</p>
+            </div>
+            <div class="modelNo">
+              <h6>Model No.</h6>
+              <p>SC-J509K</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-  </div> -->
-  <!-- <div class="carousel-body">
-    <owl-carousel-o [options]="productDetailList">
-      <ng-container>
-        <ng-template carouselSlide> -->
+    </div> -->
+    <!-- <div class="carousel-body">
+      <owl-carousel-o [options]="productDetailList">
+        <ng-container>
+          <ng-template carouselSlide> -->
+            <div class="item">
+              <div class="claimWarrantyProductBox">
+                <img src="{{productDeatil?.productImagesUrl}}" width="200" alt="" />
+                <div class="claimWarrantyText">
+                  <div class="brand">
+                    <h6>Brand</h6>
+                    <p>{{productDeatil?.brands?.name}}</p>
+                  </div>
+                  <div class="modelNo">
+                    <h6>Model No.</h6>
+                    <p>{{productDeatil?.modelNo}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- </ng-template>
+        </ng-container> -->
+        <!-- <ng-template carouselSlide>
           <div class="item">
-            <div class="claimWarrantyProductBox">
-              <img src="{{productDeatil?.productImagesUrl}}" width="200" alt="" />
-              <div class="claimWarrantyText">
-                <div class="brand">
-                  <h6>Brand</h6>
-                  <p>{{productDeatil?.brands?.name}}</p>
-                </div>
-                <div class="modelNo">
-                  <h6>Model No.</h6>
-                  <p>{{productDeatil?.modelNo}}</p>
+            <div class="addAnotherProduct">
+              <div onclick="panelAddRemove()" class="file-input-box">
+                <div class="file-box-bg">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-plus"
+                  >
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
                 </div>
               </div>
             </div>
           </div>
-        <!-- </ng-template>
-      </ng-container> -->
-      <!-- <ng-template carouselSlide>
-        <div class="item">
-          <div class="addAnotherProduct">
-            <div onclick="panelAddRemove()" class="file-input-box">
-              <div class="file-box-bg">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="feather feather-plus"
-                >
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-              </div>
-            </div>
-          </div>
+        </ng-template>  -->
+      <!-- </owl-carousel-o>
+    </div> -->
+
+    <div class="warrantyDetailsBox">
+      <h3>Warranty Details</h3>
+      <div class="invoice-pic">
+        <img src="{{productDeatil?.invoicePhotoUrl}}" alt="">
+      </div>
+      <div class="purchaseDate">
+        <h6>Validity</h6>
+        <p>{{productDeatil && productDeatil?.warrantyPeriod}} Months</p>
+
+        <h6>Purchase Date</h6>
+        <p>{{productDeatil?.purchaseDate | date:'dd MMM yyyy'}}</p>
+      </div>
+      <div class="expiresDate">
+        <h6>Validity Till</h6>
+        <p>29 Mar 2021</p>
+        <p class="daysLeft">50 Days Left</p>
+      </div>
+    </div>
+
+    <div class="warrantyDetailsBox">
+      <h3>Extended Warranty</h3>
+      <div class="invoice-pic">
+        <img src="./assets/images/blank-image.png" alt="">
+      </div>
+      <div class="purchaseDate">
+        <h6>Service Provider</h6>
+        <p>Vijay Sales</p>
+
+        <h6>Validity </h6>
+        <p>18 Months</p>
+      </div>
+      <div class="expiresDate">
+        <div class="call-img">
+          <img src="./assets/images/call.png" alt="">
         </div>
-      </ng-template>  -->
-    <!-- </owl-carousel-o>
-  </div> -->
-
-  <div class="warrantyDetailsBox">
-    <h3>Warranty Details</h3>
-    <div class="invoice-pic">
-      <img src="{{productDeatil?.invoicePhotoUrl}}" alt="">
-    </div>
-    <div class="purchaseDate">
-      <h6>Validity</h6>
-      <p>{{productDeatil && productDeatil?.warrantyPeriod}} Months</p>
-
-      <h6>Purchase Date</h6>
-      <p>{{productDeatil?.purchaseDate | date:'dd MMM yyyy'}}</p>
-    </div>
-    <div class="expiresDate">
-      <h6>Validity Till</h6>
-      <p>29 Mar 2021</p>
-      <p class="daysLeft">50 Days Left</p>
-    </div>
-  </div>
-
-  <div class="warrantyDetailsBox">
-    <h3>Extended Warranty</h3>
-    <div class="invoice-pic">
-      <img src="./assets/images/blank-image.png" alt="">
-    </div>
-    <div class="purchaseDate">
-      <h6>Service Provider</h6>
-      <p>Vijay Sales</p>
-
-      <h6>Validity </h6>
-      <p>18 Months</p>
-    </div>
-    <div class="expiresDate">
-      <div class="call-img">
-        <img src="./assets/images/call.png" alt="">
+        <h6>Policy No.</h6>
+        <p>LG31795YT39</p>
       </div>
-      <h6>Policy No.</h6>
-      <p>LG31795YT39</p>
     </div>
-  </div>
 
-  <div class="warrantyDetailsBox">
-    <h3>Annual maintainance (quaterly)</h3>
-    <div class="invoice-pic">
-      <img src="./assets/images/blank-image.png" alt="">
-    </div>
-    <div class="purchaseDate">
-      <h6>Service Provider</h6>
-      <p>Vijay Sales</p>
-
-      <h6>Validity Till</h6>
-      <p>29 Mar 2021</p>
-      <p class="daysLeft">50 Days Left</p>
-    </div>
-    <div class="expiresDate">
-      <div class="call-img">
-        <img src="./assets/images/call.png" alt="">
+    <div class="warrantyDetailsBox">
+      <h3>Annual maintainance (quaterly)</h3>
+      <div class="invoice-pic">
+        <img src="./assets/images/blank-image.png" alt="">
       </div>
-      <h6>Contract No.</h6>
-      <p>DBHKN042090</p>
-    </div>
-  </div>
+      <div class="purchaseDate">
+        <h6>Service Provider</h6>
+        <p>Vijay Sales</p>
 
-  <button class="claimWarrantyBTN">Claim Warranty</button>
+        <h6>Validity Till</h6>
+        <p>29 Mar 2021</p>
+        <p class="daysLeft">50 Days Left</p>
+      </div>
+      <div class="expiresDate">
+        <div class="call-img">
+          <img src="./assets/images/call.png" alt="">
+        </div>
+        <h6>Contract No.</h6>
+        <p>DBHKN042090</p>
+      </div>
+    </div>
+
+    <button class="claimWarrantyBTN">Claim Warranty</button>
+  </div>
 </section>
