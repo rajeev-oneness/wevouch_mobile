@@ -13,6 +13,7 @@ import { SettingsComponent } from "./component/settings/settings.component";
 import { LoginComponent } from "./component/auth/login/login.component";
 import { RegisterComponent } from "./component/auth/register/register.component";
 import { AuthCheckService } from "./service/auth-check.service";
+import { AddTicketComponent } from './component/ticket/add-ticket/add-ticket.component';
 
 const routes: Routes = [
   { path: '', pathMatch:'full', redirectTo: 'home'},
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'ticket', canActivate:[AuthCheckService], children: [
     { path: 'details/:ticketId', component: TicketDetailsComponent },
     { path: 'list', component: TicketListComponent },
+    { path: 'add', component: AddTicketComponent },
   ]},
   { path: 'support', canActivate:[AuthCheckService], component: SupportComponent },
   { path: 'profile', canActivate:[AuthCheckService], children: [
