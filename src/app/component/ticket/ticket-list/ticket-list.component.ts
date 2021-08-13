@@ -11,7 +11,7 @@ export class TicketListComponent implements OnInit {
 
   title = 'angularowlslider';
   ticketList: any = {
-    loop: false,
+    loop: true,
     margin: 10,
     nav: false,
     dots: false,

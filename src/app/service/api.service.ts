@@ -86,6 +86,9 @@ export class ApiService {
   addProduct(formData : any) {
     return this._http.post<any>(_apiUrl+'product/add', formData);
   }
+  updateProduct(productId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'product/update/'+productId, formData);
+  }
   categoryList() {
     return this._http.get<any>(_apiUrl+'category/list');
   }
@@ -99,6 +102,12 @@ export class ApiService {
   //ticket
   ticketList(userId : any) {
     return this._http.get<any>(_apiUrl+'ticket/get-by-user/'+userId);
+  }
+  ticketDetail(ticketId : any) {
+    return this._http.get<any>(_apiUrl+'ticket/get/'+ticketId);
+  }
+  ticketAdd(formData : any) {
+    return this._http.post<any>(_apiUrl+'ticket/add', formData);
   }
   
   //package

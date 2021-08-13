@@ -1,0 +1,367 @@
+<header>
+    <a (click)="previous()">
+      <img src="./assets/images/back.png" alt="">
+    </a>
+    <h2>Edit Product</h2>
+    <a routerLink="/product/list">
+      <img src="./assets/images/cut-icon.png" alt="">
+    </a>
+  </header>
+
+  <div class="progress-bar-container pt-4">
+      <ul class="progress_bar">
+          <li id="f-child-none" [ngClass]="{'active':productTab || warantyTab || finishTab,'white':productTab}">Products</li>
+          <li [ngClass]="{'active':warantyTab || finishTab,'white':warantyTab}">Warranty</li>
+          <li [ngClass]="{'active white':finishTab}">Finish</li>
+      </ul>
+  </div>
+
+  <div *ngIf="productTab">
+    <form class="addProductForm" #productFirstForm="ngForm" (ngSubmit)="addProduct(productFirstForm)">
+      <label>Name <span class="op">*</span></label>
+      <input class="form-control" #name="ngModel" [(ngModel)]="productDetail.name" type="text" name="name" id="product_name" placeholder="Product name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+  
+      <label>Brand Name <span>*</span></label>
+      <select class="form-control" name="brandId" id="brandId" [(ngModel)]="productDetail.brands._id" required>
+        <option *ngFor="let option of brandList" [value]="option._id" >{{option.name}}</option>
+      </select>
+  
+      <label>Category <span>*</span></label>
+      <select class="form-control" name="category" id="category" [(ngModel)]="category" (change)='fetchSubCategory()' required>
+        <option *ngFor="let option of categoriesList" [value]="option._id" >{{option.name}}</option>
+      </select>
+  
+      <label>Sub-category <span>*</span></label>
+      <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="productDetail.subCategory._id" required>
+        <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
+      </select>
+  
+      <label>Model No. <span>*</span></label>
+      <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
+      
+      <span class="text-danger">{{errorMessage}}</span>
+      <button class="submit-btn" type="submit">+ Add Products</button>
+    </form>
+  </div>
+
+  <div *ngIf="warantyTab" class="scroll-section">
+    <div class="invoice-upload">
+      <h3>Upload Invoice photo</h3>
+      <p>Recieved on the day of purchase</p>
+      <div class="file-input-box">
+        <div class="file-box-bg">
+          <input type="file" value="+" placeholder="+" />
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-plus"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <form class="addProductForm" #productSecondForm="ngForm" (ngSubmit)="addWaranty(productSecondForm)">
+      <label>Purchase Date</label>
+      <input type="date" #purchaseDate="ngModel" [(ngModel)]="productDetail.purchaseDate" name="purchaseDate" id="purchaseDate" class="form-control">
+
+      <label>Warranty Period</label>
+      <div class="warranty-field">
+        <div class="col-5">
+          <select #warrantyPeriod="ngModel" [ngModel]="'1'" name="warrantyPeriod" id="warrantyPeriod" class="form-control">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="col-5 ml-1">
+          <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control">
+            <option value="year">Years</option>
+            <option value="month">Month</option>
+          </select>
+        </div>
+      </div>
+      <label>Serial No.</label>
+      <input type="number" #serialNo="ngModel" [(ngModel)]="productDetail.serialNo" name="serialNo" id="serialNo" placeholder="2" class="form-control">
+
+      <label>Mobile No.</label>
+      <input type="number" #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control">
+
+      <div class="int-warr">
+        <input type="checkbox" id="intl-warranty" />
+        <label for="intl-warranty">International Warranty</label>
+      </div>
+
+      <a
+        onclick="addRemoveExWarranty();"
+        id="ex-warr-link"
+        class="extended-warr d-flex"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-plus"
+        >
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <p>Add Extended Warranty Details</p>
+      </a>
+
+      <a onclick="addRemoveAMC()" class="extended-warr d-flex">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-plus"
+        >
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <p>Add AMC Details</p>
+      </a>
+
+      <p>Enter full details to receive warranty reminders!</p>
+      <span class="text-danger">{{errorMessage}}</span>
+      <div class="addWarranty-btns">
+        <button class="skip-btn">Skip</button>
+        <button class="submit-btn" type="submit">Continue</button>
+        <span
+          class="rigth-arrow"
+          ><img src="./assets/images/right-arrow.png" alt=""
+        /></span>
+      </div>
+    </form>
+
+    <!-- overlay  -->
+
+    <div
+      onclick="addRemoveExWarranty()"
+      id="ex-warr-b-overlay"
+      class=""
+    ></div>
+
+    <div id="extended-warranty-overlay" class="">
+      <div class="container">
+        
+        <section class="ex-warr-head">
+          <img src="./assets/images/ex-warr-icon.png" alt="" />
+          <h2>Add Extended Warranty</h2>
+          <i style="float: right; margin-top: -35px;"><svg onclick="addRemoveExWarranty()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+        </section>
+
+        <form class="addProductForm" style="margin: 20px auto 100px;" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarrantyPopuup(extendedWarrantyForm)">
+          <label>Service Provider <span>*</span></label>
+          <input
+              type="text"
+              #serviceProvider="ngModel" 
+              [(ngModel)]="productDetail.extendedWarranty.serviceProvider"
+              placeholder="LG"
+              class="form-control"
+              required
+              name="serviceProvider"
+            />
+
+          <div class="d-flex">
+            <div class="st-date">
+              <label for="start-date">Start Date <span>*</span></label>
+              <input required type="date" id="startDate" #startDate="ngModel" [(ngModel)]="productDetail.extendedWarranty.startDate" name="startDate" class="form-control" required />
+            </div>
+
+            <div class="end-date">
+              <label for="end-date">End Date <span>*</span></label>
+              <input required type="date" id="endDate" #endDate="ngModel" [(ngModel)]="productDetail.extendedWarranty.endDate" name="endDate" class="form-control" />
+            </div>
+          </div>
+
+          <div class="addPhoto-wrap position-relative">
+            <label>Add Invoice Photo <span>*</span></label>
+            <input class="addPhotoPlaceholder" type="text" placeholder="Add Photo" />
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <input class="file-input" type="file" />
+          </div>
+
+          <label>Vendor's Contact No. <span>*</span></label>
+          <input
+              type="number"
+              id="mobileNo"
+              #mobileNo="ngModel" [(ngModel)]="productDetail.extendedWarranty.mobileNo"
+              placeholder="+91"
+              class="form-control"
+              name="mobileNo"
+            />
+            <span class="text-danger">{{errorMessage}}</span>
+          <input class="addDetails-btn" type="submit" value="+ Add Details" onclick="addRemoveExWarranty()"/>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add AMC Details  -->
+    <div onclick="addRemoveAMC()" id="AMC-b-overlay" class=""></div>
+
+    <div id="AMC-overlay" class="">
+      
+      <div class="container">
+        <section class="ex-warr-head">
+          <img src="./assets/images/AMC.png" alt="" />
+          <h2>Add AMC Details</h2>
+          <i style="float: right; margin-top: -35px;"><svg onclick="addRemoveAMC()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+        </section>
+
+        <form class="addProductForm" #amcForm="ngForm" (ngSubmit)="addAmc(amcForm)">
+          <label>Service Provider <span>*</span></label>
+          <input
+              type="text"
+              #serviceProvider="ngModel"
+              [(ngModel)]="productDetail.amcDetails.serviceProvider"
+              placeholder="LG"
+              class="form-control"
+              required
+              name="serviceProvider"
+            />
+
+          <div class="d-flex">
+            <div class="st-date">
+              <label for="start-date">Start Date <span>*</span></label>
+              <input required type="date" id="startDate" #startDate="ngModel" [(ngModel)]="productDetail.amcDetails.startDate" name="startDate" class="form-control" required />
+            </div>
+
+            <div class="end-date">
+              <label for="duration">Duration <span>*</span></label>
+              <select name="duration" id="duration" #duration="ngModel" [(ngModel)]="productDetail.amcDetails.duration" class="form-control" required>
+                <option value="quaterly">Quaterly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </div>
+          </div>
+
+          <label>Vendor's No. <span>*</span></label>
+          <input
+              type="text"
+              #vendorNo="ngModel" [(ngModel)]="productDetail.amcDetails.vendorNo"
+              placeholder="+91 |"
+              class="form-control"
+              name="vendorNo"
+            />
+
+          <label>Vendor's Contact No. <span>*</span></label>
+          <input
+              type="text"
+              #mobileNo="ngModel" [(ngModel)]="productDetail.amcDetails.mobileNo"
+              placeholder="+91 |"
+              class="form-control"
+              name="mobileNo"
+            />
+            <span class="text-danger">{{errorMessage}}</span>
+          <input
+            class="addDetails-btn"
+            type="submit"
+            value="+ Add AMC Details"
+            onclick="addRemoveAMC()"
+          />
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="finishTab">
+    <div class="invoice-upload">
+      <h3>Add Product Pictures</h3>
+      <p>Support JPG, JPG2000, PNG</p>
+
+    </div>
+    
+    <div class="add-prod-img-container mt-5">
+      <div onclick="panelAddRemove()" class="file-input-box">
+        <div class="file-box-bg">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-plus"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
+      </div>
+
+      <div class="Product-img-box">
+        <img src="./assets/images/lg-front.png" alt="">
+        <img class="del-icon" src="./assets/images/del-icon.png" alt="">
+      </div>
+
+      <div class="Product-img-box">
+        <img src="./assets/images/lg-back.png" alt="">
+        <img class="del-icon" src="./assets/images/del-icon.png" alt="">
+      </div>
+
+      <div class="Product-img-box">
+        <img src="./assets/images/lg-front.png" alt="">
+        <img class="del-icon" src="./assets/images/del-icon.png" alt="">
+      </div>
+    </div>  
+
+    <div class="img-uploading-container d-flex">
+      <div class="img-uploading-left">
+        <h6>Uploading... <span>3 mins left</span> <span>70%</span></h6>
+        <div class="progress">
+          <div class="progress-bar animated-progress" style="width:70%">70%</div>
+        </div>
+      </div>
+      <div class="img-uploading-right">
+        <img src="./assets/images/pause-icon.png" alt="">
+        <img src="./assets/images/cut-icon.png" alt="">
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <div class="addWarranty-btns">
+        <button class="skip-btn" type="button" (click)="addFinish()">Skip</button>
+        <button class="submit-btn" type="button" (click)="addFinish()">Continue</button>
+        <span
+          class="rigth-arrow"
+          ><img src="./assets/images/right-arrow.png" alt=""
+        /></span>
+      </div>
+    </div>
+
+    <div onclick="panelAddRemove()" id="ex-warr-b-overlay" class=""></div>
+    <section id="takePicturePanel">
+      <div class="takePhoto">
+        <img src="./assets/images/takePhoto.png" alt="">
+        <a href="#">Take A Picture</a>
+        <input type="file" placeholder="Take A Photo">
+      </div>
+      <div class="pickGallery">
+        <img src="./assets/images/gallery.png" alt="">
+        <a href="#">Import From Gallery</a>
+        <input type="file" placeholder="Import from Gallery">
+      </div>
+    </section>
+  </div>

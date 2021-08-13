@@ -18,7 +18,7 @@ export class AppComponent {
         } else {
           this.showTab = true;
         }
-        if(event['url'] == '/product/add') {
+        if((event['url'] == '/product/add') || (event['url'] == '/product/edit*')) {
           this.showHeader = false;
         } else {
           this.showHeader = true;

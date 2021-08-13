@@ -102,9 +102,31 @@ export class ProductAddComponent implements OnInit {
     
   }
 
-  addWarranty(formData : any) {}
+  addWarranty(formData : any) {
+    for (let i in formData.controls) {
+      formData.controls[i].markAsTouched();
+    }
+    if (formData?.valid) {
+      console.log(formData.value);
+      this.addProductValue.extendedWarranty = formData.value;
+      this.errorMessage = "";
+    } else {
+      this.errorMessage = 'Please fill out all the details';
+    }
+  }
   
-  addAmc(formData : any) {}
+  addAmc(formData : any) {
+    for (let i in formData.controls) {
+      formData.controls[i].markAsTouched();
+    }
+    if (formData?.valid) {
+      console.log(formData.value);
+      this.addProductValue.amcDetails = formData.value;
+      this.errorMessage = "";
+    } else {
+      this.errorMessage = 'Please fill out all the details';
+    }
+  }
   
   addFinish() {
     this._loader.startLoader('loader');
@@ -115,6 +137,8 @@ export class ProductAddComponent implements OnInit {
       localStorage.getItem('userInfo') || '{}'
     )._id;
     this.addProductValue.invoicePhotoUrl = './assets/images/invoice.png';
+    console.log(this.addProductValue);
+    this._loader.stopLoader('loader');
     this._api.addProduct(this.addProductValue).subscribe(
       (res) => {
         this._loader.stopLoader('loader');

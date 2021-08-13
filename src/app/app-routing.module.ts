@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { TicketListComponent } from "./component/ticket/ticket-list/ticket-list.component";
 import { TicketDetailsComponent } from "./component/ticket/ticket-details/ticket-details.component";
+import { TicketAddComponent } from "./component/ticket/ticket-add/ticket-add.component";
 import { ProductListComponent } from "./component/product/product-list/product-list.component";
 import { ProductAddComponent } from "./component/product/product-add/product-add.component";
+import { ProductEditComponent } from "./component/product/product-edit/product-edit.component";
 import { SupportComponent } from "./component/support/support.component";
 import { ProfileDetailsComponent } from "./component/profile/profile-details/profile-details.component";
 import { ProfileEditComponent } from "./component/profile/profile-edit/profile-edit.component";
@@ -22,10 +24,12 @@ const routes: Routes = [
   { path: 'product', canActivate:[AuthCheckService], children: [
     { path: 'list', component: ProductListComponent },
     { path: 'add', component: ProductAddComponent },
+    { path: 'edit/:productId', component: ProductEditComponent },
   ]},
   { path: 'ticket', canActivate:[AuthCheckService], children: [
     { path: 'details/:ticketId', component: TicketDetailsComponent },
     { path: 'list', component: TicketListComponent },
+    { path: 'add', component: TicketAddComponent },
   ]},
   { path: 'support', canActivate:[AuthCheckService], component: SupportComponent },
   { path: 'profile', canActivate:[AuthCheckService], children: [
