@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
+import { Router } from "@angular/router";
+import  Swal  from "sweetalert2";
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -75,7 +78,7 @@ export class DashboardComponent implements OnInit {
     },
   }
   
-  constructor(private _loader:NgxUiLoaderService, private _api:ApiService) { }
+  constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
   public user : any = {}
   public products : any = ''
   public showDetail: boolean = false 
@@ -90,9 +93,9 @@ export class DashboardComponent implements OnInit {
       res => {
         console.log(res);
         this.products = res;
+        this._loader.stopLoader('loader');
       }, err => {}
     )
-    this._loader.stopLoader('loader');
   }
 
   showHideProductDetail(productId = '') {
@@ -105,6 +108,39 @@ export class DashboardComponent implements OnInit {
         }, err => {}
       )
     }
+  }
+
+  deleteProduct(productId : any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This product will not recover!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete!',
+      cancelButtonText: 'keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._loader.startLoader('loader');
+        this._api.deleteProduct(productId).subscribe(
+          res => {
+            console.log(res);
+            this._loader.stopLoader('loader');
+            this._router.navigate(['/product/list']);
+          }, err => {}
+        )
+        Swal.fire(
+          'Deleted!',
+          'product has been deleted.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'product is safe :)',
+          'error'
+        )
+      }
+    })
   }
 
 }

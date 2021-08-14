@@ -89,6 +89,9 @@ export class ApiService {
   updateProduct(productId : any, formData : any) {
     return this._http.patch<any>(_apiUrl+'product/update/'+productId, formData);
   }
+  deleteProduct(productId : any) {
+    return this._http.delete<any>(_apiUrl+'product/delete/'+productId);
+  }
   categoryList() {
     return this._http.get<any>(_apiUrl+'category/list');
   }
@@ -108,6 +111,9 @@ export class ApiService {
   }
   ticketAdd(formData : any) {
     return this._http.post<any>(_apiUrl+'ticket/add', formData);
+  }
+  ticketDelete(ticketId : any) {
+    return this._http.delete<any>(_apiUrl+'ticket/delete/'+ticketId);
   }
   
   //package

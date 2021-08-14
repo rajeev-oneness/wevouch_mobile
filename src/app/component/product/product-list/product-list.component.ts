@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
+import { Router } from "@angular/router";
+import  Swal  from "sweetalert2";
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -52,7 +55,7 @@ export class ProductListComponent implements OnInit {
     },
   }
 
-  constructor(private _loader:NgxUiLoaderService, private _api:ApiService) { }
+  constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
   public user : any = {}
   public products : any = ''
   public showDetail: boolean = false 
@@ -62,13 +65,18 @@ export class ProductListComponent implements OnInit {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    this.getProducts();
+  }
+  
+  getProducts() {
+    this._loader.startLoader('loader');
     this._api.productList(this.user._id).subscribe(
       res => {
         console.log(res);
         this.products = res;
+        this._loader.stopLoader('loader');
       }, err => {}
     )
-    this._loader.stopLoader('loader');
   }
 
   showHideProductDetail(productId = '') {
@@ -83,4 +91,37 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+  deleteProduct(productId : any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This product will not recover!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete!',
+      cancelButtonText: 'keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._loader.startLoader('loader');
+        this._api.deleteProduct(productId).subscribe(
+          res => {
+            console.log(res);
+            this._loader.stopLoader('loader');
+            this.showHideProductDetail();
+            this.getProducts();
+          }, err => {}
+        )
+        Swal.fire(
+          'Deleted!',
+          'product has been deleted.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'product is safe :)',
+          'error'
+        )
+      }
+    })
+  }
 }

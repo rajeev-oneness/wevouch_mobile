@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
 import { Router } from "@angular/router";
+import  Swal  from "sweetalert2";
+
 @Component({
   selector: 'app-product-add',
   templateUrl: './product-add.component.html',
@@ -21,6 +23,17 @@ export class ProductAddComponent implements OnInit {
   public brandId: string = '';
   public errorMessage: string = '';
   public addProductValue: any = {};
+  public Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
   ngOnInit(): void {
     this._api.categoryList().subscribe((res) => {
       this.categoriesList = res.filter((t : any) => t.status === 'active');
@@ -141,7 +154,11 @@ export class ProductAddComponent implements OnInit {
     this._loader.stopLoader('loader');
     this._api.addProduct(this.addProductValue).subscribe(
       (res) => {
-        this._loader.stopLoader('loader');
+        // this._loader.stopLoader('loader');
+        this.Toast.fire({
+          icon: 'success',
+          title: 'Product added successfully!'
+        })
         this._router.navigate(['/product/list']);
       },
       (err) => {

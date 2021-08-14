@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
 import { Router } from "@angular/router";
+import  Swal  from "sweetalert2";
 
 @Component({
   selector: 'app-ticket-add',
@@ -17,6 +18,17 @@ export class TicketAddComponent implements OnInit {
   public productId : any = '';
   public productDetail : any = {};
   public errorMessage : any = '';
+  public Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -58,6 +70,10 @@ export class TicketAddComponent implements OnInit {
       mainForm.selectedDate = selDate;
       this._api.ticketAdd(mainForm).subscribe(
         (res) => {
+          this.Toast.fire({
+            icon: 'success',
+            title: 'Ticket raised successfully!'
+          })
           this._loader.stopLoader('loader');
           this._router.navigate(['/ticket/list']);
         },

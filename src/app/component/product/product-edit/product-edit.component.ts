@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import  Swal  from "sweetalert2";
 
 @Component({
   selector: 'app-product-edit',
@@ -24,7 +25,17 @@ export class ProductEditComponent implements OnInit {
   public addProductValue: any = {};
   public productId: any = '';
   public productDetail: any = [];
-
+  public Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
 
   ngOnInit(): void {
     this.productId = this._activated.snapshot.paramMap.get('productId');
@@ -152,6 +163,10 @@ export class ProductEditComponent implements OnInit {
     this._api.updateProduct(this.productId, this.addProductValue).subscribe(
       (res) => {
         this._loader.stopLoader('loader');
+        this.Toast.fire({
+          icon: 'success',
+          title: 'Product edited successfully!'
+        })
         this._router.navigate(['/product/list']);
       },
       (err) => {
