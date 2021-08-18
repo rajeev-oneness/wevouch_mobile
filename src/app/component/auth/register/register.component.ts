@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
         res => {
           this.errorMessage = res.message;
           console.log(res);
-          // this._api.storeUserLocally(res.user);
+          this._api.storeUserLocally(res.user);
           this._router.navigate(['/login']);
           this._loader.stopLoader('loader');
         },

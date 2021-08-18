@@ -21,7 +21,15 @@
                 <li>Unlimited Products</li>
                 <li>Single User</li>
               </ul>
-              <button class="subscribe-btn">Subscribe Now</button>
+              <div *ngIf="package.amount == 0">
+                <span class="text-danger">Free Plan!</span>
+              </div>
+              <div *ngIf="userInfo.subscription._id === package._id">
+                <span class="text-danger">Activated Plan!</span>
+              </div>
+              <div *ngIf="(package.amount != 0) && (userInfo.subscription._id != package._id)">
+                <button class="subscribe-btn" (click)="initPay(package._id)">Subscribe Now</button>
+              </div>
             </div>
           </div>
         </ng-template>

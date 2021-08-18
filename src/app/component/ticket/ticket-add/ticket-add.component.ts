@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import  Swal  from "sweetalert2";
 
 @Component({
@@ -11,7 +11,7 @@ import  Swal  from "sweetalert2";
 })
 export class TicketAddComponent implements OnInit {
 
-  constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
+  constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router, private _active:ActivatedRoute) { }
   
   public user : any = {};
   public products : any = '';
@@ -32,6 +32,7 @@ export class TicketAddComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    this.productId = this._active.snapshot.paramMap.get('productId');
     this._loader.startLoader('loader');
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this._api.productList(this.user._id).subscribe(

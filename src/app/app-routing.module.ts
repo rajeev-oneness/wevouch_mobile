@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: 'ticket', canActivate:[AuthCheckService], children: [
     { path: 'details/:ticketId', component: TicketDetailsComponent },
     { path: 'list', component: TicketListComponent },
+    { path: 'add/:productId', component: TicketAddComponent },
     { path: 'add', component: TicketAddComponent },
   ]},
   { path: 'support', canActivate:[AuthCheckService], component: SupportComponent },

@@ -27,6 +27,7 @@ export class ProfileDetailsComponent implements OnInit {
     this._api.userDetails(userId).subscribe(
       res => {
         this.userDetail = res;
+        this._api.updateUserLocally(res);
         this._loader.stopLoader('loader');
       }, err => {}
     )

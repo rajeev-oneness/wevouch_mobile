@@ -120,6 +120,14 @@ export class ApiService {
   packageList() {
     return this._http.get<any>(_apiUrl+'sub/list');
   }
-  
+  packageDetail(subscriptionId :any) {
+    return this._http.get<any>( _apiUrl + 'sub/get/' + subscriptionId );
+  }
+
+  //notification list
+  notificationList(userId : any) {
+    return this._http.get<any>(_apiUrl+'notification/get-by-user/'+userId);
+    // return this._http.get<any>(_apiUrl+'notification/list');
+  }
 
 }
