@@ -8,7 +8,7 @@
       />
     </div>
     <div class="accHolderTxt">
-      <h2>{{userDetail.name}}</h2>
+      <h2>{{userDetail?.name}}</h2>
       <!-- <p>Mumbai, India</p> -->
     </div>
     <a class="editProfileBTN" routerLink="/profile/edit">Edit</a>
@@ -51,7 +51,7 @@
   <div class="upgradePlanBox">
     <div class="upgradePlanBoxtxt">
       <h5>Membership</h5>
-      <h4>Free Trial</h4>
+      <h4>{{userDetail.subscription.name}}</h4>
     </div>
     <a class="upgradeBTN" routerLink="/package/list">
       Upgrade <span><img src="./assets/images/right-arrow.png" alt="" /></span>

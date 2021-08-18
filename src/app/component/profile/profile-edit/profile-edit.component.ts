@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
+import  Swal  from "sweetalert2";
+
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
@@ -13,6 +15,18 @@ export class ProfileEditComponent implements OnInit {
   public userDetail : any = {};
   public errorMessage : any = '';
   public user_id : any = '';
+  public Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
@@ -24,11 +38,10 @@ export class ProfileEditComponent implements OnInit {
   }
 
   getUser(userId : any) {
-    console.log(userId);
-    
     this._api.userDetails(userId).subscribe(
       res => {
         this.userDetail = res;
+        this._api.updateUserLocally(res);
         this._loader.stopLoader('loader');
       }, err => {}
     )
@@ -46,7 +59,11 @@ export class ProfileEditComponent implements OnInit {
       this._api.updateUserDetails(this.user_id, mainForm).subscribe(
         res => {
           this.errorMessage = res.message;
-          this._api.updateUserLocally(res);
+          this.getUser(this.user_id);
+          this.Toast.fire({
+            icon: 'success',
+            title: 'Profile updated successfully!'
+          })
           this._router.navigate(['/profile/details']);
           this._loader.stopLoader('loader');
         },

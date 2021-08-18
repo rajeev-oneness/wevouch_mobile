@@ -1,16 +1,18 @@
 <div class="ticketBox">
     <div class="ticketTop">
-      <img src="./assets/images/lg-front.png" alt="" />
+      <img src="{{ticketDetail.products && ticketDetail?.products.productImagesUrl}}" alt="product image" />
       <div class="ticketTopTxt">
-        <h3>LG OLED TV</h3>
+        <h3>{{(ticketDetail.products && ticketDetail.products.name) || 'N/A'}}</h3>
         <p>Expires on 14 March 2024</p>
         <a href="javascript:void(0);">Pick-up Address</a>
+        <p style="margin-top: 0px;">{{ticketDetail.address}}</p>
       </div>
     </div>
     <div class="ticketBottom text-center">
       <p>Your wevouch ticket no.</p>
-      <h1>WV108309</h1>
-      <a href="javascript:void(0);">Issue Recieved?</a>
+      <h1>{{ticketDetail.uniqueId}}</h1>
+      <a href="javascript:void(0);">Issue Recieved?</a><br>
+      <a class="text-danger" href="javascript:void(0);" (click)="deleteTicket(ticketDetail._id)">Delete Ticket</a>
     </div>
   </div>
 
@@ -18,22 +20,22 @@
   <div id="tktProgressBar">
     <ul class="timeline">
       <li class="event processDone">
-          <p>Wevouch got in touch with the LG Service team</p>
+          <p>Wevouch got in touch with the {{ticketDetail.brand?.name}} Service team</p>
       </li>
       <li class="event processGoing">
           <p>Service Request No. (SRN) #6657982</p>
           <div class="serviceQuestion">
-            <p>Has the LG team reach out to you yet?</p>
+            <p>Has the {{ticketDetail.brand?.name}} team reach out to you yet?</p>
             <!-- <a href="rateExperience.html" class="SerQstYes">Yes</a> -->
             <a href="javascript:void(0);" class="SerQstYes">Yes</a>
             <a href="javascript:void(0);" class="SerQstNo">No</a>
           </div>
       </li>
       <li class="event">
-          <p>LG team got in touch with you</p>
+          <p>{{ticketDetail.brand?.name}} team got in touch with you</p>
       </li>
       <li class="event">
-          <p>Technician will visit your place to pick up or repair the LG Television</p>
+          <p>Technician will visit your place to pick up or repair the {{ticketDetail.brand?.name}} Television</p>
       </li>
     </ul>
   </div>

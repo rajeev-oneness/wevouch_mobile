@@ -1,0 +1,37 @@
+<header>
+    <div class="col-6 mx-auto">
+        <h2>Add Ticket</h2>
+    </div>
+</header>
+
+
+<div>
+    <form class="addProductForm" #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
+        <label>Tilte <span class="op">*</span></label>
+        <input class="form-control" #title="ngModel" ngModel type="text" name="title" id="title" placeholder="Ticket Title" required [ngClass]="{'is-invalid':title?.invalid && title?.touched}">
+    
+        <label>Product <span>*</span></label>
+        <select class="form-control" name="productId" id="productId" [(ngModel)]="productId" required [ngClass]="{'is-invalid':productId?.invalid && productId?.touched}" (change)="getProductDetail()">
+            <option value="" hidden>-Select-</option>
+            <option *ngFor="let product of products" [value]="product._id" >{{product.name}}</option>
+        </select>
+    
+        <!-- <label>Time <span>*</span></label>
+        <input class="form-control" #selectedTime="ngModel" ngModel type="time" name="selectedTime" id="selectedTime" required [ngClass]="{'is-invalid':selectedTime?.invalid && selectedTime?.touched}">
+        
+        <label>Date <span>*</span></label>
+        <input class="form-control" #selectedDate="ngModel" ngModel type="date" name="selectedDate" id="selectedDate" required [ngClass]="{'is-invalid':selectedDate?.invalid && selectedDate?.touched}"> -->
+        
+        <label>Address <span class="op">*</span></label>
+        <input class="form-control" #address="ngModel" ngModel type="text" name="address" id="address" placeholder="Address" required [ngClass]="{'is-invalid':address?.invalid && address?.touched}">
+
+        <label>Function Type <span class="op">*</span></label>
+        <input class="form-control" #functionType="ngModel" ngModel type="text" name="functionType" id="functionType" placeholder="Ticket function type" required [ngClass]="{'is-invalid':functionType?.invalid && functionType?.touched}">
+
+        <label>Issue Type <span class="op">*</span></label>
+        <input class="form-control" #issueType="ngModel" ngModel type="text" name="issueType" id="issueType" placeholder="Ticket issue type" required [ngClass]="{'is-invalid':issueType?.invalid && issueType?.touched}">
+
+        <span class="text-danger">{{errorMessage}}</span>
+        <button class="submit-btn" type="submit">Raise Ticket</button>
+    </form>
+  </div>

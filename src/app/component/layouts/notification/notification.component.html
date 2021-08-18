@@ -5,18 +5,23 @@
         <header>
             <img src="./assets/images/trans-bell.png" />
             <h1>Notifications</h1>
-            <span>2</span>
+            <span>{{notificationList.length}}</span>
         </header>
 
-        <div class="notification-text">
-            <h2>Your warranty for iPhone 12 expires in 6 days</h2>
-            <p>2 mins ago</p>
+        <div *ngIf="notificationList.length > 0; else emptyBlock">
+            <div class="notification-text" *ngFor="let notification of notificationList">
+                <h2>{{notification.title}}</h2>
+                <p>{{notification.description}}</p>
+            </div>
         </div>
 
-        <div class="notification-text">
-            <h2>Check repair status of your LG Washing machine</h2>
-            <p>2 mins ago</p>
-        </div>
+        <ng-template #emptyBlock>
+            <div class="notification-text">
+                <div>
+                    <h2>No Notifications!</h2>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </section>
 

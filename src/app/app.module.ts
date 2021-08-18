@@ -26,15 +26,13 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SettingsComponent } from './component/settings/settings.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import {
-  GoogleLoginProvider,
-  FacebookLoginProvider
-} from 'angularx-social-login';
-import { AddTicketComponent } from './component/ticket/add-ticket/add-ticket.component';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { TicketAddComponent } from './component/ticket/ticket-add/ticket-add.component';
+import { ProductEditComponent } from './component/product/product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketDetailsComponent, TicketListComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent, SettingsComponent, AddTicketComponent
+    AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketDetailsComponent, TicketListComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent, SettingsComponent, TicketAddComponent, ProductEditComponent,
   ],
   imports: [
     BrowserModule,CarouselModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule,SocialLoginModule

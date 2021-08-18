@@ -22,17 +22,17 @@
       <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
   
       <label>Brand Name <span>*</span></label>
-      <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId">
+      <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId" required>
         <option *ngFor="let option of brandList" [value]="option._id" >{{option.name}}</option>
       </select>
   
       <label>Category <span>*</span></label>
-      <select class="form-control" name="category" id="category" [(ngModel)]="category" (change)='fetchSubCategory()'>
+      <select class="form-control" name="category" id="category" [(ngModel)]="category" (change)='fetchSubCategory()' required>
         <option *ngFor="let option of categoriesList" [value]="option._id" >{{option.name}}</option>
       </select>
   
       <label>Sub-category <span>*</span></label>
-      <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="subCategory">
+      <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="subCategory" required>
         <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
       </select>
   
@@ -41,7 +41,6 @@
       
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">+ Add Products</button>
-      <!-- <button class="submit-btn" type="submit" value="+ Add Products">+ Add Products</button> -->
     </form>
   </div>
 
@@ -210,7 +209,7 @@
               name="mobileNo"
             />
             <span class="text-danger">{{errorMessage}}</span>
-          <input class="addDetails-btn" type="submit" value="+ Add Details" />
+          <input class="addDetails-btn" type="submit" value="+ Add Details" onclick="addRemoveExWarranty()"/>
         </form>
       </div>
     </div>
@@ -255,14 +254,7 @@
             </div>
           </div>
 
-          <div class="addPhoto-wrap position-relative">
-            <label>Add Invoice Photo <span>*</span></label>
-            <input class="addPhotoPlaceholder" type="text" placeholder="Add Photo" />
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <input class="file-input" type="file" />
-          </div>
-
-          <label>Vendor's Contact No. <span>*</span></label>
+          <label>Vendor's No. <span>*</span></label>
           <input
               type="text"
               #vendorNo="ngModel" ngModel
@@ -270,11 +262,21 @@
               class="form-control"
               name="vendorNo"
             />
+
+          <label>Vendor's Contact No. <span>*</span></label>
+          <input
+              type="text"
+              #mobileNo="ngModel" ngModel
+              placeholder="+91 |"
+              class="form-control"
+              name="mobileNo"
+            />
             <span class="text-danger">{{errorMessage}}</span>
           <input
             class="addDetails-btn"
             type="submit"
             value="+ Add AMC Details"
+            onclick="addRemoveAMC()"
           />
         </form>
       </div>

@@ -86,6 +86,12 @@ export class ApiService {
   addProduct(formData : any) {
     return this._http.post<any>(_apiUrl+'product/add', formData);
   }
+  updateProduct(productId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'product/update/'+productId, formData);
+  }
+  deleteProduct(productId : any) {
+    return this._http.delete<any>(_apiUrl+'product/delete/'+productId);
+  }
   categoryList() {
     return this._http.get<any>(_apiUrl+'category/list');
   }
@@ -100,11 +106,28 @@ export class ApiService {
   ticketList(userId : any) {
     return this._http.get<any>(_apiUrl+'ticket/get-by-user/'+userId);
   }
+  ticketDetail(ticketId : any) {
+    return this._http.get<any>(_apiUrl+'ticket/get/'+ticketId);
+  }
+  ticketAdd(formData : any) {
+    return this._http.post<any>(_apiUrl+'ticket/add', formData);
+  }
+  ticketDelete(ticketId : any) {
+    return this._http.delete<any>(_apiUrl+'ticket/delete/'+ticketId);
+  }
   
   //package
   packageList() {
     return this._http.get<any>(_apiUrl+'sub/list');
   }
-  
+  packageDetail(subscriptionId :any) {
+    return this._http.get<any>( _apiUrl + 'sub/get/' + subscriptionId );
+  }
+
+  //notification list
+  notificationList(userId : any) {
+    return this._http.get<any>(_apiUrl+'notification/get-by-user/'+userId);
+    // return this._http.get<any>(_apiUrl+'notification/list');
+  }
 
 }
