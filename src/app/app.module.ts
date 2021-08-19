@@ -35,7 +35,7 @@ import { ProductEditComponent } from './component/product/product-edit/product-e
     AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketDetailsComponent, TicketListComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent, SettingsComponent, TicketAddComponent, ProductEditComponent,
   ],
   imports: [
-    BrowserModule,CarouselModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule,SocialLoginModule
+    BrowserModule,CarouselModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule,SocialLoginModule,
   ],
   providers: [
     {
@@ -55,7 +55,7 @@ import { ProductEditComponent } from './component/product/product-edit/product-e
           }
         ]
       } as SocialAuthServiceConfig,
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

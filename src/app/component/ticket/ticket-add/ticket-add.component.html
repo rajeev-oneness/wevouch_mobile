@@ -1,37 +1,78 @@
 <header>
-    <div class="col-6 mx-auto">
-        <h2>Add Ticket</h2>
-    </div>
+    <a href="#">
+      <img src="./assets/images/back.png" alt="">
+    </a>
+    <h2>Add Ticket</h2>
+    <a herf="#">
+      <img src="./assets/images/cut-icon.png" alt="">
+    </a>
 </header>
-
-
-<div>
+<div class="progress-bar-container">
+    <ul class="progress_bar">
+        <li id="f-child-none" class="active white"></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div id="step_one" class="d-none">
     <form class="addProductForm" #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
-        <label>Tilte <span class="op">*</span></label>
-        <input class="form-control" #title="ngModel" ngModel type="text" name="title" id="title" placeholder="Ticket Title" required [ngClass]="{'is-invalid':title?.invalid && title?.touched}">
-    
-        <label>Product <span>*</span></label>
+        <label>Issue details <span class="op">*</span></label>
         <select class="form-control" name="productId" id="productId" [(ngModel)]="productId" required [ngClass]="{'is-invalid':productId?.invalid && productId?.touched}" (change)="getProductDetail()">
             <option value="" hidden>-Select-</option>
             <option *ngFor="let product of products" [value]="product._id" >{{product.name}}</option>
         </select>
-    
-        <!-- <label>Time <span>*</span></label>
-        <input class="form-control" #selectedTime="ngModel" ngModel type="time" name="selectedTime" id="selectedTime" required [ngClass]="{'is-invalid':selectedTime?.invalid && selectedTime?.touched}">
-        
-        <label>Date <span>*</span></label>
-        <input class="form-control" #selectedDate="ngModel" ngModel type="date" name="selectedDate" id="selectedDate" required [ngClass]="{'is-invalid':selectedDate?.invalid && selectedDate?.touched}"> -->
-        
-        <label>Address <span class="op">*</span></label>
-        <input class="form-control" #address="ngModel" ngModel type="text" name="address" id="address" placeholder="Address" required [ngClass]="{'is-invalid':address?.invalid && address?.touched}">
-
-        <label>Function Type <span class="op">*</span></label>
-        <input class="form-control" #functionType="ngModel" ngModel type="text" name="functionType" id="functionType" placeholder="Ticket function type" required [ngClass]="{'is-invalid':functionType?.invalid && functionType?.touched}">
-
-        <label>Issue Type <span class="op">*</span></label>
-        <input class="form-control" #issueType="ngModel" ngModel type="text" name="issueType" id="issueType" placeholder="Ticket issue type" required [ngClass]="{'is-invalid':issueType?.invalid && issueType?.touched}">
-
+        <select class="form-control mt-2" name="productId" id="productId" [(ngModel)]="productId" required [ngClass]="{'is-invalid':productId?.invalid && productId?.touched}" (change)="getProductDetail()">
+            <option value="" hidden>-Select-</option>
+            <option *ngFor="let product of products" [value]="product._id" >{{product.name}}</option>
+        </select>
+        <textarea class="form-control mt-2" rows="4" placeholder="Describe the problem in detail"></textarea>
         <span class="text-danger">{{errorMessage}}</span>
         <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
+  </div>
+  <div id="step_two" class="d-none">
+    <form class="addProductForm" #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
+        <div class="c-color-swatch">
+            <input type="radio" name="colors[]" id="color-F9ED69" hidden/>
+            <label class="c-color-swatch__item" for="color-F9ED69"><img src="./assets/images/carryin.png">Carry-In</label>
+            
+            <input type="radio" name="colors[]" value="F08A5D" id="color-F08A5D" hidden/>
+            <label class="c-color-swatch__item" for="color-F08A5D"><img src="./assets/images/pickup.png">Pick-Up</label>
+            
+            <input type="radio" name="colors[]" value="B83B5E" id="color-B83B5E" hidden checked/>
+            <label class="c-color-swatch__item" for="color-B83B5E"><img src="./assets/images/onsite.png">On Site</label>
+
+        </div>
+        <textarea class="form-control mt-2" rows="4" placeholder="Address"></textarea>
+        <span class="text-danger">{{errorMessage}}</span>
+        <button class="submit-btn" type="submit">Raise Ticket</button>
+    </form>
+  </div>
+  <div id="step_three" class="d-none">
+    <form class="addProductForm">
+        <input type="date" id="datetime" placeholder="Date" class=" form-control mb-2">
+        <input type="time" id="datetime" placeholder="Date" class=" form-control">
+        <!-- <div class="col-12 text-center mt-4">
+            <h3 class="m-0">Pay &nbsp; ₹100</h3>
+        </div> 
+        <button class="submit-btn" type="submit">Make Payment</button>-->
+    </form>
+  </div>
+  <div id="step_four" class="pl-3 pr-3">
+    <div id="ticket-box" class="ticketBox">
+        <div class="ticketTop">
+          <img src="../../../../assets/images/done3.png" alt="">
+          <div class="ticketTopTxt mt-5">
+            <h3>
+                Service request raised!
+                <span class="d-block">We'll reach within XX Hours.</span>
+            </h3>
+            <p>Disclaimer: Subject to the availability of OEM Service Provider* </p>
+          </div>
+        </div>
+        <div class="ticketBottom text-center">
+          <p>Your wevouch ticket no.</p>
+          <h1>WV108309</h1>
+        </div>
+      </div>
   </div>

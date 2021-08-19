@@ -54,7 +54,7 @@ export class ProductListComponent implements OnInit {
 			}
     },
   }
-
+  
   constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
   public user : any = {}
   public products : any = ''

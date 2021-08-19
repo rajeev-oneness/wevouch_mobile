@@ -1,0 +1,66 @@
+textarea{
+    width: 100%;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 0;
+    background-color: #202c40;
+    color: #fff;
+    resize: none;
+}
+textarea:focus{
+    background-color: #202c40;
+    color: #fff;
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+
+.c-color-swatch {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    max-width: 250px;
+  }
+  .c-color-swatch__item {
+    display: table-cell;
+    height: 76px;
+    background-color: #202c40;
+    line-height: 16px;
+    text-align: center;
+    user-select: none;
+    position: relative;
+    transition: transform 0.25s;
+    position: relative;
+    z-index: 1;
+  }
+  .c-color-swatch__item img{
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  /* .c-color-swatch__item:hover {
+    z-index: 1;
+    transform: scale(1.5);
+  } */
+  .c-color-swatch [type=radio]:checked + label:after {
+    content: "";
+    vertical-align: top;
+    background: rgba(0, 194, 203, 0.35);
+    height: 76px;
+    width: 83px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+}
+
+#ticket-box, #ticket-box2, .ticketBox {
+    width: 80% !important;
+    margin: 0 auto;
+}
