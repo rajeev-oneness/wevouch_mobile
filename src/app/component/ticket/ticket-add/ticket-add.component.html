@@ -48,17 +48,23 @@
         <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
   </div>
-  <div id="step_three" class="d-none">
+  <div id="step_three" class="">
     <form class="addProductForm">
-        <input type="date" id="datetime" placeholder="Date" class=" form-control mb-2">
-        <input type="time" id="datetime" placeholder="Date" class=" form-control">
+      <mat-form-field appearance="fill">
+        <!-- #docregion toggle -->
+          <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" class="datepicker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        <!-- #enddocregion toggle -->
+        </mat-form-field>
+        <input type="time" id="datetime" placeholder="Date" class="form-control">
         <!-- <div class="col-12 text-center mt-4">
             <h3 class="m-0">Pay &nbsp; ₹100</h3>
         </div> 
         <button class="submit-btn" type="submit">Make Payment</button>-->
     </form>
   </div>
-  <div id="step_four" class="pl-3 pr-3">
+  <div id="step_four" class="pl-3 pr-3 d-none">
     <div id="ticket-box" class="ticketBox">
         <div class="ticketTop">
           <img src="../../../../assets/images/done3.png" alt="">
@@ -76,3 +82,4 @@
         </div>
       </div>
   </div>
+  
