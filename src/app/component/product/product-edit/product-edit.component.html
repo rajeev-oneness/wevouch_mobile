@@ -40,7 +40,7 @@
       <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
       
       <span class="text-danger">{{errorMessage}}</span>
-      <button class="submit-btn" type="submit">+ Add Products</button>
+      <button class="submit-btn" type="submit">Continue</button>
     </form>
   </div>
 
@@ -50,7 +50,7 @@
       <p>Recieved on the day of purchase</p>
       <div class="file-input-box">
         <div class="file-box-bg">
-          <input type="file" value="+" placeholder="+" />
+          <input type="file" value="+" placeholder="+"  (change)="onSelectFile1($event)"/>
           <svg
             width="24"
             height="24"
@@ -71,7 +71,7 @@
 
     <form class="addProductForm" #productSecondForm="ngForm" (ngSubmit)="addWaranty(productSecondForm)">
       <label>Purchase Date</label>
-      <input type="date" #purchaseDate="ngModel" [(ngModel)]="productDetail.purchaseDate" name="purchaseDate" id="purchaseDate" class="form-control">
+      <input type="date" #purchaseDate="ngModel" [(ngModel)]="purchaseDateTime" name="purchaseDate" id="purchaseDate" class="form-control">
 
       <label>Warranty Period</label>
       <div class="warranty-field">
@@ -90,7 +90,7 @@
         </div>
       </div>
       <label>Serial No.</label>
-      <input type="number" #serialNo="ngModel" [(ngModel)]="productDetail.serialNo" name="serialNo" id="serialNo" placeholder="2" class="form-control">
+      <input type="number" #serialNo="ngModel" [(ngModel)]="productDetail.serialNo" name="serialNo" id="serialNo" placeholder="eg:34562" class="form-control">
 
       <label>Mobile No.</label>
       <input type="number" #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control">
@@ -184,12 +184,12 @@
           <div class="d-flex">
             <div class="st-date">
               <label for="start-date">Start Date <span>*</span></label>
-              <input required type="date" id="startDate" #startDate="ngModel" [(ngModel)]="productDetail.extendedWarranty.startDate" name="startDate" class="form-control" required />
+              <input required type="date" id="startDate" #startDate="ngModel" [ngModel]="extendedWarrantyStartDate" name="startDate" class="form-control" required />
             </div>
 
             <div class="end-date">
               <label for="end-date">End Date <span>*</span></label>
-              <input required type="date" id="endDate" #endDate="ngModel" [(ngModel)]="productDetail.extendedWarranty.endDate" name="endDate" class="form-control" />
+              <input required type="date" id="endDate" #endDate="ngModel" [ngModel]="extendedWarrantyEndDate" name="endDate" class="form-control" />
             </div>
           </div>
 
@@ -242,7 +242,7 @@
           <div class="d-flex">
             <div class="st-date">
               <label for="start-date">Start Date <span>*</span></label>
-              <input required type="date" id="startDate" #startDate="ngModel" [(ngModel)]="productDetail.amcDetails.startDate" name="startDate" class="form-control" required />
+              <input required type="date" id="startDate" #startDate [ngModel]="amcStartDate" name="startDate" class="form-control" required />
             </div>
 
             <div class="end-date">
@@ -312,7 +312,7 @@
       </div>
 
       <div class="Product-img-box">
-        <img src="./assets/images/lg-front.png" alt="">
+        <img src="{{uploadedFile2}}" alt="">
         <img class="del-icon" src="./assets/images/del-icon.png" alt="">
       </div>
 
@@ -353,15 +353,16 @@
 
     <div onclick="panelAddRemove()" id="ex-warr-b-overlay" class=""></div>
     <section id="takePicturePanel">
+      <i><svg onclick="panelAddRemove()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
       <div class="takePhoto">
         <img src="./assets/images/takePhoto.png" alt="">
         <a href="#">Take A Picture</a>
-        <input type="file" placeholder="Take A Photo">
+        <input type="file" placeholder="Take A Photo" (change)="onSelectFile2($event)">
       </div>
       <div class="pickGallery">
         <img src="./assets/images/gallery.png" alt="">
         <a href="#">Import From Gallery</a>
-        <input type="file" placeholder="Import from Gallery">
+        <input type="file" placeholder="Import from Gallery" (change)="onSelectFile2($event)">
       </div>
     </section>
   </div>

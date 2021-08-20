@@ -29,6 +29,12 @@ export class TicketAddComponent implements OnInit {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   });
+  public stepOne : boolean = true;
+  public stepTwo : boolean = false;
+  public stepThree : boolean = false;
+  public stepFour : boolean = false;
+  public addTicketValue : any = new Object();
+  public addedTicketDetail : any = new Object();
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -42,6 +48,7 @@ export class TicketAddComponent implements OnInit {
       }, err => {}
     )
     this._loader.stopLoader('loader');
+    this.getProductDetail();
   }
 
   getProductDetail() {
@@ -52,38 +59,116 @@ export class TicketAddComponent implements OnInit {
       }, err => {}
     )
   }
-
-  addTicket(formData : any) {
-
-    this._loader.startLoader('loader');
-    let d = new Date();
-    let selTime = d.toLocaleTimeString();
-    let selDate = d.toLocaleDateString();
+  
+  prev() {
+    if(this.stepOne === true) {
+      this._router.navigate(['/product/list']);
+    }
+    if(this.stepTwo === true) {
+      this.stepOne = true;
+      this.stepTwo = false;
+      this.stepThree = false;
+      this.stepFour = false;
+    }
+    if(this.stepThree === true) {
+      this.stepOne = false;
+      this.stepTwo = true;
+      this.stepThree = false;
+      this.stepFour = false;
+    }
+  }
+  firstTab(formData:any) {
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      let mainForm = formData.value;
-      mainForm.userId = this.user._id;
-      mainForm.category = this.productDetail.category._id;
-      mainForm.brandId = this.productDetail.brands._id;
-      mainForm.selectedTime = selTime;
-      mainForm.selectedDate = selDate;
-      this._api.ticketAdd(mainForm).subscribe(
-        (res) => {
-          this.Toast.fire({
-            icon: 'success',
-            title: 'Ticket raised successfully!'
-          })
-          this._loader.stopLoader('loader');
-          this._router.navigate(['/ticket/list']);
-        },
-        (err) => {
-          this.errorMessage = err;
-          this._loader.stopLoader('loader');
-        }
-      );
+      // if (this.category && this.brandId && this.subCategory) {
+        console.log(formData.value);
+        Object.keys(formData.value).forEach((key)=>{
+          this.addTicketValue[key] = formData.value[key];
+        });
+        this.stepOne = false;
+        this.stepTwo = true;
+        this.stepThree = false;
+        this.stepFour = false;
+        this.errorMessage = "";
+      // } else {
+      //   this.errorMessage = 'Please fill out all the details';
+      // }
+    } else {
+      this.errorMessage = 'Please fill out all the details';
+    }
+    
+  }
+  secondTab(formData:any) {
+    
+    for (let i in formData.controls) {
+      formData.controls[i].markAsTouched();
+    }
+    if (formData?.valid) {
+      // if (this.category && this.brandId && this.subCategory) {
+        console.log(formData.value);
+        Object.keys(formData.value).forEach((key)=>{
+          this.addTicketValue[key] = formData.value[key];
+        });
+        this.stepOne = false;
+        this.stepTwo = false;
+        this.stepThree = true;
+        this.stepFour = false;
+        this.errorMessage = "";
+      // } else {
+      //   this.errorMessage = 'Please fill out all the details';
+      // }
+    } else {
+      this.errorMessage = 'Please fill out all the details';
     }
   }
+  thirdTab(formData:any) {
+    
+    for (let i in formData.controls) {
+      formData.controls[i].markAsTouched();
+    }
+    if (formData?.valid) {
+      // if (this.category && this.brandId && this.subCategory) {
+        Object.keys(formData.value).forEach((key)=>{
+          this.addTicketValue[key] = formData.value[key];
+        });
+        this.addTicketValue.productId = this.productId;
+        this.addTicketValue.userId = this.user._id;
+        this.addTicketValue.category = this.productDetail.category._id;
+        this.addTicketValue.brandId = this.productDetail.brands._id;
+        // let mainForm = this.addTicketValue;
+        const mainForm = this.addTicketValue;
+        console.log(mainForm);
+        this._api.ticketAdd(mainForm).subscribe(
+          (res) => {
+            this.addedTicketDetail = res.ticket;
+            console.log(this.addedTicketDetail);
+            this.Toast.fire({
+              icon: 'success',
+              title: 'Ticket raised successfully!'
+            })
+            this._loader.stopLoader('loader');
+          },
+          (err) => {
+            this.errorMessage = err;
+            this._loader.stopLoader('loader');
+          }
+        );
+        // console.log(this.addTicketValue);
+
+        this.stepOne = false;
+        this.stepTwo = false;
+        this.stepThree = false;
+        this.stepFour = true;
+        this.errorMessage = "";
+      // } else {
+      //   this.errorMessage = 'Please fill out all the details';
+      // }
+    } else {
+      this.errorMessage = 'Please fill out all the details';
+    }
+  }
+
 
 }

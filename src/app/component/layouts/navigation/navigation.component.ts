@@ -8,18 +8,18 @@ import { NavigationStart, Router } from '@angular/router';
 })
 export class NavigationComponent implements OnInit {
 
-  public currentSelection : any = '';
+  // public currentSelection : any = '';
 
   constructor(private _router:Router) {
-    _router.events.forEach((event) => {
-      if (event instanceof NavigationStart) {
-        if (event['url'] == '/ticket/list') {
-          this.currentSelection = 'ticket'; // for ticket
-        } else if(event['url'] == '/product/list') {
-          this.currentSelection = 'product'; // for product
-        }
-      }
-    });
+    // _router.events.forEach((event) => {
+    //   if (event instanceof NavigationStart) {
+    //     if (event['url'] == '/ticket/list') {
+    //       this.currentSelection = 'ticket'; // for ticket
+    //     } else if(event['url'] == '/product/list') {
+    //       this.currentSelection = 'product'; // for product
+    //     }
+    //   }
+    // });
   }
 
   ngOnInit(): void {

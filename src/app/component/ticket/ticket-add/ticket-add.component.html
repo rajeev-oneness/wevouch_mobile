@@ -1,78 +1,80 @@
-<header>
-    <a href="#">
+<header [ngClass]="{'d-none':stepFour}">
+    <a href="javascript:void(0);" (click)="prev()">
       <img src="./assets/images/back.png" alt="">
     </a>
     <h2>Add Ticket</h2>
-    <a herf="#">
+    <a href="javascript:void(0);" routerLink="/product/list">
       <img src="./assets/images/cut-icon.png" alt="">
     </a>
 </header>
-<div class="progress-bar-container">
+<div class="progress-bar-container" [ngClass]="{'d-none':stepFour}">
     <ul class="progress_bar">
-        <li id="f-child-none" class="active white"></li>
-        <li></li>
-        <li></li>
+        <li id="f-child-none" [ngClass]="{'active':stepOne || stepTwo || stepThree,'white':stepOne}"></li>
+        <li [ngClass]="{'active':stepTwo || stepThree,'white':stepTwo}"></li>
+        <li [ngClass]="{'active':stepThree,'white':stepThree}"></li>
     </ul>
 </div>
-<div id="step_one" class="d-none">
-    <form class="addProductForm" #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
-        <label>Issue details <span class="op">*</span></label>
-        <select class="form-control" name="productId" id="productId" [(ngModel)]="productId" required [ngClass]="{'is-invalid':productId?.invalid && productId?.touched}" (change)="getProductDetail()">
-            <option value="" hidden>-Select-</option>
-            <option *ngFor="let product of products" [value]="product._id" >{{product.name}}</option>
-        </select>
-        <select class="form-control mt-2" name="productId" id="productId" [(ngModel)]="productId" required [ngClass]="{'is-invalid':productId?.invalid && productId?.touched}" (change)="getProductDetail()">
-            <option value="" hidden>-Select-</option>
-            <option *ngFor="let product of products" [value]="product._id" >{{product.name}}</option>
-        </select>
-        <textarea class="form-control mt-2" rows="4" placeholder="Describe the problem in detail"></textarea>
-        <span class="text-danger">{{errorMessage}}</span>
-        <button class="submit-btn" type="submit">Raise Ticket</button>
-    </form>
-  </div>
-  <div id="step_two" class="d-none">
-    <form class="addProductForm" #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
-        <div class="c-color-swatch">
-            <input type="radio" name="colors[]" id="color-F9ED69" hidden/>
-            <label class="c-color-swatch__item" for="color-F9ED69"><img src="./assets/images/carryin.png">Carry-In</label>
-            
-            <input type="radio" name="colors[]" value="F08A5D" id="color-F08A5D" hidden/>
-            <label class="c-color-swatch__item" for="color-F08A5D"><img src="./assets/images/pickup.png">Pick-Up</label>
-            
-            <input type="radio" name="colors[]" value="B83B5E" id="color-B83B5E" hidden checked/>
-            <label class="c-color-swatch__item" for="color-B83B5E"><img src="./assets/images/onsite.png">On Site</label>
 
-        </div>
-        <textarea class="form-control mt-2" rows="4" placeholder="Address"></textarea>
-        <span class="text-danger">{{errorMessage}}</span>
-        <button class="submit-btn" type="submit">Raise Ticket</button>
+  <div id="step_one" *ngIf="stepOne">
+    <form class="addProductForm" #ticketFirstForm="ngForm" (ngSubmit)="firstTab(ticketFirstForm)">
+      <label>Issue details <span class="op">*</span></label>
+      <select class="form-control" name="issueType" id="issueType" #issueType="ngModel"  [ngModel]="addTicketValue.issueType" required [ngClass]="{'is-invalid':issueType?.invalid && issueType?.touched}" >
+          <option value="" hidden>-select-</option>
+          <option value="Repair">Repair</option>
+          <option value="Manufacturer">Manufacturer</option>
+      </select>
+      <select class="form-control mt-2" name="functionType" id="functionType" #functionType="ngModel"  [ngModel]="addTicketValue.functionType" required [ngClass]="{'is-invalid':functionType?.invalid && functionType?.touched}">
+          <option value="" hidden>-select-</option>
+          <option value="Not Functioning">Not Functioning</option>
+          <option value="Functioning">Functioning</option>
+      </select>
+      <textarea class="form-control mt-2" rows="4" placeholder="Describe the problem in detail" name="description" #description="ngModel" [ngModel]="addTicketValue.description"></textarea>
+      <span class="text-danger">{{errorMessage}}</span>
+      <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
   </div>
-  <div id="step_three" class="d-none">
-    <form class="addProductForm">
-        <input type="date" id="datetime" placeholder="Date" class=" form-control mb-2">
-        <input type="time" id="datetime" placeholder="Date" class=" form-control">
-        <!-- <div class="col-12 text-center mt-4">
-            <h3 class="m-0">Pay &nbsp; ₹100</h3>
-        </div> 
-        <button class="submit-btn" type="submit">Make Payment</button>-->
+  <div id="step_two" *ngIf="stepTwo">
+    <form class="addProductForm" #ticketSecondForm="ngForm" (ngSubmit)="secondTab(ticketSecondForm)">
+      <div class="c-color-swatch mx-auto">
+          <input type="radio" name="transportationType" #transportationType="ngModel" [ngModel]="addTicketValue.transportationType" value="Carry In" id="color-F9ED69" hidden/>
+          <label class="c-color-swatch__item" for="color-F9ED69"><img src="./assets/images/carryin.png">Carry-In</label>
+          
+          <input type="radio" name="transportationType" #transportationType="ngModel" [ngModel]="addTicketValue.transportationType" value="Pick Up" id="color-F08A5D" hidden/>
+          <label class="c-color-swatch__item" for="color-F08A5D"><img src="./assets/images/pickup.png">Pick-Up</label>
+          
+          <input type="radio" name="transportationType" #transportationType="ngModel" [ngModel]="addTicketValue.transportationType" value="On Site" id="color-B83B5E" hidden checked/>
+          <label class="c-color-swatch__item" for="color-B83B5E"><img src="./assets/images/onsite.png">On Site</label>
+      </div>
+      <textarea class="form-control mt-2" rows="4" placeholder="Address" name="address" #address="ngModel" [ngModel]="addTicketValue.address"></textarea>
+      <span class="text-danger">{{errorMessage}}</span>
+      <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
   </div>
-  <div id="step_four" class="pl-3 pr-3">
+  <div id="step_three" *ngIf="stepThree">
+    <form class="addProductForm" #ticketThirdForm="ngForm" (ngSubmit)="thirdTab(ticketThirdForm)">
+      <input type="date" id="datetime" name="selectedTime" #selectedTime="ngModel" [ngModel]="addTicketValue.selectedTime" placeholder="Date" class=" form-control mb-2">
+      <input type="time" id="datetime" name="selectedDate" #selectedDate="ngModel" [ngModel]="addTicketValue.selectedDate" placeholder="Date" class=" form-control">
+      <span class="text-danger">{{errorMessage}}</span>
+      <button class="submit-btn" type="submit">Raise Ticket</button>
+    </form>
+  </div>
+  <div id="step_four" *ngIf="stepFour" class="pl-3 pr-3 pt-5">
     <div id="ticket-box" class="ticketBox">
         <div class="ticketTop">
-          <img src="../../../../assets/images/done3.png" alt="">
+          <img src="./assets/images/done3.png" alt="">
           <div class="ticketTopTxt mt-5">
             <h3>
                 Service request raised!
-                <span class="d-block">We'll reach within XX Hours.</span>
+                <span class="d-block">We'll reach shortly.</span>
             </h3>
             <p>Disclaimer: Subject to the availability of OEM Service Provider* </p>
           </div>
         </div>
         <div class="ticketBottom text-center">
           <p>Your wevouch ticket no.</p>
-          <h1>WV108309</h1>
+          <h1>{{addedTicketDetail.uniqueId}}</h1>
+          <a href="javascript:void(0);" routerLink="/ticket/list">Go To Tickets</a>
         </div>
-      </div>
+
+    </div>
   </div>

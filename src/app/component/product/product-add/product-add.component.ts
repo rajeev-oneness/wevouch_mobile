@@ -68,6 +68,50 @@ export class ProductAddComponent implements OnInit {
     }
   }
 
+  public uploadedFile: any ='';
+  public fileFormatError = '';
+  public selectedFile : any = '';
+  public hasFile : boolean = false;
+  public invoiceImgUrl : any = '';
+  public productImgUrl : any = '';
+  onSelectFile(event: any) {
+    this.fileFormatError = '';this.hasFile = false;
+    this.selectedFile = event.target.files[0];
+    if(this.selectedFile != undefined && this.selectedFile != null){
+        let validFormat = ['png','jpeg','jpg'];
+        let fileName = this.selectedFile.name.split('.').pop();
+        let data = validFormat.find(ob => ob === fileName);
+        if(data != null || data != undefined){
+          var reader = new FileReader();
+          reader.readAsDataURL(event.target.files[0]); // read file as data url
+          reader.onload = (event) => { // called once readAsDataURL is completed
+            this.uploadedFile = event.target?.result;
+            this.hasFile = true;
+            this.storeFile(this.selectedFile);
+          }
+          return true;
+        }
+        this.fileFormatError = 'This File Format is not accepted';
+    }
+    return false;
+  }
+  storeFile(file:any) {
+    const mainForm = new FormData();
+    mainForm.append('file',file);
+    console.log(file);
+    this._api.storeFile(mainForm).subscribe(
+      res => {
+        console.log(res);
+        if(this.warantyTab === true) {
+          this.invoiceImgUrl = res.file_link;
+        }
+        if(this.finishTab === true) {
+          this.productImgUrl = res.file_link;
+        }
+      }
+    )
+  }
+
   addProduct(formData : any) {
     window.scrollTo(0, 0);
     for (let i in formData.controls) {
@@ -90,6 +134,7 @@ export class ProductAddComponent implements OnInit {
     
   }
   addWaranty(formData : any) {
+    this.uploadedFile = '';
     window.scrollTo(0, 0);
     if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.registeredMobileNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
       this.addProductValue.purchaseDate = formData.value.purchaseDate;
@@ -144,12 +189,12 @@ export class ProductAddComponent implements OnInit {
   addFinish() {
     this._loader.startLoader('loader');
     this.addProductValue.productImagesUrl = [
-      'https://justify.websites.co.in/obaju-green/img/product-placeholder.png'
+      this.productImgUrl
     ];
     this.addProductValue.userId = JSON.parse(
       localStorage.getItem('userInfo') || '{}'
     )._id;
-    this.addProductValue.invoicePhotoUrl = './assets/images/invoice.png';
+    this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
     console.log(this.addProductValue);
     this._loader.stopLoader('loader');
     this._api.addProduct(this.addProductValue).subscribe(

@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Router } from '@angular/router';
 
 var originalURL = environment.apiUrl;
+var fileUploadURL = environment.file_upload_url;
 var _apiUrl = originalURL;
 
 @Injectable({
@@ -54,6 +55,11 @@ export class ApiService {
   getUserDetailsFromStorage(){
     let user = localStorage.getItem('userInfo');
     return JSON.parse(user || '{}');
+  }
+
+  //store file api
+  storeFile(file:any) {
+    return this._http.post<any>(fileUploadURL, file, {headers: this.header})
   }
 
   //auth
