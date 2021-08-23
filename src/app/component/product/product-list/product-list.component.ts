@@ -3,7 +3,7 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
 import { Router } from "@angular/router";
 import  Swal  from "sweetalert2";
-
+import { OwlOptions } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -54,7 +54,26 @@ export class ProductListComponent implements OnInit {
 			}
     },
   }
-  
+  ticketList: OwlOptions = {
+    loop: false,
+    margin: 10,
+    nav: false,
+    dots: false,
+    autoplay:true,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: true,
+    responsive: {
+      0:{
+				items:1,
+			},
+			600:{
+				items:1,
+			},
+			760:{
+				items:2,
+			}
+    },
+  }
   constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
   public user : any = {}
   public products : any = ''

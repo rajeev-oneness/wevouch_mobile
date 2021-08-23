@@ -10,3 +10,9 @@
     margin-top: 30px;
     box-shadow: 0 20px 20px 0 #233148cc;
 }
+#home {
+    min-height: 100vh !important;
+}
+.mat-tab-body-content {
+    height: 66vh !important;
+}
