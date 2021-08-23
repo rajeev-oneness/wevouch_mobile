@@ -1285,8 +1285,12 @@ nav ul .active::after {
   padding: 6px 8px;
 }
 #home .addedProductBox img {
-  width: 80%;
+  width: 110px;
+  height: 110px;
+  -o-object-fit: cover;
+     object-fit: cover;
   margin: 0 auto;
+  margin-bottom: 10px;
 }
 #home .addedProductBox h6 {
   color: #818181;
