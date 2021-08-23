@@ -186,11 +186,10 @@ export class ProductEditComponent implements OnInit {
   addWaranty(formData : any) {
 
     window.scrollTo(0, 0);
-    if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.registeredMobileNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
       this.addProductValue.purchaseDate = formData.value.purchaseDate;
       this.addProductValue.serialNo = formData.value.serialNo;
-      this.addProductValue.registeredMobileNo =
-        formData.value.registeredMobileNo;
+      this.addProductValue.modelNo = formData.value.modelNo;
+
       if (formData.value.warrantyType === 'year') {
         this.addProductValue.warrantyPeriod =
           Number(formData.value.warrantyPeriod) * 12;
@@ -202,11 +201,6 @@ export class ProductEditComponent implements OnInit {
       this.warantyTab = false;
       this.finishTab = true;
       this.errorMessage = "";
-    }
-    else
-    {
-      this.errorMessage = "All fields are required.";
-    }
   }
 
   addWarrantyPopuup(formData : any) {

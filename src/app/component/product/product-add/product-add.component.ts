@@ -23,7 +23,7 @@ export class ProductAddComponent implements OnInit {
   public brandId: string = '';
   public errorMessage: string = '';
   public addProductValue: any = {};
-  public user : any = {};
+  public userPhn : number = 0;
   public Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -37,7 +37,8 @@ export class ProductAddComponent implements OnInit {
   });
   ngOnInit(): void {
 
-    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    let user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    this.userPhn = parseInt(user.mobile); 
 
     this._api.categoryList().subscribe((res) => {
       this.categoriesList = res.filter((t : any) => t.status === 'active');
@@ -140,27 +141,21 @@ export class ProductAddComponent implements OnInit {
   addWaranty(formData : any) {
     this.uploadedFile = '';
     window.scrollTo(0, 0);
-    if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.registeredMobileNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
-      this.addProductValue.purchaseDate = formData.value.purchaseDate;
-      this.addProductValue.serialNo = formData.value.serialNo;
-      this.addProductValue.registeredMobileNo =
-        formData.value.registeredMobileNo;
-      if (formData.value.warrantyType === 'year') {
-        this.addProductValue.warrantyPeriod =
-          Number(formData.value.warrantyPeriod) * 12;
-      } else {
-        this.addProductValue.warrantyPeriod =
-          formData.value.warrantyPeriod || 0;
-      }
-      this.productTab = false;
-      this.warantyTab = false;
-      this.finishTab = true;
-      this.errorMessage = "";
+    
+    this.addProductValue.purchaseDate = formData.value.purchaseDate;
+    this.addProductValue.serialNo = formData.value.serialNo;
+    this.addProductValue.modelNo = formData.value.modelNo;
+    if (formData.value.warrantyType === 'year') {
+      this.addProductValue.warrantyPeriod =
+        Number(formData.value.warrantyPeriod) * 12;
+    } else {
+      this.addProductValue.warrantyPeriod =
+        formData.value.warrantyPeriod || 0;
     }
-    else
-    {
-      this.errorMessage = "All fields are required.";
-    }
+    this.productTab = false;
+    this.warantyTab = false;
+    this.finishTab = true;
+    this.errorMessage = "";
     
   }
 
@@ -184,6 +179,7 @@ export class ProductAddComponent implements OnInit {
     if (formData?.valid) {
       console.log(formData.value);
       this.addProductValue.amcDetails = formData.value;
+      // this.addProductValue.amcDetails.enddate = formData.value;
       this.errorMessage = "";
     } else {
       this.errorMessage = 'Please fill out all the details';

@@ -151,7 +151,7 @@
         <p>{{productDeatil?.extendedWarranty?.serviceProvider || 'N/A'}}</p>
 
         <h6>Validity </h6>
-        <p>18 Months</p>
+        <p>{{productDeatil?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
       </div>
       <div class="expiresDate">
         <div class="call-img">
@@ -172,8 +172,8 @@
         <p>{{productDeatil?.amcDetails?.serviceProvider || 'N/A'}}</p>
 
         <h6>Validity Till</h6>
-        <p>29 Mar 2021</p>
-        <!-- <p class="daysLeft">50 Days Left</p> -->
+        <p>{{amcValidTill | date: 'dd MMM yyyy'}}</p>
+        <p class="daysLeft text-center">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
       </div>
       <div class="expiresDate">
         <div class="call-img">
@@ -184,6 +184,13 @@
       </div>
     </div>
 
-    <button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}">Claim Warranty</button>
+    <button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}">
+      <span *ngIf="dateNow < warrantyValidTill;">
+        Claim Warranty
+      </span>
+      <span *ngIf="dateNow > warrantyValidTill;">
+        Raise service Ticket
+      </span>
+    </button>
   </div>
 </section>

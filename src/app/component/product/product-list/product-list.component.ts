@@ -3,6 +3,7 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
 import { Router } from "@angular/router";
 import  Swal  from "sweetalert2";
+import { dateDiffInDays } from "src/app/service/globalFunction";
 
 @Component({
   selector: 'app-product-list',
@@ -61,7 +62,11 @@ export class ProductListComponent implements OnInit {
   public showDetail: boolean = false 
   public productDeatil : any = []
   public warrantyValidTill : any = ''
- 
+  public amcValidTill : any = ''
+  public amcLeftDays : any = ''
+  public dateNow : any = Date.now(); 
+  // public dateNow : any = new Date('2024, 08, 08'); 
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
@@ -85,6 +90,8 @@ export class ProductListComponent implements OnInit {
   }
 
   showHideProductDetail(productId = '') {
+    this.amcValidTill = ''
+    this.amcLeftDays = ''
     this.showDetail = !this.showDetail;
     if(productId != '') {
       this._api.productDetail(productId).subscribe(
@@ -93,6 +100,11 @@ export class ProductListComponent implements OnInit {
           this.productDeatil = res;
           let purchaseDate = new Date(res.purchaseDate);
           this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
+          if(res.amcDetails?.noOfYears) {
+            let amcSrtartDate = new Date(res.amcDetails.startDate);
+            this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));
+            this.amcLeftDays = dateDiffInDays(this.dateNow, this.amcValidTill);
+          }
         }, err => {}
       )
     }

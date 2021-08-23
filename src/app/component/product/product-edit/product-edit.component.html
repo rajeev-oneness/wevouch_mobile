@@ -35,9 +35,9 @@
       <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="productDetail.subCategory._id" required>
         <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
       </select>
-  
-      <label>Model No. <span>*</span></label>
-      <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
+      
+      <label>Mobile No.</label>
+      <input type="number" #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" required [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}">
       
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Continue</button>
@@ -91,9 +91,9 @@
       </div>
       <label>Serial No.</label>
       <input type="number" #serialNo="ngModel" [(ngModel)]="productDetail.serialNo" name="serialNo" id="serialNo" placeholder="eg:34562" class="form-control">
-
-      <label>Mobile No.</label>
-      <input type="number" #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control">
+      
+      <label>Model No. <span>*</span></label>
+      <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No">
 
       <div class="int-warr">
         <input type="checkbox" id="intl-warranty" />
