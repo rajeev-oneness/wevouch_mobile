@@ -23,11 +23,13 @@
           <option value="Repair">Repair</option>
           <option value="Manufacturer">Manufacturer</option>
       </select>
+      <label>Function details <span class="op">*</span></label>
       <select class="form-control mt-2" name="functionType" id="functionType" #functionType="ngModel"  [ngModel]="addTicketValue.functionType" required [ngClass]="{'is-invalid':functionType?.invalid && functionType?.touched}">
           <option value="" hidden>-select-</option>
           <option value="Not Functioning">Not Functioning</option>
           <option value="Functioning">Functioning</option>
       </select>
+      <label>Description <span class="op">*</span></label>
       <textarea class="form-control mt-2" rows="4" placeholder="Describe the problem in detail" name="description" #description="ngModel" [ngModel]="addTicketValue.description"></textarea>
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Raise Ticket</button>
@@ -52,8 +54,10 @@
   </div>
   <div id="step_three" *ngIf="stepThree">
     <form class="addProductForm" #ticketThirdForm="ngForm" (ngSubmit)="thirdTab(ticketThirdForm)">
-      <input type="date" id="datetime" name="selectedTime" #selectedTime="ngModel" [ngModel]="addTicketValue.selectedTime" placeholder="Date" class=" form-control mb-2">
-      <input type="time" id="datetime" name="selectedDate" #selectedDate="ngModel" [ngModel]="addTicketValue.selectedDate" placeholder="Date" class=" form-control">
+      <label>Select Date <span class="op">*</span></label>
+      <input type="date" id="datetime" name="selectedDate" #selectedDate="ngModel" [ngModel]="addTicketValue.selectedDate" placeholder="Date" class=" form-control mb-2">
+      <label>Select Time <span class="op">*</span></label>
+      <input type="time" id="datetime" name="selectedTime" #selectedTime="ngModel" [ngModel]="addTicketValue.selectedTime" placeholder="time" class=" form-control mb-2">
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
@@ -67,7 +71,7 @@
                 Service request raised!
                 <span class="d-block">We'll reach shortly.</span>
             </h3>
-            <p>Disclaimer: Subject to the availability of OEM Service Provider* </p>
+            <p>Disclaimer: Subject to the availability of Service Provider* </p>
           </div>
         </div>
         <div class="ticketBottom text-center">

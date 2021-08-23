@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import  Swal  from "sweetalert2";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile-edit',
@@ -26,6 +27,8 @@ export class ProfileEditComponent implements OnInit {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   });
+  public uploadedFile:any = '';
+  public profilePicUrl:any = '';
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -33,8 +36,9 @@ export class ProfileEditComponent implements OnInit {
     
     let user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this.user_id = user._id;
+    this.uploadedFile = user.image;
+    this.profilePicUrl = user.image;
     this.getUser(user._id);
-    
   }
 
   getUser(userId : any) {
@@ -47,6 +51,39 @@ export class ProfileEditComponent implements OnInit {
     )
   }
 
+  public fileFormatError = '';
+  public selectedFile : any = '';
+  public hasFile : boolean = false;
+  onSelectFile(event:any) {
+    this.fileFormatError = '';this.hasFile = false;
+    this.selectedFile = event.target.files[0];
+    if(this.selectedFile != undefined && this.selectedFile != null){
+        let validFormat = ['png','jpeg','jpg'];
+        let fileName = this.selectedFile.name.split('.').pop();
+        let data = validFormat.find(ob => ob === fileName);
+        if(data != null || data != undefined){
+          var reader = new FileReader();
+          reader.readAsDataURL(event.target.files[0]); // read file as data url
+          reader.onload = (event) => { // called once readAsDataURL is completed
+            this.uploadedFile = event.target?.result;
+            this.hasFile = true;
+            const mainForm = new FormData();
+            mainForm.append('file',this.selectedFile);
+            console.log(this.selectedFile);
+            this._api.storeFile(mainForm).subscribe(
+              res => {
+                console.log(res);
+                this.profilePicUrl = res.file_link;
+              }
+            )
+          }
+          return true;
+        }
+        this.fileFormatError = 'This File Format is not accepted';
+    }
+    return false;
+  }
+
   updateUser(formData : any) {
     this.errorMessage = '';
     for( let i in formData.controls ){
@@ -55,6 +92,7 @@ export class ProfileEditComponent implements OnInit {
     if( formData?.valid ){
       console.log(formData.value);
       const mainForm = formData.value;
+      mainForm.image = this.profilePicUrl;
       this._loader.startLoader('loader');
       this._api.updateUserDetails(this.user_id, mainForm).subscribe(
         res => {
@@ -64,7 +102,8 @@ export class ProfileEditComponent implements OnInit {
             icon: 'success',
             title: 'Profile updated successfully!'
           })
-          this._router.navigate(['/profile/details']);
+          // this._router.navigate(['/profile/details']);
+          window.location.href = environment.basePath+'profile/details'
           this._loader.stopLoader('loader');
         },
         err => {
@@ -77,5 +116,7 @@ export class ProfileEditComponent implements OnInit {
       this.errorMessage = 'Please fill out all the details';
     }
   }
+
+  
 
 }

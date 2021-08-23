@@ -36,6 +36,7 @@ export class TicketAddComponent implements OnInit {
   public addTicketValue : any = new Object();
   public addedTicketDetail : any = new Object();
 
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.productId = this._active.snapshot.paramMap.get('productId');
