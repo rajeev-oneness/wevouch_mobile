@@ -42,6 +42,8 @@ export class TicketAddComponent implements OnInit {
     this.productId = this._active.snapshot.paramMap.get('productId');
     this._loader.startLoader('loader');
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    this.addTicketValue.address = this.user.address;
+    this.addTicketValue.transportationType = 'On Site';
     this._api.productList(this.user._id).subscribe(
       res => {
         this.products = res.filter( (e:any) => e.status === 'active');

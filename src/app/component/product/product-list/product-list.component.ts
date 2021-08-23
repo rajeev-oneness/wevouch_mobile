@@ -60,6 +60,7 @@ export class ProductListComponent implements OnInit {
   public products : any = ''
   public showDetail: boolean = false 
   public productDeatil : any = []
+  public warrantyValidTill : any = ''
  
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -74,6 +75,10 @@ export class ProductListComponent implements OnInit {
       res => {
         console.log(res);
         this.products = res;
+        for (let index = 0; index < res.length; index++) {
+          let purchaseDate = new Date(res[index].purchaseDate);
+          res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod)
+        }
         this._loader.stopLoader('loader');
       }, err => {}
     )
@@ -86,6 +91,8 @@ export class ProductListComponent implements OnInit {
         res => {
           console.log(res);
           this.productDeatil = res;
+          let purchaseDate = new Date(res.purchaseDate);
+          this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
         }, err => {}
       )
     }

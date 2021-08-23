@@ -36,8 +36,8 @@
         <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
       </select>
   
-      <label>Model No. <span>*</span></label>
-      <input class="form-control" #modelNo="ngModel" ngModel type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
+      <label>Mobile No. <span>*</span></label>
+      <input type="number" #registeredMobileNo="ngModel" [ngModel]="user.mobile" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}" required>
       
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">+ Add Products</button>
@@ -92,8 +92,8 @@
       <label>Serial No.</label>
       <input type="number" #serialNo="ngModel" ngModel name="serialNo" id="serialNo" placeholder="eg:23562" class="form-control">
 
-      <label>Mobile No.</label>
-      <input type="number" #registeredMobileNo="ngModel" ngModel name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control">
+      <label>Model No. </label>
+      <input class="form-control" #modelNo="ngModel" ngModel type="text" name="modelNo" id="product_model_no" placeholder="Product Model No">
 
       <div class="int-warr">
         <input type="checkbox" id="intl-warranty" />
@@ -245,7 +245,7 @@
             </div>
 
             <div class="end-date">
-              <label for="duration">Duration <span>*</span></label>
+              <label for="duration">Service Duration <span>*</span></label>
               <select name="duration" id="duration" #duration="ngModel" ngModel class="form-control" required>
                 <option value="quaterly">Quaterly</option>
                 <option value="monthly">Monthly</option>
@@ -254,11 +254,10 @@
             </div>
           </div>
 
-          <label>Vendor's No. <span>*</span></label>
+          <label>Vendor's Agreement No. <span>*</span></label>
           <input
               type="text"
               #vendorNo="ngModel" ngModel
-              placeholder="+91 |"
               class="form-control"
               name="vendorNo"
             />

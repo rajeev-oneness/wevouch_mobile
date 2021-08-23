@@ -21,7 +21,7 @@
                 <div (click)="showHideProductDetail(product._id)" class="addedProductBox">
                   <img src="{{product.productImagesUrl}}" alt="Product Image" />
                   <h6>{{product.name}}</h6>
-                  <p>Expires on March 14, 2024</p>
+                  <p>Expires on {{product.expiresOn | date: 'MMM dd, yyyy'}}</p>
                 </div>
               </div>
             </ng-template>
@@ -181,7 +181,7 @@
         </div>
         <div class="expiresDate">
           <h6>Validity Till</h6>
-          <p>29 Mar 2021</p>
+          <p>{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
           <!-- <p class="daysLeft">50 Days Left</p> -->
         </div>
       </div>
