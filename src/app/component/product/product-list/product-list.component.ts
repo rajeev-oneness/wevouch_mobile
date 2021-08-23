@@ -54,6 +54,30 @@ export class ProductListComponent implements OnInit {
 			}
     },
   }
+  ticketList: any = {
+    loop: true,
+    margin: 10,
+    nav: false,
+    dots: false,
+    autoplay:true,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: true,
+    responsiveClass: true,
+    responsive: {
+      0:{
+				items:1,
+			},
+			600:{
+				items:1,
+			},
+			760:{
+				items:2,
+			},
+      1000:{
+				items:1,
+			}
+    },
+  }
   
   constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
   public user : any = {}
