@@ -174,6 +174,7 @@ export class ProductEditComponent implements OnInit {
     if (formData?.valid) {
         console.log(formData.value);
         this.addProductValue = formData.value;
+        this.addProductValue.registeredMobileNo = parseInt(formData.value.registeredMobileNo);
         this.productTab = false;
         this.warantyTab = true;
         this.finishTab = false;

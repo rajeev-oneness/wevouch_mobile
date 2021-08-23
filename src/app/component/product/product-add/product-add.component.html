@@ -36,7 +36,7 @@
         <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
       </select>
   
-      <label>Mobile No. <span>*</span></label>
+      <label>Registered Mobile No. <span>*</span></label>
       <input type="number" #registeredMobileNo="ngModel" [ngModel]="userPhn" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}" required>
       
       <span class="text-danger">{{errorMessage}}</span>
@@ -187,7 +187,7 @@
             </div>
 
             <div class="end-date">
-              <label for="end-date">Period <span>*</span></label>
+              <label for="end-date">Warranty Period <span>*</span></label>
               <input required type="number" id="noOfYears" #noOfYears="ngModel" ngModel name="noOfYears" class="form-control" />
             </div>
           </div>
@@ -245,7 +245,7 @@
             </div>
             
             <div class="end-date">
-              <label for="start-date">Period <span>*</span></label>
+              <label for="start-date">AMC Period <span>*</span></label>
               <input required type="number" id="noOfYears" #noOfYears="ngModel" ngModel name="noOfYears" class="form-control" required />
             </div>
           </div>
