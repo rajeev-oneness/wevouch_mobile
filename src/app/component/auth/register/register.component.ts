@@ -31,6 +31,7 @@ export class RegisterComponent implements OnInit {
     if( formData?.valid ){
       console.log(formData.value);
       const mainForm = formData.value;
+      mainForm.image = 'http://cp-33.hostgator.tempwebhost.net/~a1627unp/wevouch/images/1629464354_businessman.png';
       this._loader.startLoader('loader');
       this._api.userSignupApi(mainForm).subscribe(
         res => {

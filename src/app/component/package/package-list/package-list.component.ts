@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
 declare var Razorpay: any;
-import { environment } from "../../../../environments/environment";
+import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import  Swal  from "sweetalert2";
 
@@ -18,7 +18,7 @@ export class PackageListComponent implements OnInit {
     loop: true,
     margin: 10,
     nav: false,
-    dots: false,
+    dots: true,
     autoplay:true,
 		autoplayTimeout: 5000,
 		autoplayHoverPause: true,
@@ -83,6 +83,13 @@ export class PackageListComponent implements OnInit {
               res => {
                 console.log(res);
                 // this._router.navigate(['/profile/details']);
+                const formData = {
+                  "userId" : userId, 
+                  "subscriptionId" : subscriptionId, 
+                  "transactionId" : response.razorpay_payment_id, 
+                  "transactionAmount" : res.subscription.amount
+                }
+                this._api.addTransaction(formData).subscribe(res => {});
                 Swal.fire({
                   title: 'Purchased!',
                   text: 'Your payment is successfull. Payment Id: '+response.razorpay_payment_id+' .Please note the payment Id',

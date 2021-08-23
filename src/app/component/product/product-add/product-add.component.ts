@@ -23,6 +23,7 @@ export class ProductAddComponent implements OnInit {
   public brandId: string = '';
   public errorMessage: string = '';
   public addProductValue: any = {};
+  public user : any = {};
   public Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -35,6 +36,9 @@ export class ProductAddComponent implements OnInit {
     }
   });
   ngOnInit(): void {
+
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+
     this._api.categoryList().subscribe((res) => {
       this.categoriesList = res.filter((t : any) => t.status === 'active');
       this._loader.stopLoader('loader');

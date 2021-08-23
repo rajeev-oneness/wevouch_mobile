@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;500&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 body {
   box-sizing: border-box;
@@ -22,7 +22,7 @@ $secondary-color: #00c2cb;
   border-radius: 10px;
   background-color: $secondary-color;
   color: $primary-color;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 14px;
   margin-top: 30px;
   box-shadow: 0 20px 20px 0 #233148cc;
@@ -154,7 +154,8 @@ $secondary-color: #00c2cb;
       font-weight: 500;
       color: #a1adc0;
     }
-    input, select {
+    input,
+    select {
       width: 100%;
       padding: 10px 18px;
       border-radius: 10px;
@@ -165,12 +166,12 @@ $secondary-color: #00c2cb;
         color: #b0b9c7;
         font-size: 12px;
       }
-      &:focus{
+      &:focus {
         color: #fff !important;
         background-color: #202c40 !important;
         border-color: transparent;
         outline: 0;
-        box-shadow:inherit;
+        box-shadow: inherit;
       }
     }
     .f-pass {
@@ -985,7 +986,7 @@ nav {
 // Add Product Finish
 #addProductFinish {
   min-height: 120vh;
-  
+
   /*.progress {
     height: 10px;
     position: relative;
@@ -1006,7 +1007,6 @@ nav {
       width: 70%;
     }
   }*/
-  
 }
 
 // Product Added
@@ -1138,12 +1138,12 @@ nav {
       border: 0;
     }
   }
-  .carousel-body{
+  .carousel-body {
     width: 90%;
     margin: 0 auto;
     overflow: hidden;
     margin-top: 15px;
-    .owl-nav{
+    .owl-nav {
       display: none;
     }
   }
@@ -1875,7 +1875,8 @@ $crimsonColor: #ed4767;
     }
   }
 }
-.edit-icon {
+
+/*.edit-icon {
   width: 25px;
   height: 25px;
   position: absolute;
@@ -1883,7 +1884,7 @@ $crimsonColor: #ed4767;
   right: 32%;
   background-color: $secondary-color;
   border-radius: 100%;
-}
+}*/
 
 // Account
 .account-wrapper {
@@ -2215,11 +2216,11 @@ $crimsonColor: #ed4767;
     width: 75%;
   }
 
-  .timeline .processGoing::after{
+  .timeline .processGoing::after {
     box-shadow: 0 0 13px 2px $secondary-color !important;
     background-color: $white !important;
   }
-  .timeline .processGoing p{
+  .timeline .processGoing p {
     color: $white !important;
   }
   .timeline .event {
@@ -2228,16 +2229,16 @@ $crimsonColor: #ed4767;
     padding-top: 0;
     padding-left: 25px;
     position: relative;
-    p{
+    p {
       color: #818181;
     }
   }
-  .timeline .processDone{
-    p{
+  .timeline .processDone {
+    p {
       color: $white;
     }
     border-color: $secondary-color;
-    &::after{
+    &::after {
       box-shadow: 0 0 0 3px $secondary-color !important;
       background-color: $white !important;
     }
@@ -2256,24 +2257,24 @@ $crimsonColor: #ed4767;
     top: 0;
   }
 
-  .timeline .event{
-    p{
+  .timeline .event {
+    p {
       font-size: 12px;
     }
   }
-  .timeline .event:last-of-type{
+  .timeline .event:last-of-type {
     border: 3px solid transparent;
   }
-  .serviceQuestion{
+  .serviceQuestion {
     padding: 10px 15px;
     border: 2px dotted $secondary-color;
     border-radius: 10px;
-    background-color: #202C40;
-    p{
+    background-color: #202c40;
+    p {
       margin: 0;
       font-size: 11px !important;
     }
-    a{
+    a {
       display: inline-block;
       padding: 4px 12px;
       margin-top: 5px;
@@ -2281,11 +2282,11 @@ $crimsonColor: #ed4767;
       margin-right: 5px;
       font-size: 12px;
     }
-    .SerQstYes{
+    .SerQstYes {
       background-color: $secondary-color;
       color: $primary-color;
     }
-    .SerQstNo{
+    .SerQstNo {
       background-color: $crimsonColor;
       color: $white;
     }
@@ -2368,15 +2369,15 @@ $crimsonColor: #ed4767;
     width: 70%;
   }
 }
-.add-prod-img-container{
-  .file-input-box{
+.add-prod-img-container {
+  .file-input-box {
     width: 80px !important;
     height: 80px !important;
     margin: 0 auto;
     border: 1px dotted #00c2cb !important;
     border-radius: 25px !important;
     position: relative;
-    .file-box-bg{
+    .file-box-bg {
       position: relative;
       width: 100%;
       height: 100%;
@@ -2387,15 +2388,15 @@ $crimsonColor: #ed4767;
     }
   }
 }
-.invoice-upload{
-  .file-input-box{
+.invoice-upload {
+  .file-input-box {
     width: 80px !important;
     height: 80px !important;
     margin: 0 auto;
     border: 1px dotted #00c2cb !important;
     border-radius: 25px !important;
     position: relative;
-    .file-box-bg{
+    .file-box-bg {
       position: relative;
       width: 100%;
       height: 100%;
@@ -2407,8 +2408,10 @@ $crimsonColor: #ed4767;
   }
 }
 
-.scroll-section{
+.scroll-section {
   height: 458px;
   overflow: hidden;
   overflow-y: auto;
 }
+
+

@@ -5,7 +5,7 @@
           <p>{{products.length}} Products listed</p>
         </div>
         <div class="intro-img">
-          <img src="./assets/images/user-pic-square.png" alt="" />
+          <img src="{{user?.image}}" alt="" />
         </div>
       </div>
 
@@ -21,7 +21,7 @@
                 <div (click)="showHideProductDetail(product._id)" class="addedProductBox">
                   <img src="{{product.productImagesUrl}}" alt="Product Image" />
                   <h6>{{product.name}}</h6>
-                  <p>Expires on March 14, 2024</p>
+                  <p>Expires on {{product.expiresOn | date: 'MMM dd, yyyy'}}</p>
                 </div>
               </div>
             </ng-template>
@@ -125,13 +125,14 @@
         <div class="d-flex justify-content-between">
           <div class="p-2">
             <a class="btn btn-primary float-left" routerLink="/product/edit/{{productDeatil?._id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-            <a class="btn btn-danger float-left" (click)="deleteProduct(productDeatil._id)" style="margin-left: 10px;"><i class="fa fa-trash-o ml-2" aria-hidden="true"></i></a>
+              <a class="btn btn-danger float-left" (click)="deleteProduct(productDeatil._id)" style="margin-left: 10px;"><i class="fa fa-trash-o ml-2" aria-hidden="true"></i></a>
           </div>
           <div class="p-2">
             <i style="color: black;"><svg (click)="showHideProductDetail()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
           </div>
         </div>
       </div>
+      
       <div class="scroll-section">
       <header>
         <h5>{{productDeatil?.name}}</h5>
@@ -140,7 +141,7 @@
         </h1>
         <p>{{productDeatil?.category?.name}}</p>
       </header>
-    
+  
       
       <!-- <div class="carousel-body">
         <owl-carousel-o [options]="productDetailList">
@@ -162,29 +163,29 @@
                 </div>
               </div>
             <!-- </ng-template>
-          </ng-container>
+          </ng-container> 
         </owl-carousel-o>
       </div> -->
-    
+  
       <div class="warrantyDetailsBox">
         <h3>Warranty Details</h3>
         <div class="invoice-pic">
-          <img src="{{productDeatil?.invoicePhotoUrl}}" alt="">
+          <img src="{{productDeatil?.invoicePhotoUrl || './assets/images/blank-image.png'}}" alt="">
         </div>
         <div class="purchaseDate">
           <h6>Validity</h6>
           <p>{{productDeatil && productDeatil?.warrantyPeriod}} Months</p>
-    
+  
           <h6>Purchase Date</h6>
           <p>{{productDeatil?.purchaseDate | date:'dd MMM yyyy'}}</p>
         </div>
         <div class="expiresDate">
           <h6>Validity Till</h6>
-          <p>29 Mar 2021</p>
-          <p class="daysLeft">50 Days Left</p>
+          <p>{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
+          <!-- <p class="daysLeft">50 Days Left</p> -->
         </div>
       </div>
-    
+  
       <div class="warrantyDetailsBox">
         <h3>Extended Warranty</h3>
         <div class="invoice-pic">
@@ -192,8 +193,8 @@
         </div>
         <div class="purchaseDate">
           <h6>Service Provider</h6>
-          <p>Vijay Sales</p>
-    
+          <p>{{productDeatil?.extendedWarranty?.serviceProvider || 'N/A'}}</p>
+  
           <h6>Validity </h6>
           <p>18 Months</p>
         </div>
@@ -205,7 +206,7 @@
           <p>LG31795YT39</p>
         </div>
       </div>
-    
+  
       <div class="warrantyDetailsBox">
         <h3>Annual maintainance (quaterly)</h3>
         <div class="invoice-pic">
@@ -213,22 +214,22 @@
         </div>
         <div class="purchaseDate">
           <h6>Service Provider</h6>
-          <p>Vijay Sales</p>
-    
+          <p>{{productDeatil?.amcDetails?.serviceProvider || 'N/A'}}</p>
+  
           <h6>Validity Till</h6>
           <p>29 Mar 2021</p>
-          <p class="daysLeft">50 Days Left</p>
+          <!-- <p class="daysLeft">50 Days Left</p> -->
         </div>
         <div class="expiresDate">
           <div class="call-img">
             <img src="./assets/images/call.png" alt="">
           </div>
           <h6>Contract No.</h6>
-          <p>DBHKN042090</p>
+          <p>{{productDeatil?.amcDetails?.vendorNo || 'N/A'}}</p>
         </div>
       </div>
-    
+  
       <button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}">Claim Warranty</button>
     </div>
-    </section>
+  </section>
 

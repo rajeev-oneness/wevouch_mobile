@@ -3,19 +3,19 @@
     <div class="accHolderImg">
       <img
         class="rounded-circle"
-        src="./assets/images/user-pic-square.png"
+        src="{{userDetail?.image}}"
         alt=""
       />
     </div>
     <div class="accHolderTxt">
-      <h2>{{userDetail?.name}}</h2>
+      <h2>{{userDetail && userDetail?.name}}</h2>
       <!-- <p>Mumbai, India</p> -->
     </div>
     <a class="editProfileBTN" routerLink="/profile/edit">Edit</a>
   </div>
 
   <h5>Email</h5>
-  <h4>{{userDetail.email}}</h4>
+  <h4>{{userDetail && userDetail.email}}</h4>
 
   <h5>Mobile</h5>
   <span *ngIf="userDetail.mobile; else mobileNotFound">
@@ -51,7 +51,7 @@
   <div class="upgradePlanBox">
     <div class="upgradePlanBoxtxt">
       <h5>Membership</h5>
-      <h4>{{userDetail.subscription.name}}</h4>
+      <h4>{{userDetail.subscription?.name}}</h4>
     </div>
     <a class="upgradeBTN" routerLink="/package/list">
       Upgrade <span><img src="./assets/images/right-arrow.png" alt="" /></span>

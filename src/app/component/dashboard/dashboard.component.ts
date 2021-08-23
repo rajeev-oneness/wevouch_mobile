@@ -83,6 +83,7 @@ export class DashboardComponent implements OnInit {
   public products : any = ''
   public showDetail: boolean = false 
   public productDeatil : any = []
+  public warrantyValidTill : any = ''
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -92,6 +93,10 @@ export class DashboardComponent implements OnInit {
     this._api.productList(this.user._id).subscribe(
       res => {
         console.log(res);
+        for (let index = 0; index < res.length; index++) {
+          let purchaseDate = new Date(res[index].purchaseDate);
+          res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod)
+        }
         this.products = res;
         this._loader.stopLoader('loader');
       }, err => {}
@@ -105,6 +110,8 @@ export class DashboardComponent implements OnInit {
         res => {
           console.log(res);
           this.productDeatil = res;
+          let purchaseDate = new Date(res.purchaseDate);
+          this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
         }, err => {}
       )
     }
