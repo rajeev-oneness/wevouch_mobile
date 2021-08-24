@@ -35,7 +35,7 @@ export class TicketAddComponent implements OnInit {
   public stepFour : boolean = false;
   public addTicketValue : any = new Object();
   public addedTicketDetail : any = new Object();
-
+  public addressCount : any = {}
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -171,6 +171,13 @@ export class TicketAddComponent implements OnInit {
     } else {
       this.errorMessage = 'Please fill out all the details';
     }
+  }
+
+  addMoreAddress() {
+    // this.addressCount += 1
+    this.addressCount.push({
+      multipleaddress : ''
+    });
   }
 
 

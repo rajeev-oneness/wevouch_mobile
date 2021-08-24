@@ -112,6 +112,12 @@ export class ApiService {
   ticketList(userId : any) {
     return this._http.get<any>(_apiUrl+'ticket/get-by-user/'+userId);
   }
+  ticketListByProduct(productId : any) {
+    return this._http.get<any>(_apiUrl+'ticket/get-by-product/'+productId);
+  }
+  ticketListByUserAndCategory(formData : any) {
+    return this._http.post<any>(_apiUrl+'ticket/get-by-category-user', formData);
+  }
   ticketDetail(ticketId : any) {
     return this._http.get<any>(_apiUrl+'ticket/get/'+ticketId);
   }

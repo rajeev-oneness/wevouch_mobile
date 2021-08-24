@@ -55,30 +55,28 @@
   <div id="step_three" *ngIf="stepThree">
     <form class="addProductForm" #ticketThirdForm="ngForm" (ngSubmit)="thirdTab(ticketThirdForm)">
       <label>Select Date <span class="op">*</span></label>
-      <input type="date" id="datetime" name="selectedDate" #selectedDate="ngModel" [ngModel]="addTicketValue.selectedDate" placeholder="Date" class=" form-control mb-2">
+      <mat-form-field appearance="fill">
+        <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" class="datepicker" name="selectedDate" #selectedDate="ngModel" [ngModel]="addTicketValue.selectedDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
       <label>Select Time <span class="op">*</span></label>
       <input type="time" id="datetime" name="selectedTime" #selectedTime="ngModel" [ngModel]="addTicketValue.selectedTime" placeholder="time" class=" form-control mb-2">
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
-  </div>
-  <div id="step_three" class="">
+  </div> 
+   <!--<div id="step_three" class="">
     <form class="addProductForm">
       <mat-form-field appearance="fill">
-        <!-- #docregion toggle -->
           <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" class="datepicker">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-        <!-- #enddocregion toggle -->
         </mat-form-field>
         <input type="time" id="datetime" placeholder="Date" class="form-control">
-        <!-- <div class="col-12 text-center mt-4">
-            <h3 class="m-0">Pay &nbsp; ₹100</h3>
-        </div> 
-        <button class="submit-btn" type="submit">Make Payment</button>-->
     </form>
-  </div>
-  <div id="step_four" class="pl-3 pr-3 d-none">
+  </div> -->
+  <div id="step_four" *ngIf="stepFour" class="pl-3 pr-3 mt-5">
     <div id="ticket-box" class="ticketBox">
       <div class="ticketTop">
         <img src="./assets/images/done3.png" alt="">

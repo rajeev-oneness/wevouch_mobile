@@ -88,6 +88,9 @@ export class DashboardComponent implements OnInit {
   public amcValidTill : any = ''
   public amcLeftDays : any = ''
   public dateNow : any = Date.now(); 
+  public tickets : any = []
+  public newTickets : any = []
+  public ongoingTickets : any = []
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -123,6 +126,14 @@ export class DashboardComponent implements OnInit {
             this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));
             this.amcLeftDays = dateDiffInDays(this.dateNow, this.amcValidTill);
           }
+        }, err => {}
+      )
+      this._api.ticketListByProduct(productId).subscribe(
+        res => {
+          console.log(res);
+          this.tickets = res;
+          this.newTickets = res.filter((t: any) => t.status === 'new');
+          this.ongoingTickets = res.filter((t: any) => t.status === 'ongoing');
         }, err => {}
       )
     }

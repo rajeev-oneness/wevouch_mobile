@@ -27,7 +27,10 @@
     <input class="form-control" #mobile="ngModel" ngModel type="number" name="mobile" placeholder="Your mobile" required [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
 
     <label>Password</label>
-    <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
+    <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
+    <small *ngIf="password?.invalid && password?.touched" [ngClass]="{'text-danger':password?.invalid && password?.touched}">
+      Must contain at least one number, one uppercase, lowercase letter, and at least 6 characters
+    </small>
     
     <label>Age</label>
     <input class="form-control" tabindex="2" #age="ngModel" ngModel type="age" name="age" placeholder="age" required [ngClass]="{'is-invalid':age?.invalid && age?.touched}">
