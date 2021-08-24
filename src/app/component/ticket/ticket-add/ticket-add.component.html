@@ -62,23 +62,39 @@
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
   </div>
-  <div id="step_four" *ngIf="stepFour" class="pl-3 pr-3 pt-5">
+  <div id="step_three" class="">
+    <form class="addProductForm">
+      <mat-form-field appearance="fill">
+        <!-- #docregion toggle -->
+          <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" class="datepicker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        <!-- #enddocregion toggle -->
+        </mat-form-field>
+        <input type="time" id="datetime" placeholder="Date" class="form-control">
+        <!-- <div class="col-12 text-center mt-4">
+            <h3 class="m-0">Pay &nbsp; ₹100</h3>
+        </div> 
+        <button class="submit-btn" type="submit">Make Payment</button>-->
+    </form>
+  </div>
+  <div id="step_four" class="pl-3 pr-3 d-none">
     <div id="ticket-box" class="ticketBox">
-        <div class="ticketTop">
-          <img src="./assets/images/done3.png" alt="">
-          <div class="ticketTopTxt mt-5">
-            <h3>
-                Service request raised!
-                <span class="d-block">We'll reach shortly.</span>
-            </h3>
-            <p>Disclaimer: Subject to the availability of Service Provider* </p>
-          </div>
+      <div class="ticketTop">
+        <img src="./assets/images/done3.png" alt="">
+        <div class="ticketTopTxt mt-5">
+          <h3>
+              Service request raised!
+              <span class="d-block">We'll reach shortly.</span>
+          </h3>
+          <p>Disclaimer: Subject to the availability of Service Provider* </p>
         </div>
-        <div class="ticketBottom text-center">
-          <p>Your wevouch ticket no.</p>
-          <h1>{{addedTicketDetail.uniqueId}}</h1>
-          <a href="javascript:void(0);" routerLink="/ticket/list">Go To Tickets</a>
-        </div>
-
+      </div>
+      <div class="ticketBottom text-center">
+        <p>Your wevouch ticket no.</p>
+        <h1>{{addedTicketDetail.uniqueId}}</h1>
+        <a href="javascript:void(0);" routerLink="/ticket/list">Go To Tickets</a>
+      </div>
     </div>
   </div>
+  
