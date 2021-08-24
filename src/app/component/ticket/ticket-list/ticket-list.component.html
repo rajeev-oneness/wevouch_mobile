@@ -2,49 +2,6 @@
     <!-- <h3>Ticket Raised ({{tickets.length}})</h3> -->
     <h3>Raise service Ticket</h3>
 </div>
-<!--<mat-tab-group disableRipple [selectedIndex]="0">
-    <mat-tab label="Tv"> 
-        <ng-container *ngFor="let ticket of tickets">
-            <div class="item " routerLink="/ticket/details/{{ticket._id}}">
-                <div id="ticket-box" class="ticketBox" *ngIf="ticket.products; else noProductBlock">
-                    <div class="ticketTop">
-                        <img src="{{ticket?.products.productImagesUrl}}" alt="product image" />
-                        <div class="ticketTopTxt">
-                            <h3>{{ticket?.products.name || 'N/A'}}</h3>
-                            <p>Expires on 14 March 2024</p>
-                        </div>
-                    </div>
-                    <div class="ticketBottom text-center">
-                        <p>Your wevouch ticket no.</p>
-                        <h1>{{ticket.uniqueId}}</h1>
-                    </div>
-                </div>
-                <ng-template #noProductBlock>
-                    <div id="ticket-box" class="ticketBox">
-                        <div class="ticketTop">
-                            <img src="" alt="product image" />
-                            <div class="ticketTopTxt">
-                                <h3>N/A</h3>
-                                <p>N/A</p>
-                            </div>
-                        </div>
-                        <div class="ticketBottom text-center">
-                            <p>Your wevouch ticket no.</p>
-                            <h1>{{ticket.uniqueId}}</h1>
-                        </div>
-                    </div>
-                </ng-template>
-            </div>
-        </ng-container>
-    </mat-tab>
-    <mat-tab label="Mobile"> Mobile</mat-tab>
-    <mat-tab label="Fridge"> Fridge</mat-tab>
-    <mat-tab label="AC"> AC</mat-tab>
-    <mat-tab label="Radio"> Radio</mat-tab>
-    <mat-tab label="iPot"> iPot</mat-tab>
-</mat-tab-group>
-
--->
 <div class="carousel-body ">
     <owl-carousel-o [options]="ticketList">  
         <ng-container *ngFor="let ticket of tickets">
