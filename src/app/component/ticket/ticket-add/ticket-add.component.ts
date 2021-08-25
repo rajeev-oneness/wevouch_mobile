@@ -11,7 +11,11 @@ import  Swal  from "sweetalert2";
 })
 export class TicketAddComponent implements OnInit {
 
-  constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router, private _active:ActivatedRoute) { }
+  public addressCount: {data: MULTIPLEADDRESS[];};
+
+  constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router, private _active:ActivatedRoute) { 
+    this.addressCount = {data : []};
+  }
   
   public user : any = {};
   public products : any = '';
@@ -35,7 +39,7 @@ export class TicketAddComponent implements OnInit {
   public stepFour : boolean = false;
   public addTicketValue : any = new Object();
   public addedTicketDetail : any = new Object();
-  public addressCount : any = {}
+  // public addressCount : any = new Array();
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -64,6 +68,7 @@ export class TicketAddComponent implements OnInit {
   }
   
   prev() {
+    window.scrollTo(0, 0);
     if(this.stepOne === true) {
       this._router.navigate(['/product/list']);
     }
@@ -81,93 +86,93 @@ export class TicketAddComponent implements OnInit {
     }
   }
   firstTab(formData:any) {
+    window.scrollTo(0, 0);
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      // if (this.category && this.brandId && this.subCategory) {
-        console.log(formData.value);
-        Object.keys(formData.value).forEach((key)=>{
-          this.addTicketValue[key] = formData.value[key];
-        });
-        this.stepOne = false;
-        this.stepTwo = true;
-        this.stepThree = false;
-        this.stepFour = false;
-        this.errorMessage = "";
-      // } else {
-      //   this.errorMessage = 'Please fill out all the details';
-      // }
+      console.log(formData.value);
+      Object.keys(formData.value).forEach((key)=>{
+        this.addTicketValue[key] = formData.value[key];
+      });
+      this.stepOne = false;
+      this.stepTwo = true;
+      this.stepThree = false;
+      this.stepFour = false;
+      this.errorMessage = "";
     } else {
       this.errorMessage = 'Please fill out all the details';
     }
     
   }
   secondTab(formData:any) {
+    window.scrollTo(0, 0);
     
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      // if (this.category && this.brandId && this.subCategory) {
-        console.log(formData.value);
-        Object.keys(formData.value).forEach((key)=>{
-          this.addTicketValue[key] = formData.value[key];
-        });
-        this.stepOne = false;
-        this.stepTwo = false;
-        this.stepThree = true;
-        this.stepFour = false;
-        this.errorMessage = "";
-      // } else {
-      //   this.errorMessage = 'Please fill out all the details';
-      // }
+      console.log(formData.value);
+      this.addTicketValue.transportationType = formData.value.transportationType;
+      this.addTicketValue.address = formData.value.address;
+      // Object.keys(formData.value).forEach((key)=>{
+      //   this.addTicketValue[key] = formData.value[key];
+      // });
+      let multipleAddressArray: any = []
+      this.addressCount.data.forEach(element => {
+        multipleAddressArray.push(element.addresses)
+      });
+      console.log(multipleAddressArray);
+      this.addTicketValue.multipleAddress = multipleAddressArray;
+
+      this.stepOne = false;
+      this.stepTwo = false;
+      this.stepThree = true;
+      this.stepFour = false;
+      this.errorMessage = "";
     } else {
       this.errorMessage = 'Please fill out all the details';
     }
   }
   thirdTab(formData:any) {
+    window.scrollTo(0, 0);
     
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      // if (this.category && this.brandId && this.subCategory) {
-        Object.keys(formData.value).forEach((key)=>{
-          this.addTicketValue[key] = formData.value[key];
-        });
-        this.addTicketValue.productId = this.productId;
-        this.addTicketValue.userId = this.user._id;
-        this.addTicketValue.category = this.productDetail.category._id;
-        this.addTicketValue.brandId = this.productDetail.brands._id;
-        // let mainForm = this.addTicketValue;
-        const mainForm = this.addTicketValue;
-        console.log(mainForm);
-        this._api.ticketAdd(mainForm).subscribe(
-          (res) => {
-            this.addedTicketDetail = res.ticket;
-            console.log(this.addedTicketDetail);
-            this.Toast.fire({
-              icon: 'success',
-              title: 'Ticket raised successfully!'
-            })
-            this._loader.stopLoader('loader');
-          },
-          (err) => {
-            this.errorMessage = err;
-            this._loader.stopLoader('loader');
-          }
-        );
-        // console.log(this.addTicketValue);
+      Object.keys(formData.value).forEach((key)=>{
+        this.addTicketValue[key] = formData.value[key];
+      });
+      this.addTicketValue.productId = this.productId;
+      this.addTicketValue.userId = this.user._id;
+      this.addTicketValue.category = this.productDetail.category._id;
+      this.addTicketValue.brandId = this.productDetail.brands._id;
+      // let mainForm = this.addTicketValue;
+      const mainForm = this.addTicketValue;
+      console.log(mainForm);
+      this._api.ticketAdd(mainForm).subscribe(
+        (res) => {
+          this.addedTicketDetail = res.ticket;
+          console.log(this.addedTicketDetail);
+          this.Toast.fire({
+            icon: 'success',
+            title: 'Ticket raised successfully!'
+          })
+          this._loader.stopLoader('loader');
+        },
+        (err) => {
+          this.errorMessage = err;
+          this._loader.stopLoader('loader');
+        }
+      );
+      // console.log(this.addTicketValue);
 
-        this.stepOne = false;
-        this.stepTwo = false;
-        this.stepThree = false;
-        this.stepFour = true;
-        this.errorMessage = "";
-      // } else {
-      //   this.errorMessage = 'Please fill out all the details';
-      // }
+      this.stepOne = false;
+      this.stepTwo = false;
+      this.stepThree = false;
+      this.stepFour = true;
+      this.errorMessage = "";
     } else {
       this.errorMessage = 'Please fill out all the details';
     }
@@ -175,10 +180,14 @@ export class TicketAddComponent implements OnInit {
 
   addMoreAddress() {
     // this.addressCount += 1
-    this.addressCount.push({
-      multipleaddress : ''
+    this.addressCount.data.push({
+      addresses: ''
     });
+    // console.log(this.addressCount.data);
   }
+  
 
-
+}
+interface MULTIPLEADDRESS{
+  addresses: string
 }

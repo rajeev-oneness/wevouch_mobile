@@ -231,7 +231,7 @@
       <div class="carousel-body ticketlist">
         <h3 class="text-dark">RAISED TICKETS FOR THIS PRODUCT</h3>
         <ul>
-          <li [ngClass]="{'mx-auto':tickets.length === 0 || tickets.length === 1}" *ngFor="let ticket of tickets">
+          <li [ngClass]="{'mx-auto': tickets.length === 1}" *ngFor="let ticket of tickets">
             <div class="item col-12 p-0" routerLink="/ticket/details/{{ticket._id}}">
               <div class="ticketBox position-relative">
                 <span class="shared-item" [ngClass]="{'bg-primary':ticket.status === 'new', 'bg-warning':ticket.status === 'ongoing', 'bg-success':ticket.status === 'completed', 'bg-danger':ticket.status === 'cancelled'}">{{ticket.status}}</span>
@@ -249,7 +249,7 @@
               </div>
             </div>
           </li>
-          <li *ngIf="tickets.length === 0">
+          <li *ngIf="tickets.length === 0" [ngClass]="{'mx-auto':tickets.length === 0}">
             <div class="item col-12 p-0">
               <div class="ticketBox position-relative">
                 <div class="ticketTop">

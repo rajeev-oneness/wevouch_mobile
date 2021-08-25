@@ -35,7 +35,7 @@
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
   </div>
-  <div id="step_two" *ngIf="stepTwo">
+  <div id="step_two" *ngIf="stepTwo" class="scroll-section">
     <form class="addProductForm" #ticketSecondForm="ngForm" (ngSubmit)="secondTab(ticketSecondForm)">
       <div class="c-color-swatch mx-auto">
           <input type="radio" name="transportationType" #transportationType="ngModel" [ngModel]="addTicketValue.transportationType" value="Carry In" id="color-F9ED69" hidden/>
@@ -48,6 +48,10 @@
           <label class="c-color-swatch__item" for="color-B83B5E"><img src="./assets/images/onsite.png">On Site</label>
       </div>
       <textarea class="form-control mt-2" rows="4" placeholder="Address" name="address" #address="ngModel" [ngModel]="addTicketValue.address"></textarea>
+      <span *ngFor="let multAddress of addressCount.data; let i = index">
+        <textarea class="form-control mt-2" rows="4" placeholder="Address" #multipleAddress name="multipleAddresses_{{i}}" [(ngModel)]="multAddress.addresses">{{multAddress.addresses}}</textarea>
+      </span>
+      <a href="javascript:void(0);" (click)="addMoreAddress()" class="mt-2 btn btn-primary">Add Address</a>
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
@@ -66,16 +70,6 @@
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
   </div> 
-   <!--<div id="step_three" class="">
-    <form class="addProductForm">
-      <mat-form-field appearance="fill">
-          <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" class="datepicker">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <input type="time" id="datetime" placeholder="Date" class="form-control">
-    </form>
-  </div> -->
   <div id="step_four" *ngIf="stepFour" class="pl-3 pr-3 mt-5">
     <div id="ticket-box" class="ticketBox">
       <div class="ticketTop">
