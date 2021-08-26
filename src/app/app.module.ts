@@ -33,10 +33,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
+import { AddressListComponent } from './component/address/address-list/address-list.component';
+import { AddressAddComponent } from './component/address/address-add/address-add.component';
+import { AddressEditComponent } from './component/address/address-edit/address-edit.component';
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketDetailsComponent, TicketListComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent, SettingsComponent, TicketAddComponent, ProductEditComponent,
+    AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketDetailsComponent, TicketListComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent, SettingsComponent, TicketAddComponent, ProductEditComponent, AddressListComponent, AddressAddComponent, AddressEditComponent,
   ],
   imports: [
     BrowserModule,MatDatepickerModule,MatTabsModule,MatInputModule,MatNativeDateModule,CarouselModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule,SocialLoginModule,

@@ -11,11 +11,14 @@ import { SupportComponent } from "./component/support/support.component";
 import { ProfileDetailsComponent } from "./component/profile/profile-details/profile-details.component";
 import { ProfileEditComponent } from "./component/profile/profile-edit/profile-edit.component";
 import { PackageListComponent } from "./component/package/package-list/package-list.component";
+import { AddressListComponent } from "./component/address/address-list/address-list.component";
+import { AddressAddComponent } from "./component/address/address-add/address-add.component";
+import { AddressEditComponent } from "./component/address/address-edit/address-edit.component";
 import { SettingsComponent } from "./component/settings/settings.component";
 import { LoginComponent } from "./component/auth/login/login.component";
 import { RegisterComponent } from "./component/auth/register/register.component";
 import { AuthCheckService } from "./service/auth-check.service";
-import { AddTicketComponent } from './component/ticket/add-ticket/add-ticket.component';
+
 
 const routes: Routes = [
   { path: '', pathMatch:'full', redirectTo: 'home'},
@@ -26,6 +29,11 @@ const routes: Routes = [
     { path: 'list', component: ProductListComponent },
     { path: 'add', component: ProductAddComponent },
     { path: 'edit/:productId', component: ProductEditComponent },
+  ]},
+  { path: 'address', canActivate:[AuthCheckService], children: [
+    { path: 'list', component: AddressListComponent },
+    { path: 'add', component: AddressAddComponent },
+    { path: 'edit/:addressId', component: AddressEditComponent },
   ]},
   { path: 'ticket', canActivate:[AuthCheckService], children: [
     { path: 'details/:ticketId', component: TicketDetailsComponent },

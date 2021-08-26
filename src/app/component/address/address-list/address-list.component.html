@@ -1,0 +1,50 @@
+<div class="carousel-header pt-4">
+    <div class="d-flex justify-content-between">
+        <div>
+            <h3>Manage Addresses</h3>
+        </div>
+        <div>
+            <a href="javascript:void(0);" (click)="back()">
+                <img src="./assets/images/back.png" alt="">
+            </a>
+        </div>
+    </div>
+</div>
+<section class="account-details scroll-section" *ngIf="userAddresses.length > 0; else noAddressBlock">
+    <div class="upgradePlanBox mt-2 position-relative" *ngFor="let address of userAddresses">
+        <div class="upgradePlanBoxtxt text-left">
+            <div class="address-radio">
+                <!-- <input type="radio" name="name" id="" value="{{address._id}}"> -->
+            </div>
+            <h4>{{address.addressLine1}}</h4>
+            <h5>{{address.addressLine2}}</h5>
+            <h5>{{address.location}}</h5>
+            <h5>{{address.city}}, {{address.state}}, {{address.country}}</h5>
+            <h5>pin - {{address.pin}}</h5>
+            <div class="d-flex mt-1">
+                <div>
+                    <a class="btn btn-sm btn-primary float-left" routerLink="/address/edit/{{address?._id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+                <div>
+                    <a class="btn btn-sm btn-danger float-left" style="margin-left: 10px;" (click)="delteAddress(address?._id)"><i class="fa fa-trash-o ml-2" aria-hidden="true"></i></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="submit-btn" routerLink="/address/add">+ Add Address</button>
+
+</section>
+
+<ng-template #noAddressBlock>
+    <section class="account-details">
+        <div class="upgradePlanBox mt-2 position-relative">
+            <div class="upgradePlanBoxtxt">
+                <h4>No address found !</h4>
+            </div>
+        </div>
+        <button class="submit-btn" routerLink="/address/add">+ Add Address</button>
+    </section>
+</ng-template>
+

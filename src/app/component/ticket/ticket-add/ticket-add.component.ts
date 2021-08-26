@@ -40,13 +40,13 @@ export class TicketAddComponent implements OnInit {
   public addTicketValue : any = new Object();
   public addedTicketDetail : any = new Object();
   // public addressCount : any = new Array();
+  public userAddresses : any = []
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.productId = this._active.snapshot.paramMap.get('productId');
     this._loader.startLoader('loader');
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
-    this.addTicketValue.address = this.user.address;
     this.addTicketValue.transportationType = 'On Site';
     this._api.productList(this.user._id).subscribe(
       res => {
@@ -54,14 +54,25 @@ export class TicketAddComponent implements OnInit {
         console.log('Product List', this.products);
       }, err => {}
     )
+    this.getAddressList();
     this._loader.stopLoader('loader');
     this.getProductDetail();
+  }
+
+  getAddressList() {
+    this._api.getAddressListByUser(this.user._id).subscribe(
+      res => {
+        console.log('addresses :',res);        
+        this.userAddresses = res;
+      }, err => {}
+    )
   }
 
   getProductDetail() {
     this._api.productDetail(this.productId).subscribe(
       res => {
         this.productDetail = res;
+        this._loader.stopLoader('loader');
         console.log('Product Detail',res);
       }, err => {}
     )
@@ -113,17 +124,20 @@ export class TicketAddComponent implements OnInit {
     }
     if (formData?.valid) {
       console.log(formData.value);
-      this.addTicketValue.transportationType = formData.value.transportationType;
-      this.addTicketValue.address = formData.value.address;
+      Object.keys(formData.value).forEach((key)=>{
+        this.addTicketValue[key] = formData.value[key];
+      });
       // Object.keys(formData.value).forEach((key)=>{
       //   this.addTicketValue[key] = formData.value[key];
       // });
-      let multipleAddressArray: any = []
-      this.addressCount.data.forEach(element => {
-        multipleAddressArray.push(element.addresses)
-      });
-      console.log(multipleAddressArray);
-      this.addTicketValue.multipleAddress = multipleAddressArray;
+
+      // let multipleAddressArray: any = []
+      // this.addressCount.data.forEach(element => {
+      //   multipleAddressArray.push(element.addresses)
+      // });
+      // console.log(multipleAddressArray);
+      // this.addTicketValue.multipleAddress = multipleAddressArray;
+
 
       this.stepOne = false;
       this.stepTwo = false;
@@ -178,13 +192,34 @@ export class TicketAddComponent implements OnInit {
     }
   }
 
-  addMoreAddress() {
-    // this.addressCount += 1
-    this.addressCount.data.push({
-      addresses: ''
-    });
-    // console.log(this.addressCount.data);
+  addMoreAddress(formData: any) {
+    for (let i in formData.controls) {
+      formData.controls[i].markAsTouched();
+    }
+    if (formData?.valid) {
+      const mainForm = formData.value;
+      mainForm.userId = this.user._id;
+      mainForm.latitude = '';
+      mainForm.longitude = '';
+      this._api.addAddress(mainForm).subscribe(
+        res => {
+          this._loader.startLoader('loader');
+          this.Toast.fire({
+            icon: 'success',
+            title: 'Address added successfully!'
+          })
+          this.getAddressList();
+          this._loader.stopLoader('loader');
+        }, err => {
+          this.errorMessage = 'Something went wrong!';
+        }
+      )
+    } else {
+      this.errorMessage = 'Please fill out all the details';
+    }
   }
+
+
   
 
 }

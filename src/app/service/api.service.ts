@@ -145,4 +145,24 @@ export class ApiService {
     // return this._http.get<any>(_apiUrl+'notification/list');
   }
 
+  //address management section
+  getAddressList() {
+    return this._http.get<any>(_apiUrl+'address/list');
+  }
+  getAddressListByUser(userId : any) {
+    return this._http.get<any>(_apiUrl+'address/get-by-user/'+userId);
+  }
+  getAddressById(addressId : any) {
+    return this._http.get<any>(_apiUrl+'address/get/'+addressId);
+  }
+  addAddress(formData : any) {
+    return this._http.post<any>(_apiUrl+'address/add', formData);
+  }
+  editAddress(addressId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'address/update/'+addressId, formData);
+  }
+  deleteAddressByID(addressId : any) {
+    return this._http.delete<any>(_apiUrl+'address/delete/'+addressId);
+  }
+
 }

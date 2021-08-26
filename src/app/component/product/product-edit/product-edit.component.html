@@ -189,7 +189,12 @@
 
             <div class="end-date">
               <label for="end-date">Warranty Period<span>*</span></label>
-              <input required type="number" id="noOfYears" #noOfYears="ngModel" [(ngModel)]="productDetail.extendedWarranty.noOfYears" name="noOfYears" class="form-control" />
+              <!-- <input required type="number" id="noOfYears" #noOfYears="ngModel" [(ngModel)]="productDetail.extendedWarranty.noOfYears" name="noOfYears" class="form-control" /> -->
+              <select name="noOfYears" id="noOfYears" #noOfYears [(ngModel)]="productDetail.extendedWarranty.noOfYears" class="form-control" required>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+              </select>
             </div>
           </div>
 
@@ -247,11 +252,16 @@
 
             <div class="end-date">
               <label for="start-date">AMC Period <span>*</span></label>
-              <input required type="number" id="noOfYears" #noOfYears="ngModel" [(ngModel)]="productDetail.amcDetails.noOfYears" name="noOfYears" class="form-control" required />
+              <!-- <input required type="number" id="noOfYears" #noOfYears="ngModel" [(ngModel)]="productDetail.amcDetails.noOfYears" name="noOfYears" class="form-control" required /> -->
+              <select name="noOfYears" id="noOfYears" #noOfYears [(ngModel)]="productDetail.amcDetails.noOfYears" class="form-control" required>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+              </select>
             </div>
           </div>
           <label for="duration">Service Duration <span>*</span></label>
-          <select name="duration" id="duration" #duration="ngModel" [(ngModel)]="productDetail.amcDetails.duration" class="form-control" required>
+          <select name="duration" id="duration" #duration="ngModel" [(ngModel)]="productDetail.amcDetails.serviceDuration" class="form-control" required>
             <option value="quaterly">Quaterly</option>
             <option value="monthly">Monthly</option>
             <option value="yearly">Yearly</option>

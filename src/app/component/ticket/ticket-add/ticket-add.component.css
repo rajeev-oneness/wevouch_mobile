@@ -64,3 +64,17 @@ textarea:focus{
     width: 80% !important;
     margin: 0 auto;
 }
+
+.upgradePlanBoxtxt {
+  text-align: left;
+}
+h5 {
+  margin: 0%;
+}
+.address-radio {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}

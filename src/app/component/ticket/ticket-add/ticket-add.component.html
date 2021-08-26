@@ -47,14 +47,76 @@
           <input type="radio" name="transportationType" #transportationType="ngModel" [ngModel]="addTicketValue.transportationType" value="On Site" id="color-B83B5E" hidden checked/>
           <label class="c-color-swatch__item" for="color-B83B5E"><img src="./assets/images/onsite.png">On Site</label>
       </div>
-      <textarea class="form-control mt-2" rows="4" placeholder="Address" name="address" #address="ngModel" [ngModel]="addTicketValue.address"></textarea>
-      <span *ngFor="let multAddress of addressCount.data; let i = index">
-        <textarea class="form-control mt-2" rows="4" placeholder="Address" #multipleAddress name="multipleAddresses_{{i}}" [(ngModel)]="multAddress.addresses">{{multAddress.addresses}}</textarea>
-      </span>
-      <a href="javascript:void(0);" (click)="addMoreAddress()" class="mt-2 btn btn-primary">Add Address</a>
+      <section class="account-details p-2" *ngIf="userAddresses.length > 0; else noAddressBlock">
+        <div class="upgradePlanBox mt-2 position-relative" *ngFor="let address of userAddresses">
+          <div class="address-radio">
+            <input type="radio" name="addressId" #addressId="ngModel" [ngModel]="addTicketValue.addressId" value="{{address._id}}">
+          </div>
+            <div class="upgradePlanBoxtxt text-left">
+                <h4>{{address.addressLine1}}</h4>
+                <h5>{{address.addressLine2}}</h5>
+                <h5>{{address.location}}</h5>
+                <h5>{{address.city}}, {{address.state}}, {{address.country}}</h5>
+                <h5>pin - {{address.pin}}</h5>
+            </div>
+        </div>
+        <div class="submit-btn extended-warr" onclick="addRemoveExWarranty();" id="ex-warr-link">+ Add Address</div>
+      </section>
+      <ng-template #noAddressBlock>
+          <section class="account-details">
+              <div class="upgradePlanBox mt-2 position-relative">
+                  <div class="upgradePlanBoxtxt">
+                      <h4>No address found !</h4>
+                  </div>
+              </div>
+              <div class="submit-btn extended-warr" onclick="addRemoveExWarranty();" id="ex-warr-link">+ Add Address</div>
+          </section>
+      </ng-template>
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
+    <div
+      onclick="addRemoveExWarranty()"
+      id="ex-warr-b-overlay"
+      class=""
+    ></div>
+    <div id="extended-warranty-overlay">
+      <div class="container">
+        <section class="ex-warr-head">
+          <img src="./assets/images/ex-warr-icon.png" alt="" />
+          <h2>Add Address</h2>
+          <i style="float: right; margin-top: -35px;"><svg onclick="addRemoveExWarranty()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+        </section>
+
+        <div class="scroll-section">
+          <form class="addProductForm" #addressForm="ngForm" (ngSubmit)="addMoreAddress(addressForm)">
+            <label for="">Address Line 1 <span class="text-danger">*</span></label>
+            <input type="text" name="addressLine1" id="addressLine1" class="form-control" placeholder="Address line 1" #addressLine1="ngModel" ngModel required [ngClass]="{'is-invalid': addressLine1?.invalid && addressLine1?.touched}">
+            
+            <label for="">Address Line 2 <span class="text-danger">*</span></label>
+            <input type="text" name="addressLine2" id="addressLine2" class="form-control" placeholder="Address line 2" #addressLine2="ngModel" ngModel required [ngClass]="{'is-invalid': addressLine2?.invalid && addressLine2?.touched}">
+            
+            <label for="">Location <span class="text-danger">*</span></label>
+            <input type="text" name="location" id="location" class="form-control" placeholder="Location" #location="ngModel" ngModel required [ngClass]="{'is-invalid': location?.invalid && location?.touched}">
+            
+            <label for="">City <span class="text-danger">*</span></label>
+            <input type="text" name="city" id="city" class="form-control" placeholder="City" #city="ngModel" ngModel required [ngClass]="{'is-invalid': city?.invalid && city?.touched}">
+            
+            <label for="">State <span class="text-danger">*</span></label>
+            <input type="text" name="state" id="state" class="form-control" placeholder="State" #state="ngModel" ngModel required [ngClass]="{'is-invalid': state?.invalid && state?.touched}">
+            
+            <label for="">Country <span class="text-danger">*</span></label>
+            <input type="text" name="country" id="country" class="form-control" placeholder="Country" #country="ngModel" ngModel required [ngClass]="{'is-invalid': country?.invalid && country?.touched}">
+            
+            <label for="">pin <span class="text-danger">*</span></label>
+            <input type="number" name="pin" id="pin" class="form-control" placeholder="Pin" #pin="ngModel" ngModel required [ngClass]="{'is-invalid': pin?.invalid && pin?.touched}">
+            <span class="text-danger">{{errorMessage}}</span>
+    
+            <button class="submit-btn" type="submit" onclick="addRemoveExWarranty();">Save Address</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
   <div id="step_three" *ngIf="stepThree">
     <form class="addProductForm" #ticketThirdForm="ngForm" (ngSubmit)="thirdTab(ticketThirdForm)">
