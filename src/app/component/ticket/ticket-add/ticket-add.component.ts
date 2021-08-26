@@ -22,6 +22,7 @@ export class TicketAddComponent implements OnInit {
   public productId : any = '';
   public productDetail : any = {};
   public errorMessage : any = '';
+  public addresErrorMessage : any = '';
   public Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -215,11 +216,9 @@ export class TicketAddComponent implements OnInit {
         }
       )
     } else {
-      this.errorMessage = 'Please fill out all the details';
+      this.addresErrorMessage = 'Please fill out all the details';
     }
   }
-
-
   
 
 }

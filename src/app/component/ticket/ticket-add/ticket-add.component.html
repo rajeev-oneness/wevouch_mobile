@@ -110,7 +110,7 @@
             
             <label for="">pin <span class="text-danger">*</span></label>
             <input type="number" name="pin" id="pin" class="form-control" placeholder="Pin" #pin="ngModel" ngModel required [ngClass]="{'is-invalid': pin?.invalid && pin?.touched}">
-            <span class="text-danger">{{errorMessage}}</span>
+            <span class="text-danger">{{addresErrorMessage}}</span>
     
             <button class="submit-btn" type="submit" onclick="addRemoveExWarranty();">Save Address</button>
           </form>

@@ -31,8 +31,13 @@ export class AddressListComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0,0);
     this._loader.startLoader('loader');
+    this.getAddressData();
+  }
+
+  getAddressData() {
     this._api.getAddressListByUser(this.user._id).subscribe(
       res => {
+        this._loader.startLoader('loader');
         console.log('address :',res);        
         this.userAddresses = res;
         this._loader.stopLoader('loader');
@@ -46,14 +51,34 @@ export class AddressListComponent implements OnInit {
   }
 
   delteAddress(addressId : any) {
-    this._api.deleteAddressByID(addressId).subscribe(
-      res => {
-        this.Toast.fire({
-            icon: 'success',
-            title: 'Address deleted successfully!'
-          })
-        this._loader.stopLoader('loader');
-      }, err => {}
-    )
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This address will not recover!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete!',
+      cancelButtonText: 'keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._loader.startLoader('loader');
+        this._api.deleteAddressByID(addressId).subscribe(
+          res => {
+            this.getAddressData()
+          }, err => {}
+        )
+        Swal.fire(
+          'Deleted!',
+          'Address has been deleted.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Address is safe :)',
+          'error'
+        )
+      }
+    })
+    
   }
 }
