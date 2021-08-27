@@ -36,15 +36,15 @@
         <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
       </select>
   
-      <label>Mobile No. <span>*</span></label>
-      <input type="number" #registeredMobileNo="ngModel" [ngModel]="user.mobile" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}" required>
+      <label>Registered Mobile No. <span>*</span></label>
+      <input type="number" #registeredMobileNo="ngModel" [ngModel]="userPhn" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}" required>
       
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">+ Add Products</button>
     </form>
   </div>
 
-  <div *ngIf="warantyTab">
+  <div *ngIf="warantyTab" class="scroll-section">
     <div class="invoice-upload">
       <h3>Upload Invoice photo</h3>
       <p>Recieved on the day of purchase</p>
@@ -160,7 +160,7 @@
       class=""
     ></div>
 
-    <div id="extended-warranty-overlay" class="">
+    <div id="extended-warranty-overlay">
       <div class="container">
         
         <section class="ex-warr-head">
@@ -187,8 +187,12 @@
             </div>
 
             <div class="end-date">
-              <label for="end-date">End Date <span>*</span></label>
-              <input required type="date" id="endDate" #endDate="ngModel" ngModel name="endDate" class="form-control" />
+              <label for="end-date">Warranty Period <span>*</span></label>
+              <select name="noOfYears" id="noOfYears" #noOfYears [ngModel]="'1'" class="form-control" required>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+              </select>
             </div>
           </div>
 
@@ -219,7 +223,7 @@
 
     <div id="AMC-overlay" class="">
       
-      <div class="container">
+      <div class="container scroll-section">
         <section class="ex-warr-head">
           <img src="./assets/images/AMC.png" alt="" />
           <h2>Add AMC Details</h2>
@@ -243,16 +247,23 @@
               <label for="start-date">Start Date <span>*</span></label>
               <input required type="date" id="startDate" #startDate="ngModel" ngModel name="startDate" class="form-control" required />
             </div>
-
+            
             <div class="end-date">
-              <label for="duration">Service Duration <span>*</span></label>
-              <select name="duration" id="duration" #duration="ngModel" ngModel class="form-control" required>
-                <option value="quaterly">Quaterly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
+              <label for="start-date">AMC Period <span>*</span></label>
+              <select name="noOfYears" id="noOfYears" #noOfYears [ngModel]="'1'" class="form-control" required>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
               </select>
             </div>
           </div>
+          
+          <label for="duration">Service Duration <span>*</span></label>
+          <select name="serviceDuration" id="serviceDuration" #serviceDuration="ngModel" ngModel class="form-control" required>
+            <option value="quaterly">Quaterly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
 
           <label>Vendor's Agreement No. <span>*</span></label>
           <input

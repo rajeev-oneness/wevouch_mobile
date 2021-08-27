@@ -35,14 +35,14 @@ export class RegisterComponent implements OnInit {
       this._loader.startLoader('loader');
       this._api.userSignupApi(mainForm).subscribe(
         res => {
-          this.errorMessage = res.message;
+          // this.errorMessage = res.message;
           console.log(res);
           this._api.storeUserLocally(res.user);
           this._router.navigate(['/login']);
           this._loader.stopLoader('loader');
         },
         err => {
-          this.errorMessage = "something went wrong please check credentials and try after sometimes";
+          this.errorMessage = "something went wrong please try after sometimes";
           this._loader.stopLoader('loader');
         }
         

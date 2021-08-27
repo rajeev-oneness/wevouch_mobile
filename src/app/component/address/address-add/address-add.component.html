@@ -1,0 +1,32 @@
+<header>
+    <h2 class="mt-2 mx-auto">Add Address</h2>
+</header>
+
+<div id="step_one">
+    <form class="addProductForm" #addressForm="ngForm" (ngSubmit)="saveAddress(addressForm)">
+        <label for="">Address Line 1 <span class="text-danger">*</span></label>
+        <input type="text" name="addressLine1" id="addressLine1" class="form-control" placeholder="Address line 1" #addressLine1="ngModel" ngModel required [ngClass]="{'is-invalid': addressLine1?.invalid && addressLine1?.touched}">
+        
+        <label for="">Address Line 2 <span class="text-danger">*</span></label>
+        <input type="text" name="addressLine2" id="addressLine2" class="form-control" placeholder="Address line 2" #addressLine2="ngModel" ngModel required [ngClass]="{'is-invalid': addressLine2?.invalid && addressLine2?.touched}">
+        
+        <label for="">Location <span class="text-danger">*</span></label>
+        <input type="text" name="location" id="location" class="form-control" placeholder="Location" #location="ngModel" ngModel required [ngClass]="{'is-invalid': location?.invalid && location?.touched}">
+        
+        <label for="">City <span class="text-danger">*</span></label>
+        <input type="text" name="city" id="city" class="form-control" placeholder="City" #city="ngModel" ngModel required [ngClass]="{'is-invalid': city?.invalid && city?.touched}">
+        
+        <label for="">State <span class="text-danger">*</span></label>
+        <input type="text" name="state" id="state" class="form-control" placeholder="State" #state="ngModel" ngModel required [ngClass]="{'is-invalid': state?.invalid && state?.touched}">
+        
+        <label for="">Country <span class="text-danger">*</span></label>
+        <input type="text" name="country" id="country" class="form-control" placeholder="Country" #country="ngModel" ngModel required [ngClass]="{'is-invalid': country?.invalid && country?.touched}">
+        
+        <label for="">pin <span class="text-danger">*</span></label>
+        <input type="number" name="pin" id="pin" class="form-control" placeholder="Pin" #pin="ngModel" ngModel required [ngClass]="{'is-invalid': pin?.invalid && pin?.touched}">
+        <span class="text-danger">{{errorMessage}}</span>
+
+        <button class="submit-btn" type="submit">Save Address</button>
+    </form>
+</div>
+  

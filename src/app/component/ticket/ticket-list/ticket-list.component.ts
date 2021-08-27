@@ -35,18 +35,43 @@ export class TicketListComponent implements OnInit {
   constructor(private _loader:NgxUiLoaderService, private _api:ApiService) { }
   public user : any = {}
   public tickets : any = ''
+  public categories : any = {}
+  public defaultCategoryId : any = ''
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
-    this._api.ticketList(this.user._id).subscribe(
+    this._api.categoryList().subscribe(
       res => {
-        this.tickets = res;
-        console.log(res);
+        this.categories = res.filter((t : any) => t.status === 'active');
+        console.log('categories', res);
+        this.defaultCategoryId = res[0]._id;
+        this.fetchTicketByCategory(this.defaultCategoryId);
       }, err => {}
     )
-    this._loader.stopLoader('loader');
   }
 
+  tabClick(event: any) {
+    this._loader.startLoader('loader');
+    let categoryId = this.categories[event.index]._id;
+    this.fetchTicketByCategory(categoryId)
+  }
+
+  fetchTicketByCategory(categoryId:any) {
+    this.tickets = [];
+    let formData = {
+      "categoryId": categoryId, 
+      "userId": this.user._id
+    }
+    this._api.ticketListByUserAndCategory(formData).subscribe(
+      res => {
+        this.tickets = res;
+        // console.log(res);
+        this._loader.stopLoader('loader');
+      }, err => {}
+    )
+
+  }
+  
 }

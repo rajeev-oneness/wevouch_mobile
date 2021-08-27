@@ -40,15 +40,20 @@
     </div>
   </div>
 
-  <h5>Address</h5>
-  <h4>
-    <span *ngIf="userDetail.address; else addressNotFound">
-      <h4>{{userDetail.address}}</h4>
-    </span>
-    <ng-template #addressNotFound><h4>N/A</h4></ng-template>
-  </h4>
 
-  <div class="upgradePlanBox">
+  <!-- <div class="upgradePlanBox">
+    <div class="upgradePlanBoxtxt">
+      <h5>Address</h5>
+      <h4>{{userDetail.subscription?.name}}</h4>
+    </div>
+    <a class="upgradeBTN" routerLink="/address/list">
+      Mnaage Address <span><img src="./assets/images/right-arrow.png" alt="" /></span>
+    </a>
+  </div> -->
+  <button class="submit-btn" routerLink="/address/list">Manage Address</button>
+
+
+  <div class="upgradePlanBox mt-2">
     <div class="upgradePlanBoxtxt">
       <h5>Membership</h5>
       <h4>{{userDetail.subscription?.name}}</h4>

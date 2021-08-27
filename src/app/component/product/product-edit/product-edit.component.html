@@ -35,9 +35,9 @@
       <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="productDetail.subCategory._id" required>
         <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
       </select>
-  
-      <label>Model No. <span>*</span></label>
-      <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
+      
+      <label>Registered Mobile No.</label>
+      <input type="number" #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" required [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}">
       
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Continue</button>
@@ -91,9 +91,9 @@
       </div>
       <label>Serial No.</label>
       <input type="number" #serialNo="ngModel" [(ngModel)]="productDetail.serialNo" name="serialNo" id="serialNo" placeholder="eg:34562" class="form-control">
-
-      <label>Mobile No.</label>
-      <input type="number" #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control">
+      
+      <label>Model No. <span>*</span></label>
+      <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No">
 
       <div class="int-warr">
         <input type="checkbox" id="intl-warranty" />
@@ -188,17 +188,22 @@
             </div>
 
             <div class="end-date">
-              <label for="end-date">End Date <span>*</span></label>
-              <input required type="date" id="endDate" #endDate="ngModel" [ngModel]="extendedWarrantyEndDate" name="endDate" class="form-control" />
+              <label for="end-date">Warranty Period<span>*</span></label>
+              <!-- <input required type="number" id="noOfYears" #noOfYears="ngModel" [(ngModel)]="productDetail.extendedWarranty.noOfYears" name="noOfYears" class="form-control" /> -->
+              <select name="noOfYears" id="noOfYears" #noOfYears [(ngModel)]="productDetail.extendedWarranty.noOfYears" class="form-control" required>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+              </select>
             </div>
           </div>
 
-          <div class="addPhoto-wrap position-relative">
+          <!-- <div class="addPhoto-wrap position-relative">
             <label>Add Invoice Photo <span>*</span></label>
             <input class="addPhotoPlaceholder" type="text" placeholder="Add Photo" />
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             <input class="file-input" type="file" />
-          </div>
+          </div> -->
 
           <label>Vendor's Contact No. <span>*</span></label>
           <input
@@ -246,20 +251,26 @@
             </div>
 
             <div class="end-date">
-              <label for="duration">Duration <span>*</span></label>
-              <select name="duration" id="duration" #duration="ngModel" [(ngModel)]="productDetail.amcDetails.duration" class="form-control" required>
-                <option value="quaterly">Quaterly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
+              <label for="start-date">AMC Period <span>*</span></label>
+              <!-- <input required type="number" id="noOfYears" #noOfYears="ngModel" [(ngModel)]="productDetail.amcDetails.noOfYears" name="noOfYears" class="form-control" required /> -->
+              <select name="noOfYears" id="noOfYears" #noOfYears [(ngModel)]="productDetail.amcDetails.noOfYears" class="form-control" required>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
               </select>
             </div>
           </div>
+          <label for="duration">Service Duration <span>*</span></label>
+          <select name="duration" id="duration" #duration="ngModel" [(ngModel)]="productDetail.amcDetails.serviceDuration" class="form-control" required>
+            <option value="quaterly">Quaterly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
 
-          <label>Vendor's No. <span>*</span></label>
+          <label>Vendor's Agreement No. <span>*</span></label>
           <input
               type="text"
               #vendorNo="ngModel" [(ngModel)]="productDetail.amcDetails.vendorNo"
-              placeholder="+91 |"
               class="form-control"
               name="vendorNo"
             />
@@ -287,7 +298,7 @@
   <div *ngIf="finishTab">
     <div class="invoice-upload">
       <h3>Add Product Pictures</h3>
-      <p>Support JPG, JPG2000, PNG</p>
+      <!-- <p>Support JPG, JPG2000, PNG</p> -->
 
     </div>
     
@@ -316,7 +327,7 @@
         <img class="del-icon" src="./assets/images/del-icon.png" alt="">
       </div>
 
-      <div class="Product-img-box">
+      <!-- <div class="Product-img-box">
         <img src="./assets/images/lg-back.png" alt="">
         <img class="del-icon" src="./assets/images/del-icon.png" alt="">
       </div>
@@ -324,7 +335,7 @@
       <div class="Product-img-box">
         <img src="./assets/images/lg-front.png" alt="">
         <img class="del-icon" src="./assets/images/del-icon.png" alt="">
-      </div>
+      </div> -->
     </div>  
 
     <div class="img-uploading-container d-flex">

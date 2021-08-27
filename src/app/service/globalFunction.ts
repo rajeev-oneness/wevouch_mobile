@@ -24,6 +24,11 @@ export function getTimeFormat(time:any) : any {
     return `${hour}:${min} ${part}`
 }
 
+export function dateDiffInDays(date1:any, date2:any) {
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    return Math.abs(Math.floor((date1 - date2) / _MS_PER_DAY));
+}
+
 export function EncodeDecodeBase64(value:any,changeTo:string){
     if(changeTo == 'encode'){
         return btoa(value);

@@ -29,14 +29,20 @@ import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-logi
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { TicketAddComponent } from './component/ticket/ticket-add/ticket-add.component';
 import { ProductEditComponent } from './component/product/product-edit/product-edit.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { AddressListComponent } from './component/address/address-list/address-list.component';
+import { AddressAddComponent } from './component/address/address-add/address-add.component';
+import { AddressEditComponent } from './component/address/address-edit/address-edit.component';
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketDetailsComponent, TicketListComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent, SettingsComponent, TicketAddComponent, ProductEditComponent,
+    AppComponent,HeaderComponent,SidemenuComponent,NotificationComponent,NavigationComponent,DashboardComponent,TicketDetailsComponent, TicketListComponent,SupportComponent,ProductAddComponent,ProductListComponent,ProfileDetailsComponent,ProfileEditComponent,PackageListComponent,LoginComponent,RegisterComponent, SettingsComponent, TicketAddComponent, ProductEditComponent, AddressListComponent, AddressAddComponent, AddressEditComponent,
   ],
   imports: [
-    BrowserModule,CarouselModule,MatTabsModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule,SocialLoginModule,
+    BrowserModule,MatDatepickerModule,MatTabsModule,MatInputModule,MatNativeDateModule,CarouselModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,BrowserAnimationsModule,SocialLoginModule,
   ],
   providers: [
     {

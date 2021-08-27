@@ -196,14 +196,14 @@
           <p>{{productDeatil?.extendedWarranty?.serviceProvider || 'N/A'}}</p>
   
           <h6>Validity </h6>
-          <p>18 Months</p>
+          <p>{{productDeatil?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
         </div>
         <div class="expiresDate">
           <div class="call-img">
             <img src="./assets/images/call.png" alt="">
           </div>
-          <h6>Policy No.</h6>
-          <p>LG31795YT39</p>
+          <h6>mobile No.</h6>
+          <p>{{productDeatil?.extendedWarranty?.mobileNo || 'N/A'}}</p>
         </div>
       </div>
   
@@ -217,8 +217,8 @@
           <p>{{productDeatil?.amcDetails?.serviceProvider || 'N/A'}}</p>
   
           <h6>Validity Till</h6>
-          <p>29 Mar 2021</p>
-          <!-- <p class="daysLeft">50 Days Left</p> -->
+          <p>{{amcValidTill | date: 'dd MMM yyyy'}}</p>
+          <p class="daysLeft text-center">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
         </div>
         <div class="expiresDate">
           <div class="call-img">
@@ -228,8 +228,52 @@
           <p>{{productDeatil?.amcDetails?.vendorNo || 'N/A'}}</p>
         </div>
       </div>
+      <div class="carousel-body ticketlist">
+        <h3 class="text-dark">RAISED TICKETS FOR THIS PRODUCT</h3>
+        <ul>
+          <li [ngClass]="{'mx-auto': tickets.length === 1}" *ngFor="let ticket of tickets">
+            <div class="item col-12 p-0" routerLink="/ticket/details/{{ticket._id}}">
+              <div class="ticketBox position-relative">
+                <span class="shared-item" [ngClass]="{'bg-primary':ticket.status === 'new', 'bg-warning':ticket.status === 'ongoing', 'bg-success':ticket.status === 'completed', 'bg-danger':ticket.status === 'cancelled'}">{{ticket.status}}</span>
+                  <div class="ticketTop">
+                      <img src="{{ticket?.products?.productImagesUrl[0] || './assets/images/blank-image.png'}}" alt="product image" />
+                      <div class="ticketTopTxt">
+                        <h3>{{ticket?.products.name || 'N/A'}}</h3>
+                        <p>Expires on 14 March 2024</p>
+                      </div>
+                  </div>
+                  <div class="ticketBottom text-center">
+                      <p>Your wevouch ticket no.</p>
+                      <h1>{{ticket.uniqueId}}</h1>
+                  </div>
+              </div>
+            </div>
+          </li>
+          <li *ngIf="tickets.length === 0" [ngClass]="{'mx-auto':tickets.length === 0}">
+            <div class="item col-12 p-0">
+              <div class="ticketBox position-relative">
+                <div class="ticketTop">
+                  <div class="ticketTopTxt mx-auto">
+                      <h3>Oops!</h3>
+                  </div>
+                </div>
+                <div class="ticketBottom">
+                    <p>No ticket found</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
   
-      <button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}">Claim Warranty</button>
+      <button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}" *ngIf="(newTickets.length === 0) && (ongoingTickets.length === 0)">
+        <span *ngIf="dateNow < warrantyValidTill;">
+          Claim Warranty
+        </span>
+        <span *ngIf="dateNow > warrantyValidTill;">
+          Raise service Ticket
+        </span>
+      </button>
     </div>
   </section>
 
