@@ -221,8 +221,8 @@
   </ul>
 </div>
 
-<!-- <button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}" *ngIf="(newTickets.length === 0) && (ongoingTickets.length === 0)"> -->
-<button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}">
+<button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}" *ngIf="(newTickets.length === 0) && (ongoingTickets.length === 0)">
+<!-- <button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}"> -->
   <span *ngIf="dateNow < warrantyValidTill;">
     Claim Warranty
   </span>
