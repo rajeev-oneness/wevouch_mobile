@@ -66,6 +66,9 @@ export class ApiService {
   userLoginApi(formData : any) {
     return this._http.post<any>(_apiUrl+'user/login',formData);
   }
+  loginWithOtp(formData : any) {
+    return this._http.post<any>(_apiUrl+'user/phone-otp',formData);
+  }
   userSignupApi(formData : any){
     return this._http.post<any>(_apiUrl+'user/add',formData);
   }

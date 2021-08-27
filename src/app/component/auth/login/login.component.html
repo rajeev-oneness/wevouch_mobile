@@ -4,19 +4,49 @@
 
     <h2>Login</h2>
    
-    <form #userLoginForm="ngForm" (ngSubmit)="loginUser(userLoginForm)">
-        <label for="email">Email</label>
-        <input #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
-        
-        <label for="password">Password</label>
-        <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
-
-        <a class="f-pass" href="#">Forgot Password?</a>
-
-        <span class="text-danger">{{errorMessage}}</span>
-        <button class="submit-btn" type="submit" value="Login">Login</button>
-        <!-- <a class="submit-btn" type="submit" value="Login" routerLink="/home">Login</a> -->
-    </form>
+    <div *ngIf="mainLogin">
+        <form #userLoginForm="ngForm" (ngSubmit)="loginUser(userLoginForm)">
+            <label for="email">Email</label>
+            <input #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
+            
+            <label for="password">Password</label>
+            <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
+    
+            <a class="f-pass" href="#">Forgot Password?</a>
+    
+            <span class="text-danger">{{errorMessage}}</span>
+            <button class="submit-btn" type="submit" value="Login">Login</button>
+            <!-- <a class="submit-btn" type="submit" value="Login" routerLink="/home">Login</a> -->
+        </form>
+    </div>
+    <div *ngIf="otpStep1">
+        <form>
+            <label for="email">Registered Mobile</label>
+            <input #mobile="ngModel" [(ngModel)]="otpMobile" type="mobile" autocomplete="mobile" name="mobile" placeholder="Your mobile">
+            <a class="f-pass" href="#">Resend OTP?</a>
+            <button class="submit-btn" type="button" (click)="enterOtp()">Get Otp</button>
+        </form>
+    </div>
+    <div *ngIf="otpStep2">
+        <form>
+            <div class="d-flex">
+                <div>
+                    <input type="text" id="otp" name="otp1" [(ngModel)]="otp1" class="form-control text-center" maxlength="1">
+                </div>
+                <div>
+                    <input type="text" id="otp" name="otp2" [(ngModel)]="otp2" class="form-control text-center" maxlength="1">
+                </div>
+                <div>
+                    <input type="text" id="otp" name="otp3" [(ngModel)]="otp3" class="form-control text-center" maxlength="1">
+                </div>
+                <div>
+                    <input type="text" id="otp" name="otp4" [(ngModel)]="otp4" class="form-control text-center" maxlength="1">
+                </div>                       
+            </div>
+            <button class="submit-btn" type="button" (click)="submitOtp()">Login</button>
+        </form>
+        <!-- <button class="text-muted resend-button">Request to resend ?</button> -->
+    </div>
 
     <div class="login-options">
         <div></div>
@@ -25,9 +55,9 @@
     </div>
     <div class="social-icons">
         <a (click)="signInWithGoogle()"><img src="./assets/images/google.png" alt=""></a>
-        <a href="#"><img src="./assets/images/fb.png" alt=""></a>
-        <a href="#"><img src="./assets/images/twitter.png" alt=""></a>
-        <a href="#"><img src="./assets/images/mobile.png" alt=""></a>
+        <a href="javascript:void(0);"><img src="./assets/images/fb.png" alt=""></a>
+        <a href="javascript:void(0);"><img src="./assets/images/twitter.png" alt=""></a>
+        <a href="javascript:void(0);" (click)="loginWithOtp()"><img src="./assets/images/mobile.png" alt=""></a>
     </div>
     <div class="register-link">
         <p>Don't have an account?</p>

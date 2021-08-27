@@ -11,12 +11,23 @@ import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-logi
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  
+  public errorMessage = '';
+  public mainLogin: any = true;
+  public otpStep1: any = false;
+  public otpStep2: any = false;
+  public otpMobile: any = '';
+  public otp1: any = '';
+  public otp2: any = '';
+  public otp3: any = '';
+  public otp4: any = '';
 
   constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router,private authService: SocialAuthService) {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
   }
-  public errorMessage = '';
+  
+
   ngOnInit(): void {
     if(this._api.isAuthenticated()){
       this._router.navigate(['/home']);
@@ -78,6 +89,43 @@ export class LoginComponent implements OnInit {
 
   signOut(): void {
     this.authService.signOut();
+  }
+
+  loginWithOtp() {
+    if(this.otpStep1 === true || this.otpStep2 === true) {
+      this.mainLogin = true;
+      this.otpStep1 = false;
+      this.otpStep2 = false;
+    } else {
+      this.mainLogin = false;
+      this.otpStep1 = true;
+      this.otpStep2 = false;
+    }
+  }
+  
+  enterOtp() {
+    console.log(this.otpMobile);
+     
+    this.mainLogin = false;
+    this.otpStep1 = false;
+    this.otpStep2 = true;
+  }
+
+  submitOtp() {
+    const mainOtp = this.otp1+this.otp2+this.otp3+this.otp4
+    const mainForm = {
+      "mobile" : this.otpMobile,
+      "otp" : mainOtp.toString()
+    }
+    this._api.loginWithOtp(mainForm).subscribe(
+      res => {
+        this._loader.startLoader('loader');
+        console.log(res);
+        this._api.storeUserLocally(res);
+        this._loader.stopLoader('loader');
+        this._router.navigate(["/user/dashboard"]);
+      }, err => {}
+    )
   }
 
 }
