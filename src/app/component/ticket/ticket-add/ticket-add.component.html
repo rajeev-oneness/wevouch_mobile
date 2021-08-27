@@ -50,7 +50,9 @@
       <section class="account-details p-2" *ngIf="userAddresses.length > 0; else noAddressBlock">
         <div class="upgradePlanBox mt-2 position-relative" *ngFor="let address of userAddresses">
           <div class="address-radio">
-            <input type="radio" name="addressId" #addressId="ngModel" [ngModel]="addTicketValue.addressId" value="{{address._id}}">
+            <label>
+              <input type="radio" name="addressId" #addressId="ngModel" [ngModel]="addTicketValue.addressId" value="{{address._id}}">
+            </label>
           </div>
             <div class="upgradePlanBoxtxt text-left">
                 <h4>{{address.addressLine1}}</h4>
