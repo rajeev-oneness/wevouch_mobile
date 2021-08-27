@@ -13,15 +13,21 @@ export class AppComponent {
   constructor(private _router:Router) {
     _router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
+        let url = event['url'];
+        let urlArr = url.split("/");
+        console.log(urlArr);
+        
+        this.showHeader = true;
+        this.showTab = true;
+
+        if((urlArr.includes("ticket") && urlArr.includes("add")) || (urlArr.includes("product") && urlArr.includes("edit"))) {
+          this.showHeader = false;
+        }
         if (event['url'] == '/login' || event['url'] == '/register' || event['url'] == '/') {
           this.showTab = false;
-        } else {
-          this.showTab = true;
         }
         if((event['url'] == '/product/add') || (event['url'] == '/product/edit*')) {
           this.showHeader = false;
-        } else {
-          this.showHeader = true;
         }
       }
     });
