@@ -15,7 +15,7 @@ export class AppComponent {
       if (event instanceof NavigationStart) {
         let url = event['url'];
         let urlArr = url.split("/");
-        console.log(urlArr);
+        // console.log(urlArr);
         
         this.showHeader = true;
         this.showTab = true;
