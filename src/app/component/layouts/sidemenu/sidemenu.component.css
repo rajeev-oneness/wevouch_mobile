@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+
+.hamburger-container ul li{
+    padding: 15px 0;
+}
+.hamburger-container ul li a {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 15px;
+    letter-spacing: 0.85px;
+    text-decoration: none;
+    font-family: 'Rubik', sans-serif !important;
+}
+.hamburger-container .profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    overflow: hidden;
+    text-align: center;
+    background: #394963;
+    padding: 8px 0 0 0;
+}
+.hamburger-container h1 {
+    font-size:20px !important;
+    font-weight:400 !important;
+    font-family: 'Rubik', sans-serif !important;
+    letter-spacing: normal !important;
+    margin: 16px 0 !important;
+}
+.hamburger-container .nav_bar-2 li{
+    padding: 8px 0 !important;
+}
+.hamburger-container .nav_bar-2 li a{
+    margin-left: 0 !important;
+}
+.pp, .tc, .copy{
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 300;
+    opacity: 0.65;
+    color: #fff;
+    font-family: 'Rubik', sans-serif !important;
+}

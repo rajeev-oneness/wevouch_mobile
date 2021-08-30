@@ -7,7 +7,7 @@
 
     <i><svg onclick="BClick();" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
     <h1>{{user?.name}}</h1>
-    <ul>
+    <ul class="p-0">
         <li onclick="BClick();">
             <span>
                 <img src="./assets/images/product.png" alt="">
@@ -28,15 +28,15 @@
         </li>
     </ul>
 
-    <ul class="nav-bar">
-        <li onclick="BClick();"><a href="javascript:void(0);">FAQs</a></li>
-        <li onclick="BClick();"><a href="javascript:void(0);">Support</a></li>
-        <li onclick="BClick();"><a routerLink="/settings">Settings</a></li>
-        <li onclick="BClick();"><a href="javascript:void(0);" (click)="logoutUser()">Log out</a></li>
+    <ul class="nav-bar nav_bar-2 p-0">
+        <li onclick="BClick();"><a href="javascript:void(0);" class="ml-0">FAQs</a></li>
+        <li onclick="BClick();"><a href="javascript:void(0);" class="ml-0">Support</a></li>
+        <li onclick="BClick();"><a routerLink="/settings" class="ml-0">Settings</a></li>
+        <li onclick="BClick();"><a href="javascript:void(0);" class="ml-0" (click)="logoutUser()">Log out</a></li>
     </ul>
 
     <a class="pp" href="javascript:void(0);" onclick="BClick();">Privacy Policy</a>
-    <a class="tc" href="javascript:void(0);" onclick="BClick();">Terms And Conditions</a>
+    <a class="tc ml-2" href="javascript:void(0);" onclick="BClick();">Terms And Conditions</a>
 
-    <p>&copy; wevouch 2021. All rights reserved</p>
+    <p class="copy mt-2 mb-0">&copy; wevouch 2021. All rights reserved</p>
 </section>

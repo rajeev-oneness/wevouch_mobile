@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+
+h3, p, h1, h2{
+    font-family: 'Rubik', sans-serif !important;
+}
+ul{
+    padding: 0 !important;
+}
+ul li{
+    font-family: 'Rubik', sans-serif !important;
+}
