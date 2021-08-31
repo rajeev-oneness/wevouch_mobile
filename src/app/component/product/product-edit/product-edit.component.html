@@ -22,18 +22,18 @@
       <input class="form-control" #name="ngModel" [(ngModel)]="productDetail.name" type="text" name="name" id="product_name" placeholder="Product name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
   
       <label>Brand Name <span>*</span></label>
-      <select class="form-control" name="brandId" id="brandId" [(ngModel)]="productDetail.brands._id" required>
-        <option *ngFor="let option of brandList" [value]="option._id" >{{option.name}}</option>
+      <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId" required (change)="fetchCategory()">
+        <option *ngFor="let option of brandList" [value]="option.id" >{{option.name}}</option>
       </select>
   
       <label>Category <span>*</span></label>
       <select class="form-control" name="category" id="category" [(ngModel)]="category" (change)='fetchSubCategory()' required>
-        <option *ngFor="let option of categoriesList" [value]="option._id" >{{option.name}}</option>
+        <option *ngFor="let option of categoriesList" [value]="option.category" >{{option.category}}</option>
       </select>
   
       <label>Sub-category <span>*</span></label>
-      <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="productDetail.subCategory._id" required>
-        <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
+      <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="subCategory" required (change)="fetchModel()">
+        <option *ngFor="let option of subCategoriesList" [value]="option.sub_category" >{{option.sub_category}}</option>
       </select>
       
       <label>Registered Mobile No.</label>
@@ -92,8 +92,10 @@
       <label>Serial No.</label>
       <input type="number" #serialNo="ngModel" [(ngModel)]="productDetail.serialNo" name="serialNo" id="serialNo" placeholder="eg:34562" class="form-control">
       
-      <label>Model No. <span>*</span></label>
-      <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No">
+      <label>Model No. </label>
+      <select class="form-control" name="modelNo" id="product_model_no" [(ngModel)]="modelId" required>
+        <option *ngFor="let option of modelList" [value]="option.model_no" >{{option.model_no}}</option>
+      </select>
 
       <div class="int-warr">
         <input type="checkbox" id="intl-warranty" />

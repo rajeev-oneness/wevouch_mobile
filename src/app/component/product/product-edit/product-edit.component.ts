@@ -33,6 +33,9 @@ export class ProductEditComponent implements OnInit {
   public amcStartDate: any = '';
   public extendedWarrantyStartDate: any = '';
   public extendedWarrantyEndDate: any = '';
+  public brandName: any = '';
+  public modelList: any = '';
+  public modelId: any = '';
   public Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -53,8 +56,11 @@ export class ProductEditComponent implements OnInit {
       res => {
         console.log(res);
         this.productDetail = res;
-        this.category = res.category._id;
-        this.fetchSubCategory();
+        this.category = res.category;
+        this.subCategory = res.subCategory;
+        this.modelId = res.modelNo;
+        // this.fetchSubCategory();
+        this.fetchBrands();
         this.purchaseDateTime = getDateFormat(res.purchaseDate);
         this.amcStartDate = getDateFormat(res.amcDetails.startDate);
         this.extendedWarrantyStartDate = getDateFormat(res.extendedWarranty.startDate);
@@ -65,19 +71,58 @@ export class ProductEditComponent implements OnInit {
         this.uploadedFile2 = res.productImagesUrl[0];
       }, err => {}
     )
-    this._api.categoryList().subscribe((res) => {
-      this.categoriesList = res.filter((t : any) => t.status === 'active');
-      this._loader.stopLoader('loader');
-    });
-    this._api.brandList().subscribe((res) => {
-      this.brandList = res.filter((t : any) => t.status === 'active');
-    });
+    // this.fetchBrands()
+    
+  }
+
+  fetchBrands() {
+    this._api.getProductBrands().subscribe(
+      res => {
+        // console.log('brands :', res.brands);
+        this.brandList = res.brands;
+        this.brandId = res.brands.filter((t : any) => t.name === this.productDetail.brands)[0].id;
+        console.log(this.brandId);
+        
+        this.fetchCategory();
+      }, err => {}
+    )
+  }
+  
+  fetchCategory() {
+    console.log(this.brandId);
+    this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
+    console.log(this.brandName);
+    
+    this._api.getProductCategories(this.brandId).subscribe(
+      res => {
+        this.categoriesList = res.categories;
+        console.log(this.categoriesList);
+        this.fetchSubCategory();
+        this._loader.stopLoader('loader');
+      }, err => {}
+    )
   }
   
   fetchSubCategory() {
-    this._api.subCategoryListByCategoryId(this.category).subscribe((res) => {
-      this.subCategoriesList = res.filter((t : any) => t.status === 'active');
-    });
+    console.log(this.category);
+    
+    this._api.getProductSubCategories(this.category).subscribe(
+      res => {
+        this.subCategoriesList = res.sub_categories;
+        // console.log(this.subCategoriesList);
+        this.fetchModel();
+      }, err => {}
+    )
+  }
+
+  fetchModel() {
+    this._api.getProductModels(this.subCategory).subscribe(
+      res => {
+        this.modelList = res.models;
+        this.modelId = res.models[0].model_no;
+        // console.log(this.modelList);
+      }
+    )
   }
 
   

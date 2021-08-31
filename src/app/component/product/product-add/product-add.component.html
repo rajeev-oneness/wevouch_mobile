@@ -22,23 +22,25 @@
       <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product nickname" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
   
       <label>Brand Name <span>*</span></label>
-      <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId" required>
-        <option *ngFor="let option of brandList" [value]="option._id" >{{option.name}}</option>
+      <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId" (change)='fetchCategory()' required>
+        <option *ngFor="let option of brandList" [value]="option.id" >{{option.name}}</option>
       </select>
   
       <label>Category <span>*</span></label>
       <select class="form-control" name="category" id="category" [(ngModel)]="category" (change)='fetchSubCategory()' required>
-        <option *ngFor="let option of categoriesList" [value]="option._id" >{{option.name}}</option>
+        <option *ngFor="let option of categoriesList" [value]="option.category" >{{option.category}}</option>
       </select>
   
       <label>Sub-category <span>*</span></label>
-      <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="subCategory" required>
-        <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
+      <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="subCategory" (change)='fetchModel()' required>
+        <option *ngFor="let option of subCategoriesList" [value]="option.sub_category" >{{option.sub_category}}</option>
       </select>
   
       <label>Registered Mobile No. <span>*</span></label>
-      <input type="number" #registeredMobileNo="ngModel" [ngModel]="userPhn" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}" required>
-      
+      <input type="number" #registeredMobileNo="ngModel" [ngModel]="userPhn" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}" pattern="(?=.*\d).{10}" required>
+      <small *ngIf="registeredMobileNo?.invalid && registeredMobileNo?.touched" [ngClass]="{'text-danger':registeredMobileNo?.invalid && registeredMobileNo?.touched}">
+        Mobile number must be of 10 digit.
+      </small>
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">+ Add Products</button>
     </form>
@@ -48,52 +50,59 @@
     <div class="invoice-upload">
       <h3>Upload Invoice photo</h3>
       <p>Recieved on the day of purchase</p>
-      <div class="file-input-box">
-        <div class="file-box-bg">
-          <input type="file" value="+" placeholder="+" (change)="onSelectFile($event)"/>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-plus"
-          >
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
+      <div class="d-flex justify-content-around">
+        <div class="file-input-box" style="margin: 0 0 0 auto;">
+          <div class="file-box-bg">
+            <input type="file" value="+" placeholder="+" (change)="onSelectFile($event)"/>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-plus"
+            >
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="Invoice-img-box">
+          <img src="{{uploadedFile}}" alt="">
         </div>
       </div>
     </div>
-
+    <span class="text-danger">{{fileFormatError}}</span>
     <form class="addProductForm" #productSecondForm="ngForm" (ngSubmit)="addWaranty(productSecondForm)">
       <label>Purchase Date</label>
-      <input type="date" #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate" class="form-control">
+      <input type="date" #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate" class="form-control" required [ngClass]="{'is-invalid':purchaseDate?.invalid && purchaseDate?.touched}">
 
       <label>Warranty Period</label>
       <div class="warranty-field">
         <div class="col-5">
-          <select #warrantyPeriod="ngModel" [ngModel]="'1'" name="warrantyPeriod" id="warrantyPeriod" class="form-control">
+          <select #warrantyPeriod="ngModel" [ngModel]="'1'" name="warrantyPeriod" id="warrantyPeriod" class="form-control" required [ngClass]="{'is-invalid':warrantyPeriod?.invalid && warrantyPeriod?.touched}">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
         </div>
         <div class="col-5 ml-1">
-          <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control">
+          <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control" required [ngClass]="{'is-invalid':warrantyType?.invalid && warrantyType?.touched}">
             <option value="year">Years</option>
             <option value="month">Month</option>
           </select>
         </div>
       </div>
       <label>Serial No.</label>
-      <input type="number" #serialNo="ngModel" ngModel name="serialNo" id="serialNo" placeholder="eg:23562" class="form-control">
+      <input type="number" #serialNo="ngModel" ngModel name="serialNo" id="serialNo" placeholder="eg:23562" class="form-control" required [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}">
 
       <label>Model No. </label>
-      <input class="form-control" #modelNo="ngModel" ngModel type="text" name="modelNo" id="product_model_no" placeholder="Product Model No">
+      <select class="form-control" name="modelNo" id="product_model_no" [ngModel]="modelId" required>
+        <option *ngFor="let option of modelList" [value]="option.model_no" >{{option.model_no}}</option>
+      </select>
 
       <div class="int-warr">
         <input type="checkbox" id="intl-warranty" />
@@ -174,12 +183,13 @@
               class="form-control"
               required
               name="serviceProvider"
+               [ngClass]="{'is-invalid':serviceProvider?.invalid && serviceProvider?.touched}"
             />
 
           <div class="d-flex">
             <div class="st-date">
               <label for="start-date">Start Date <span>*</span></label>
-              <input required type="date" id="startDate" #startDate="ngModel" ngModel name="startDate" class="form-control" required />
+              <input required type="date" id="startDate" #startDate="ngModel" ngModel name="startDate" class="form-control" required [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}"/>
             </div>
 
             <div class="end-date">
@@ -206,7 +216,9 @@
               #mobileNo="ngModel" ngModel
               placeholder="+91"
               class="form-control"
-              name="mobileNo"
+              name="mobileNo" 
+              [ngClass]="{'is-invalid':mobileNo?.invalid && mobileNo?.touched}" 
+              required
             />
             <span class="text-danger">{{errorMessage}}</span>
           <input class="addDetails-btn" type="submit" value="+ Add Details" onclick="addRemoveExWarranty()"/>
@@ -235,18 +247,19 @@
               placeholder="LG"
               class="form-control"
               required
-              name="serviceProvider"
+              name="serviceProvider" 
+              [ngClass]="{'is-invalid':serviceProvider?.invalid && serviceProvider?.touched}"
             />
 
           <div class="d-flex">
             <div class="st-date">
               <label for="start-date">Start Date <span>*</span></label>
-              <input required type="date" id="startDate" #startDate="ngModel" ngModel name="startDate" class="form-control" required />
+              <input required type="date" id="startDate" #startDate="ngModel" ngModel name="startDate" class="form-control" required                [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}"/>
             </div>
             
             <div class="end-date">
               <label for="start-date">AMC Period <span>*</span></label>
-              <select name="noOfYears" id="noOfYears" #noOfYears [ngModel]="'1'" class="form-control" required>
+              <select name="noOfYears" id="noOfYears" #noOfYears [ngModel]="'1'" class="form-control" required >
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -255,7 +268,7 @@
           </div>
           
           <label for="duration">Service Duration <span>*</span></label>
-          <select name="serviceDuration" id="serviceDuration" #serviceDuration="ngModel" ngModel class="form-control" required>
+          <select name="serviceDuration" id="serviceDuration" #serviceDuration="ngModel" [ngModel]="'quaterly'" class="form-control" required>
             <option value="quaterly">Quaterly</option>
             <option value="monthly">Monthly</option>
             <option value="yearly">Yearly</option>
@@ -266,7 +279,9 @@
               type="text"
               #vendorNo="ngModel" ngModel
               class="form-control"
-              name="vendorNo"
+              name="vendorNo" 
+              required 
+              [ngClass]="{'is-invalid':vendorNo?.invalid && vendorNo?.touched}"
             />
 
           <label>Vendor's Contact No. <span>*</span></label>
@@ -275,7 +290,9 @@
               #mobileNo="ngModel" ngModel
               placeholder="+91 |"
               class="form-control"
-              name="mobileNo"
+              name="mobileNo" 
+              required 
+              [ngClass]="{'is-invalid':mobileNo?.invalid && mobileNo?.touched}"
             />
             <span class="text-danger">{{errorMessage}}</span>
           <input
@@ -292,8 +309,6 @@
   <div *ngIf="finishTab">
     <div class="invoice-upload">
       <h3>Add Product Pictures</h3>
-      <p>Support JPG, JPG2000, PNG</p>
-
     </div>
     
     <div class="add-prod-img-container mt-5">
@@ -320,7 +335,7 @@
         <img src="{{uploadedFile}}" alt="">
         <img class="del-icon" src="./assets/images/del-icon.png" alt="">
       </div>
-
+      <span class="text-danger">{{fileFormatError}}</span>
       <!-- <div class="Product-img-box">
         <img src="./assets/images/lg-back.png" alt="">
         <img class="del-icon" src="./assets/images/del-icon.png" alt="">

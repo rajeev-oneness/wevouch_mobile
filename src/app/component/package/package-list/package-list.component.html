@@ -9,17 +9,11 @@
           <div class="item">
             <div class="plans">
               <h3>{{package.name}}</h3>
-              <p>{{package.description}}</p>
+              <!-- <p>{{package.description}}</p> -->
               <h1>&#8377;{{package.amount}}/-</h1>
               <P>The perfect plan for a hassle-free experience</P>
-      
               <ul>
-                <li>Pick-up Option</li>
-                <li>Warranty Reminders</li>
-                <li>Chat support</li>
-                <li>365 Days Validity</li>
-                <li>Unlimited Products</li>
-                <li>Single User</li>
+                <li *ngFor="let description of package.description">{{description}}</li>
               </ul>
               <div *ngIf="package.amount == 0">
                 <span class="text-danger">Free Plan!</span>

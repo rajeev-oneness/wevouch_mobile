@@ -31,9 +31,12 @@
     <div *ngIf="forgrtPassStep2">
         <form>
             <label for="email">OTP</label>
-            <input #fogetPassEmailId="ngModel" [(ngModel)]="forgetPassEmailOtp" type="mobile" autocomplete="mobile" name="fogetPassEmailId" placeholder="Enter OTP" required>
+            <input #fogetPassOTP="ngModel" [(ngModel)]="forgetPassEmailOtp" type="mobile" autocomplete="mobile" name="fogetPassOTP" placeholder="Enter OTP" required>
             <label for="email">New Password</label>
-            <input #fogetPassEmailId="ngModel" [(ngModel)]="newForgetPassword" type="password" name="fogetPassEmailId" placeholder="New Password" required>
+            <input #fogetPassNewPass="ngModel" [(ngModel)]="newForgetPassword" type="password" name="fogetPassNewPass" placeholder="New Password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+            <small *ngIf="fogetPassNewPass?.invalid && fogetPassNewPass?.touched" [ngClass]="{'text-danger':fogetPassNewPass?.invalid && fogetPassNewPass?.touched}">
+                Must contain at least one number, one uppercase, lowercase letter, and at least 6 characters
+            </small>
             <span class="text-danger">{{errorMessage}}</span>
 
             <button class="submit-btn" type="button" (click)="resetPassword()">Reset Password</button>

@@ -15,12 +15,17 @@ export class ProductAddComponent implements OnInit {
   public productTab : boolean = true;
   public warantyTab : boolean = false;
   public finishTab : boolean = false;
+  public extdWarrantyStatus : boolean = false;
+  public amcStatus : boolean = false;
   public categoriesList: any = [];
   public brandList: any = [];
   public subCategoriesList: any = [];
+  public modelList: any = [];
   public category: string = '';
   public subCategory: string = '';
   public brandId: string = '';
+  public brandName: string = '';
+  public modelId: string = '';
   public errorMessage: string = '';
   public addProductValue: any = {};
   public userPhn : number = 0;
@@ -36,26 +41,60 @@ export class ProductAddComponent implements OnInit {
     }
   });
   ngOnInit(): void {
-
     let user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this.userPhn = parseInt(user.mobile); 
+    this.fetchBrands();
+  }
 
-    this._api.categoryList().subscribe((res) => {
-      this.categoriesList = res.filter((t : any) => t.status === 'active');
-      this.category = this.categoriesList[0]._id;
-      this.fetchSubCategory();
-      this._loader.stopLoader('loader');
-    });
-    this._api.brandList().subscribe((res) => {
-      this.brandList = res.filter((t : any) => t.status === 'active');
-    });
+  fetchBrands() {
+    this._api.getProductBrands().subscribe(
+      res => {
+        // console.log('brands :', res.brands);
+        this.brandList = res.brands;
+        this.brandId = res.brands[0].id;
+        // console.log(this.brandId);
+        this.fetchCategory();
+      }, err => {}
+    )
+  }
+
+  fetchCategory() {
+    console.log(this.brandId);
+    this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
+    console.log(this.brandName);
+    
+    this._api.getProductCategories(this.brandId).subscribe(
+      res => {
+        this.categoriesList = res.categories;
+        // console.log(this.categoriesList);
+        this.category = this.categoriesList[0].category;
+        this.fetchSubCategory();
+        this._loader.stopLoader('loader');
+      }, err => {}
+    )
   }
   
   fetchSubCategory() {
-    this._api.subCategoryListByCategoryId(this.category).subscribe((res) => {
-      this.subCategoriesList = res.filter((t : any) => t.status === 'active');
-      this.subCategory = this.subCategoriesList[0]._id
-    });
+    console.log(this.category);
+    
+    this._api.getProductSubCategories(this.category).subscribe(
+      res => {
+        this.subCategoriesList = res.sub_categories;
+        // console.log(this.subCategoriesList);
+        this.subCategory = this.subCategoriesList[0].sub_category
+        this.fetchModel();
+      }, err => {}
+    )
+  }
+
+  fetchModel() {
+    this._api.getProductModels(this.subCategory).subscribe(
+      res => {
+        this.modelList = res.models;
+        this.modelId = res.models[0].model_no;
+        // console.log(this.modelList);
+      }
+    )
   }
 
   previous() {
@@ -121,54 +160,66 @@ export class ProductAddComponent implements OnInit {
   }
 
   addProduct(formData : any) {
+    this.errorMessage = "";
     window.scrollTo(0, 0);
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      // if (this.category && this.brandId && this.subCategory) {
+      if (this.category && this.brandId && this.subCategory) {
+        formData.value.brandId = this.brandName;
         console.log(formData.value);
         this.addProductValue = formData.value;
         this.productTab = false;
         this.warantyTab = true;
         this.finishTab = false;
         this.errorMessage = "";
-      // } else {
-      //   this.errorMessage = 'Please fill out all the details';
-      // }
+      } else {
+        this.errorMessage = 'Please fill out all the details';
+      }
     } else {
       this.errorMessage = 'Please fill out all the details';
     }
     
   }
   addWaranty(formData : any) {
+    this.errorMessage = "";
     this.uploadedFile = '';
     window.scrollTo(0, 0);
-    
-    this.addProductValue.purchaseDate = formData.value.purchaseDate;
-    this.addProductValue.serialNo = formData.value.serialNo;
-    this.addProductValue.modelNo = formData.value.modelNo;
-    if (formData.value.warrantyType === 'year') {
-      this.addProductValue.warrantyPeriod =
-        Number(formData.value.warrantyPeriod) * 12;
+    if (formData?.valid) {
+      this.addProductValue.purchaseDate = formData.value.purchaseDate;
+      this.addProductValue.serialNo = formData.value.serialNo;
+      this.addProductValue.modelNo = formData.value.modelNo;
+      if (formData.value.warrantyType === 'year') {
+        this.addProductValue.warrantyPeriod =
+          Number(formData.value.warrantyPeriod) * 12;
+      } else {
+        this.addProductValue.warrantyPeriod =
+          formData.value.warrantyPeriod || 0;
+      }
+      if(this.extdWarrantyStatus === true && this.amcStatus === true) {
+        this.productTab = false;
+        this.warantyTab = false;
+        this.finishTab = true;
+        this.errorMessage = "";
+      } else {
+        this.errorMessage = "Please fill Extended warranty and amc details"
+      }
     } else {
-      this.addProductValue.warrantyPeriod =
-        formData.value.warrantyPeriod || 0;
+      this.errorMessage = 'Please fill out all the details';
     }
-    this.productTab = false;
-    this.warantyTab = false;
-    this.finishTab = true;
-    this.errorMessage = "";
     
   }
 
   addWarranty(formData : any) {
+    this.errorMessage = "";
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
       console.log(formData.value);
       this.addProductValue.extendedWarranty = formData.value;
+      this.extdWarrantyStatus = true
       this.errorMessage = "";
     } else {
       this.errorMessage = 'Please fill out all the details';
@@ -183,6 +234,7 @@ export class ProductAddComponent implements OnInit {
       console.log(formData.value);
       this.addProductValue.amcDetails = formData.value;
       // this.addProductValue.amcDetails.enddate = formData.value;
+      this.amcStatus = true;
       this.errorMessage = "";
     } else {
       this.errorMessage = 'Please fill out all the details';
@@ -190,6 +242,7 @@ export class ProductAddComponent implements OnInit {
   }
   
   addFinish() {
+    this.errorMessage = "";
     this._loader.startLoader('loader');
     this.addProductValue.productImagesUrl = [
       this.productImgUrl

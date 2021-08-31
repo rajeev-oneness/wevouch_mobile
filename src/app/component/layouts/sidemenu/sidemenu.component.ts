@@ -14,7 +14,9 @@ export class SidemenuComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     console.log(this.user);
-    this.getProducts();
+    if(this.user?._id) {
+      this.getProducts();
+    }
   }
 
   logoutUser() {

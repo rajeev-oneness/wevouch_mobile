@@ -161,8 +161,8 @@ export class TicketAddComponent implements OnInit {
       });
       this.addTicketValue.productId = this.productId;
       this.addTicketValue.userId = this.user._id;
-      this.addTicketValue.category = this.productDetail.category._id;
-      this.addTicketValue.brandId = this.productDetail.brands._id;
+      this.addTicketValue.category = this.productDetail.category
+      this.addTicketValue.brandId = this.productDetail.brands;
       // let mainForm = this.addTicketValue;
       const mainForm = this.addTicketValue;
       console.log(mainForm);
@@ -178,6 +178,10 @@ export class TicketAddComponent implements OnInit {
         },
         (err) => {
           this.errorMessage = err;
+          this.Toast.fire({
+            icon: 'error',
+            title: 'Something went wrong!'
+          })
           this._loader.stopLoader('loader');
         }
       );
