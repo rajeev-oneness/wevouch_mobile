@@ -110,7 +110,6 @@ body {
 .login-wrapper {
   background-color: #2e3d56;
   background-image: url("../images/bg_curv.png");
-  background-size: 160%;
   background-repeat: no-repeat;
   background-position: center center;
   color: #fff;
@@ -436,10 +435,10 @@ nav ul li a p {
   margin: 0 !important;
   color: #b0b9c7;
   font-size: 10px;
-  opacity: 0.4;
+  opacity: 0.65;
 }
 nav ul li a img {
-  opacity: 0.4;
+  opacity: 0.65;
 }
 nav ul li.active a img,
 nav ul li.active a p {
@@ -2465,16 +2464,19 @@ nav ul .active::after {
   height: 80px !important;
   margin: 0 auto;
   border: 1px dotted #00c2cb !important;
-  border-radius: 25px !important;
+  border-radius: 18px !important;
   position: relative;
+  height: 90px;
 }
 .add-prod-img-container .file-input-box .file-box-bg {
   position: relative;
   width: 100%;
   height: 100%;
-  border: 6px solid #00c1cb8e !important;
-  border-radius: 25px;
   transform: scale(1.15);
+  border: 0 !important;
+  border-radius: 18px !important;
+  background: rgba(0, 194, 204, 0.12) !important;
+  height: 90px;
 }
 
 .invoice-upload .file-input-box {
