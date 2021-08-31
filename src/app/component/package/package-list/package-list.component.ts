@@ -16,22 +16,23 @@ export class PackageListComponent implements OnInit {
   title = 'angularowlslider';
   productList: any = {
     loop: true,
-    margin: 10,
+    stagePadding:45,
+    margin: 15,
     nav: false,
-    dots: true,
-    autoplay:true,
+    dots: false,
+    autoplay:false,
 		autoplayTimeout: 5000,
 		autoplayHoverPause: true,
     responsiveClass: true,
     responsive: {
       0:{
-				items:1,
+				items:1.02,
 			},
 			600:{
-				items:1,
+				items:1.02,
 			},
 			760:{
-				items:1,
+				items:1.02,
 			}
     },
   }

@@ -47,24 +47,29 @@
   <div *ngIf="warantyTab" class="scroll-section">
     <div class="invoice-upload">
       <h3>Upload Invoice photo</h3>
-      <p>Recieved on the day of purchase</p>
-      <div class="file-input-box">
-        <div class="file-box-bg">
-          <input type="file" value="+" placeholder="+"  (change)="onSelectFile1($event)"/>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-plus"
-          >
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
+      <p class="text-center">Recieved on the day of purchase</p>
+      <div class="d-flex justify-content-around">
+        <div class="file-input-box" style="margin: 0 0 0 auto;">
+          <div class="file-box-bg">
+            <input type="file" value="+" placeholder="+" (change)="onSelectFile1($event)"/>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-plus"
+            >
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="Invoice-img-box">
+          <img src="{{uploadedFile1}}" alt="">
         </div>
       </div>
     </div>

@@ -57,3 +57,36 @@
 #home {
     min-height: 100vh !important;
 }
+.cl_image{
+    width: 140px;
+    height: 140px;
+    padding: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+.cl_image img{
+    width: 100% !important;
+    object-fit: cover;
+}
+.addedProductBox h6{
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #2e3d56 !important;
+    font-family: 'Rubik', sans-serif !important;
+    width: 110px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin: 0 auto !important;
+}
+.addedProductBox p{
+    margin-bottom: 10px !important;
+}
+.addAnotherProduct{
+    height: 212px !important;
+}
+.carousel-header h3 {
+    opacity: 0.65 !important;
+    font-weight: 500 !important;
+}

@@ -19,9 +19,11 @@
             <ng-template carouselSlide>
               <div class="item">
                 <div (click)="showHideProductDetail(product._id)" class="addedProductBox">
-                  <img src="{{product.productImagesUrl}}" alt="Product Image" />
+                  <div class="cl_image">
+                    <img src="{{product.productImagesUrl}}" alt="Product Image" />
+                  </div>
                   <h6>{{product.name}}</h6>
-                  <p>Expires on {{product.expiresOn | date: 'MMM dd, yyyy'}}</p>
+                  <p class="text-center">Expires on {{product.expiresOn | date: 'MMM dd, yyyy'}}</p>
                 </div>
               </div>
             </ng-template>
@@ -68,19 +70,21 @@
       <!-- Raise Issue ends -->
 
       <!-- Offers -->
-
-      <section id="offers" class="mt-5">
-        <div class="carousel-body">
+      <div class="carousel-header mt-5">
+        <h3>Offers</h3>
+      </div>
+      <section id="offers" class="" style="padding: 0;">
+        <div class="carousel-body ml-0">
           <owl-carousel-o [options]="planUpgrade">
             <ng-template carouselSlide>
               <div class="item">
-                <div class="premium" routerLink="/package/list">
+                <div class="premium d-flex justify-content-between align-content-center" routerLink="/package/list">
                   <div class="premium-img">
                     <img src="./assets/images/fav-logo.png" alt="" />
                   </div>
                   <div class="premium-text">
-                    <p>10% Off</p>
-                    <h1 class="text-uppercase">upgrade to <span>premium</span></h1>
+                    <p class="m-0 mb-2">10% Off</p>
+                    <h1 class="text-uppercase mb-0">upgrade to <span>premium</span></h1>
                   </div>
                 </div>
               </div>
@@ -88,8 +92,8 @@
             <ng-template carouselSlide>
               <div class="item">
                 <div class="free-ticket">
-                  <h1>Get a FREE Ticket!</h1>
-                  <button routerLink="/product/add">Add 5 Products</button>
+                  <h1><span>Get a FREE Ticket!</span></h1>
+                  <button routerLink="/product/add" class="mt-3">Add 5 Products</button>
                 </div>
               </div>
             </ng-template> 
@@ -174,14 +178,14 @@
         </div>
         <div class="purchaseDate">
           <h6>Validity</h6>
-          <p>{{productDeatil && productDeatil?.warrantyPeriod}} Months</p>
+          <p class="text-center">{{productDeatil && productDeatil?.warrantyPeriod}} Months</p>
   
           <h6>Purchase Date</h6>
-          <p>{{productDeatil?.purchaseDate | date:'dd MMM yyyy'}}</p>
+          <p class="text-center">{{productDeatil?.purchaseDate | date:'dd MMM yyyy'}}</p>
         </div>
         <div class="expiresDate">
           <h6>Validity Till</h6>
-          <p>{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
+          <p class="text-center">{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
           <!-- <p class="daysLeft">50 Days Left</p> -->
         </div>
       </div>
@@ -193,17 +197,17 @@
         </div>
         <div class="purchaseDate">
           <h6>Service Provider</h6>
-          <p>{{productDeatil?.extendedWarranty?.serviceProvider || 'N/A'}}</p>
+          <p class="text-center">{{productDeatil?.extendedWarranty?.serviceProvider || 'N/A'}}</p>
   
           <h6>Validity </h6>
-          <p>{{productDeatil?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
+          <p class="text-center">{{productDeatil?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
         </div>
         <div class="expiresDate">
           <div class="call-img">
             <img src="./assets/images/call.png" alt="">
           </div>
           <h6>mobile No.</h6>
-          <p>{{productDeatil?.extendedWarranty?.mobileNo || 'N/A'}}</p>
+          <p class="text-center">{{productDeatil?.extendedWarranty?.mobileNo || 'N/A'}}</p>
         </div>
       </div>
   
@@ -214,10 +218,10 @@
         </div>
         <div class="purchaseDate">
           <h6>Service Provider</h6>
-          <p>{{productDeatil?.amcDetails?.serviceProvider || 'N/A'}}</p>
+          <p class="text-center">{{productDeatil?.amcDetails?.serviceProvider || 'N/A'}}</p>
   
           <h6>Validity Till</h6>
-          <p>{{amcValidTill | date: 'dd MMM yyyy'}}</p>
+          <p class="text-center">{{amcValidTill | date: 'dd MMM yyyy'}}</p>
           <p class="daysLeft text-center">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
         </div>
         <div class="expiresDate">
@@ -225,7 +229,7 @@
             <img src="./assets/images/call.png" alt="">
           </div>
           <h6>Contract No.</h6>
-          <p>{{productDeatil?.amcDetails?.vendorNo || 'N/A'}}</p>
+          <p class="text-center">{{productDeatil?.amcDetails?.vendorNo || 'N/A'}}</p>
         </div>
       </div>
       <div class="carousel-body ticketlist">
@@ -239,11 +243,11 @@
                       <img src="{{ticket?.products?.productImagesUrl[0] || './assets/images/blank-image.png'}}" alt="product image" />
                       <div class="ticketTopTxt">
                         <h3>{{ticket?.products.name || 'N/A'}}</h3>
-                        <p>Expires on 14 March 2024</p>
+                        <!-- <p class="text-center">Expires on 14 March 2024</p> -->
                       </div>
                   </div>
                   <div class="ticketBottom text-center">
-                      <p>Your wevouch ticket no.</p>
+                      <p class="text-center">Your wevouch ticket no.</p>
                       <h1>{{ticket.uniqueId}}</h1>
                   </div>
               </div>
@@ -258,7 +262,7 @@
                   </div>
                 </div>
                 <div class="ticketBottom">
-                    <p>No ticket found</p>
+                    <p class="text-center">No ticket found</p>
                 </div>
               </div>
             </div>

@@ -42,36 +42,42 @@ export class TicketListComponent implements OnInit {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
-    this._api.categoryList().subscribe(
+    // this._api.categoryList().subscribe(
+    //   res => {
+    //     this.categories = res.filter((t : any) => t.status === 'active');
+    //     console.log('categories', res);
+    //     this.defaultCategoryId = res[0]._id;
+    //     this.fetchTicketByCategory(this.defaultCategoryId);
+    //   }, err => {}
+    // )
+    this._api.ticketList(this.user._id).subscribe(
       res => {
-        this.categories = res.filter((t : any) => t.status === 'active');
-        console.log('categories', res);
-        this.defaultCategoryId = res[0]._id;
-        this.fetchTicketByCategory(this.defaultCategoryId);
-      }, err => {}
-    )
-  }
-
-  tabClick(event: any) {
-    this._loader.startLoader('loader');
-    let categoryId = this.categories[event.index]._id;
-    this.fetchTicketByCategory(categoryId)
-  }
-
-  fetchTicketByCategory(categoryId:any) {
-    this.tickets = [];
-    let formData = {
-      "categoryId": categoryId, 
-      "userId": this.user._id
-    }
-    this._api.ticketListByUserAndCategory(formData).subscribe(
-      res => {
-        this.tickets = res;
-        // console.log(res);
+        this.tickets = res
         this._loader.stopLoader('loader');
       }, err => {}
     )
-
   }
+
+  // tabClick(event: any) {
+  //   this._loader.startLoader('loader');
+  //   let categoryId = this.categories[event.index]._id;
+  //   this.fetchTicketByCategory(categoryId)
+  // }
+
+  // fetchTicketByCategory(categoryId:any) {
+  //   this.tickets = [];
+  //   let formData = {
+  //     "categoryId": categoryId, 
+  //     "userId": this.user._id
+  //   }
+  //   this._api.ticketListByUserAndCategory(formData).subscribe(
+  //     res => {
+  //       this.tickets = res;
+  //       // console.log(res);
+  //       this._loader.stopLoader('loader');
+  //     }, err => {}
+  //   )
+
+  // }
   
 }

@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   title = 'angularowlslider';
     elecTronics: any = {
     loop: true,
-    margin: 10,
+    margin: 15,
     nav: false,
     dots: false,
     autoplay:true,
@@ -30,29 +30,29 @@ export class DashboardComponent implements OnInit {
 				items:2,
 			},
 			760:{
-				items:3,
+				items:2,
 			}
     },
   }
 
   planUpgrade: any = {
     loop: true,
-    margin: 10,
+    margin: 15,
     nav: false,
     dots: false,
-    autoplay:true,
+    autoplay:false,
 		autoplayTimeout: 5000,
 		autoplayHoverPause: true,
     responsiveClass: true,
     responsive: {
       0:{
-				items:1,
+				items:1.2,
 			},
 			600:{
-				items:1,
+				items:1.2,
 			},
 			760:{
-				items:1,
+				items:1.2,
 			}
     },
   }

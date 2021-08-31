@@ -2,22 +2,21 @@
 <div class="carousel-header mt-3">
     <h3>Select a package ({{packages.length}})</h3>
   </div>
-  <div  id="subscribeCarousel" class="carousel-body">
+  <div  id="subscribeCarousel" class="carousel-body pr-3">
     <owl-carousel-o [options]="productList">
       <ng-container *ngFor="let package of packages">
         <ng-template carouselSlide>
           <div class="item">
             <div class="plans">
-              <h3>{{package.name}}</h3>
-              <!-- <p>{{package.description}}</p> -->
-              <h1>&#8377;{{package.amount}}/-</h1>
+              <h3>{{package.name}} <span *ngIf="package.amount == 0">Free Plan!</span></h3>
+              <h1><span>&#8377;</span>{{package.amount}}/-</h1>
               <P>The perfect plan for a hassle-free experience</P>
               <ul>
-                <li *ngFor="let description of package.description">{{description}}</li>
+                <li *ngFor="let description of package.description"><i class="fa fa-check"></i>{{description}}</li>
               </ul>
-              <div *ngIf="package.amount == 0">
+              <!-- <div *ngIf="package.amount == 0">
                 <span class="text-danger">Free Plan!</span>
-              </div>
+              </div> -->
               <div *ngIf="userInfo.subscription._id === package._id">
                 <span class="text-danger">Activated Plan!</span>
               </div>

@@ -54,6 +54,7 @@ export class ProductEditComponent implements OnInit {
     this.productId = this._activated.snapshot.paramMap.get('productId');
     this._api.productDetail(this.productId).subscribe(
       res => {
+        this._loader.startLoader('loader');
         console.log(res);
         this.productDetail = res;
         this.category = res.category;
@@ -120,6 +121,7 @@ export class ProductEditComponent implements OnInit {
       res => {
         this.modelList = res.models;
         this.modelId = res.models[0].model_no;
+        this._loader.stopLoader('loader');
         // console.log(this.modelList);
       }
     )
@@ -217,6 +219,7 @@ export class ProductEditComponent implements OnInit {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
+        formData.value.brandId = this.brandName;
         console.log(formData.value);
         this.addProductValue = formData.value;
         this.addProductValue.registeredMobileNo = parseInt(formData.value.registeredMobileNo);
@@ -285,7 +288,6 @@ export class ProductEditComponent implements OnInit {
     )._id;
     this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
     console.log(this.addProductValue);
-    this._loader.stopLoader('loader');
     this._api.updateProduct(this.productId, this.addProductValue).subscribe(
       (res) => {
         this._loader.stopLoader('loader');

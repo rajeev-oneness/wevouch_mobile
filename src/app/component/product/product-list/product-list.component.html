@@ -19,9 +19,11 @@
       <ng-template carouselSlide>
         <div class="item">
           <div (click)="showHideProductDetail(product._id)" class="addedProductBox">
-            <img src="{{product.productImagesUrl}}" alt="Product Image" />
+            <div class="cl_image">
+              <img src="{{product.productImagesUrl}}" alt="Product Image" />
+            </div>
             <h6>{{product.name}}</h6>
-            <p>Expires on {{product.expiresOn | date:'MMM dd, yyyy'}}</p>
+            <p class="text-center">Expires on {{product.expiresOn | date:'MMM dd, yyyy'}}</p>
           </div>
         </div>
       </ng-template>
@@ -108,11 +110,11 @@
             <div class="claimWarrantyText">
               <div class="brand">
                 <h6>Brand</h6>
-                <p>{{productDeatil?.brands}}</p>
+                <p class="text-center">{{productDeatil?.brands}}</p>
               </div>
               <div class="modelNo">
                 <h6>Model No.</h6>
-                <p>{{productDeatil?.modelNo}}</p>
+                <p class="text-center">{{productDeatil?.modelNo}}</p>
               </div>
             </div>
           </div>
@@ -129,14 +131,14 @@
   </div>
   <div class="purchaseDate">
     <h6>Validity</h6>
-    <p>{{productDeatil && productDeatil?.warrantyPeriod}} Months</p>
+    <p class="text-center">{{productDeatil && productDeatil?.warrantyPeriod}} Months</p>
 
     <h6>Purchase Date</h6>
-    <p>{{productDeatil?.purchaseDate | date:'dd MMM yyyy'}}</p>
+    <p class="text-center">{{productDeatil?.purchaseDate | date:'dd MMM yyyy'}}</p>
   </div>
   <div class="expiresDate">
     <h6>Validity Till</h6>
-    <p>{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
+    <p class="text-center">{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
     <!-- <p class="daysLeft">50 Days Left</p> -->
   </div>
 </div>
@@ -148,17 +150,17 @@
   </div>
   <div class="purchaseDate">
     <h6>Service Provider</h6>
-    <p>{{productDeatil?.extendedWarranty?.serviceProvider || 'N/A'}}</p>
+    <p class="text-center">{{productDeatil?.extendedWarranty?.serviceProvider || 'N/A'}}</p>
 
     <h6>Validity </h6>
-    <p>{{productDeatil?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
+    <p class="text-center">{{productDeatil?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
   </div>
   <div class="expiresDate">
     <div class="call-img">
       <img src="./assets/images/call.png" alt="">
     </div>
     <h6>mobile No.</h6>
-    <p>{{productDeatil?.extendedWarranty?.mobileNo || 'N/A'}}</p>
+    <p class="text-center">{{productDeatil?.extendedWarranty?.mobileNo || 'N/A'}}</p>
   </div>
 </div>
 
@@ -169,10 +171,10 @@
   </div>
   <div class="purchaseDate">
     <h6>Service Provider</h6>
-    <p>{{productDeatil?.amcDetails?.serviceProvider || 'N/A'}}</p>
+    <p class="text-center">{{productDeatil?.amcDetails?.serviceProvider || 'N/A'}}</p>
 
     <h6>Validity Till</h6>
-    <p>{{amcValidTill | date: 'dd MMM yyyy'}}</p>
+    <p class="text-center">{{amcValidTill | date: 'dd MMM yyyy'}}</p>
     <p class="daysLeft text-center">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
   </div>
   <div class="expiresDate">
@@ -180,7 +182,7 @@
       <img src="./assets/images/call.png" alt="">
     </div>
     <h6>Contract No.</h6>
-    <p>{{productDeatil?.amcDetails?.vendorNo || 'N/A'}}</p>
+    <p class="text-center">{{productDeatil?.amcDetails?.vendorNo || 'N/A'}}</p>
   </div>
 </div>
 <div class="carousel-body ticketlist">
@@ -194,11 +196,11 @@
                 <img src="{{ticket?.products?.productImagesUrl[0] || './assets/images/blank-image.png'}}" alt="product image" />
                 <div class="ticketTopTxt">
                   <h3>{{ticket?.products.name || 'N/A'}}</h3>
-                  <p>Expires on 14 March 2024</p>
+                  <!-- <p class="text-center">Expires on 14 March 2024</p> -->
                 </div>
             </div>
             <div class="ticketBottom text-center">
-                <p>Your wevouch ticket no.</p>
+                <p class="text-center">Your wevouch ticket no.</p>
                 <h1>{{ticket.uniqueId}}</h1>
             </div>
         </div>
@@ -213,7 +215,7 @@
             </div>
           </div>
           <div class="ticketBottom">
-              <p>No ticket found</p>
+              <p class="text-center">No ticket found</p>
           </div>
         </div>
       </div>

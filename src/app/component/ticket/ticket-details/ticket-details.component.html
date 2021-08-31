@@ -3,13 +3,13 @@
       <img src="{{ticketDetail.products && ticketDetail?.products.productImagesUrl}}" alt="product image" />
       <div class="ticketTopTxt">
         <h3>{{(ticketDetail.products && ticketDetail.products.name) || 'N/A'}}</h3>
-        <p>Expires on 14 March 2024</p>
+        <!-- <p>Expires on 14 March 2024</p> -->
         <a href="javascript:void(0);">Pick-up Address</a>
-        <p style="margin-top: 0px;">{{ticketDetail.address?.addressLine1}}, {{ticketDetail.address?.addressLine2}}, {{ticketDetail.address?.city}}, {{ticketDetail.address?.country}}, {{ticketDetail.address?.state}}, {{ticketDetail.address?.pin}}</p>
+        <p class="text-center mt-0">{{ticketDetail.address?.addressLine1}}, {{ticketDetail.address?.addressLine2}}, {{ticketDetail.address?.city}}, {{ticketDetail.address?.country}}, {{ticketDetail.address?.state}}, pin-{{ticketDetail.address?.pin}}</p>
       </div>
     </div>
     <div class="ticketBottom text-center">
-      <p>Your wevouch ticket no.</p>
+      <p class="text-center">Your wevouch ticket no.</p>
       <h1>{{ticketDetail.uniqueId}}</h1>
       <!-- <a href="javascript:void(0);">Issue Recieved?</a><br> -->
       <a class="text-danger" href="javascript:void(0);" (click)="deleteTicket(ticketDetail._id)">Delete Ticket</a>
