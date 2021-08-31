@@ -12,11 +12,31 @@
             <label for="password">Password</label>
             <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
     
-            <a class="f-pass" href="#">Forgot Password?</a>
+            <a class="f-pass" href="javascript:void(0);" (click)="forgetPassword()">Forgot Password?</a>
     
             <span class="text-danger">{{errorMessage}}</span>
             <button class="submit-btn" type="submit" value="Login">Login</button>
             <!-- <a class="submit-btn" type="submit" value="Login" routerLink="/home">Login</a> -->
+        </form>
+    </div>
+    <div *ngIf="forgrtPassStep1">
+        <form>
+            <label for="email">Registered Email Address</label>
+            <input #fogetPassEmailId="ngModel" [(ngModel)]="forgetPassEmail" type="mobile" autocomplete="mobile" name="fogetPassEmailId" placeholder="Your email address">
+            <a class="f-pass" href="#">Resend OTP?</a>
+            <span class="text-danger">{{errorMessage}}</span>
+            <button class="submit-btn" type="button" (click)="enterForgetPassEmail()">Get Otp</button>
+        </form>
+    </div>
+    <div *ngIf="forgrtPassStep2">
+        <form>
+            <label for="email">OTP</label>
+            <input #fogetPassEmailId="ngModel" [(ngModel)]="forgetPassEmailOtp" type="mobile" autocomplete="mobile" name="fogetPassEmailId" placeholder="Enter OTP" required>
+            <label for="email">New Password</label>
+            <input #fogetPassEmailId="ngModel" [(ngModel)]="newForgetPassword" type="password" name="fogetPassEmailId" placeholder="New Password" required>
+            <span class="text-danger">{{errorMessage}}</span>
+
+            <button class="submit-btn" type="button" (click)="resetPassword()">Reset Password</button>
         </form>
     </div>
     <div *ngIf="otpStep1">
@@ -24,6 +44,7 @@
             <label for="email">Registered Mobile</label>
             <input #mobile="ngModel" [(ngModel)]="otpMobile" type="mobile" autocomplete="mobile" name="mobile" placeholder="Your mobile">
             <a class="f-pass" href="#">Resend OTP?</a>
+            <span class="text-danger">{{errorMessage}}</span>
             <button class="submit-btn" type="button" (click)="enterOtp()">Get Otp</button>
         </form>
     </div>
@@ -43,6 +64,7 @@
                     <input type="text" id="otp" name="otp4" [(ngModel)]="otp4" class="form-control text-center" maxlength="1">
                 </div>                       
             </div>
+            <span class="text-danger">{{errorMessage}}</span>
             <button class="submit-btn" type="button" (click)="submitOtp()">Login</button>
         </form>
         <!-- <button class="text-muted resend-button">Request to resend ?</button> -->

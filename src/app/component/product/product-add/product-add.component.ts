@@ -42,6 +42,8 @@ export class ProductAddComponent implements OnInit {
 
     this._api.categoryList().subscribe((res) => {
       this.categoriesList = res.filter((t : any) => t.status === 'active');
+      this.category = this.categoriesList[0]._id;
+      this.fetchSubCategory();
       this._loader.stopLoader('loader');
     });
     this._api.brandList().subscribe((res) => {
@@ -52,6 +54,7 @@ export class ProductAddComponent implements OnInit {
   fetchSubCategory() {
     this._api.subCategoryListByCategoryId(this.category).subscribe((res) => {
       this.subCategoriesList = res.filter((t : any) => t.status === 'active');
+      this.subCategory = this.subCategoriesList[0]._id
     });
   }
 

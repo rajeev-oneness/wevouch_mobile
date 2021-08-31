@@ -24,7 +24,10 @@
     <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
     
     <label>Mobile</label>
-    <input class="form-control" #mobile="ngModel" ngModel type="number" name="mobile" placeholder="Your mobile" required [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
+    <input class="form-control" #mobile="ngModel" ngModel type="text" name="mobile" placeholder="Your mobile" pattern="(?=.*\d).{10}" required [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
+    <small *ngIf="mobile?.invalid && mobile?.touched" [ngClass]="{'text-danger':mobile?.invalid && mobile?.touched}">
+      Mobile number must be of 10 digit.
+    </small>
 
     <label>Password</label>
     <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
@@ -33,7 +36,7 @@
     </small>
     
     <label>Age</label>
-    <input class="form-control" tabindex="2" #age="ngModel" ngModel type="age" name="age" placeholder="age" required [ngClass]="{'is-invalid':age?.invalid && age?.touched}">
+    <input class="form-control" tabindex="2" #age="ngModel" ngModel type="text" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" required [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
     
     <label>Gender</label>
     <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">

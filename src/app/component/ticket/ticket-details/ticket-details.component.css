@@ -1,0 +1,12 @@
+#tktProgressBar .serviceQuestion {
+    width: 75%;
+    margin: 0px auto;
+    padding: 10px 15px;
+    border: 2px dotted #00c2cb;
+    border-radius: 10px;
+    background-color: #202c40;
+}
+#tktProgressBar .timeline .event p {
+    font-size: 12px;
+    margin: 0px;
+}

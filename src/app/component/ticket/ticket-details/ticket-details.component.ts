@@ -13,7 +13,8 @@ import  Swal  from "sweetalert2";
 export class TicketDetailsComponent implements OnInit {
 
   public ticketId: any = ''; 
-  public ticketDetail: any = [];
+  public ticketDetail: any = {};
+  public ticketLogs: any = [];
 
   constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _activated:ActivatedRoute, private _router:Router) { }
 
@@ -30,6 +31,13 @@ export class TicketDetailsComponent implements OnInit {
         console.log(res);
         this.ticketDetail = res
         this._loader.stopLoader('loader');
+      }, err => {}
+    );
+    this._api.getTicketLog(ticketId).subscribe(
+      res => {
+        // console.log('Logs :',res);
+        this.ticketLogs = res.filter((t : any) => t.logType === "Go To Customer");
+        console.log('Logs :',this.ticketLogs);
       }, err => {}
     )
   }

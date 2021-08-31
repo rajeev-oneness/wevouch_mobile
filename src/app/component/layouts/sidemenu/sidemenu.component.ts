@@ -9,14 +9,23 @@ export class SidemenuComponent implements OnInit {
 
   constructor(private _api:ApiService) { }
   public user : any = {}
+  public products : any = []
   
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     console.log(this.user);
+    this.getProducts();
   }
 
   logoutUser() {
     this._api.logoutUser();
   }
-
+  getProducts() {
+    this._api.productList(this.user._id).subscribe(
+      res => {
+        console.log(res);
+        this.products = res.length;
+      }
+    )
+  }
 }

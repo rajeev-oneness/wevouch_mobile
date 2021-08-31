@@ -11,32 +11,34 @@
     <div class="ticketBottom text-center">
       <p>Your wevouch ticket no.</p>
       <h1>{{ticketDetail.uniqueId}}</h1>
-      <a href="javascript:void(0);">Issue Recieved?</a><br>
+      <!-- <a href="javascript:void(0);">Issue Recieved?</a><br> -->
       <a class="text-danger" href="javascript:void(0);" (click)="deleteTicket(ticketDetail._id)">Delete Ticket</a>
     </div>
   </div>
 
   <!-- Step progress bar -->
   <div id="tktProgressBar">
-    <ul class="timeline">
-      <li class="event processDone">
+    <ul class="timeline" *ngIf="ticketLogs.length > 0; else noLogsBlock;">
+      <li *ngFor="let log of ticketLogs;let i=index;" class="event" [ngClass]="{'processDone' : i < (ticketLogs.length-1), 'processGoing' : i === (ticketLogs.length-1)}">
+        <p>{{log.comment}} <span class="text-muted">({{log.createdAt | date:'dd MMM, yyyy'}})</span></p>
+      </li>
+      <!-- <li class="event processDone">
           <p>Wevouch got in touch with the {{ticketDetail.brand?.name}} Service team</p>
       </li>
       <li class="event processGoing">
           <p>Service Request No. (SRN) #6657982</p>
-          <div class="serviceQuestion">
-            <p>Has the {{ticketDetail.brand?.name}} team reach out to you yet?</p>
-            <!-- <a href="rateExperience.html" class="SerQstYes">Yes</a> -->
-            <a href="javascript:void(0);" class="SerQstYes">Yes</a>
-            <a href="javascript:void(0);" class="SerQstNo">No</a>
-          </div>
-      </li>
-      <li class="event">
-          <p>{{ticketDetail.brand?.name}} team got in touch with you</p>
-      </li>
-      <li class="event">
-          <p>Technician will visit your place to pick up or repair the {{ticketDetail.brand?.name}} Television</p>
-      </li>
+      </li> -->
     </ul>
+    <ng-template #noLogsBlock>
+      <h4 class="text-center mt-2">No logs yet!</h4>
+    </ng-template>
+
+    <div class="serviceQuestion">
+      <p>Has the {{ticketDetail.brand?.name}} team reach out to you yet?</p>
+      <!-- <a href="rateExperience.html" class="SerQstYes">Yes</a> -->
+      <a href="javascript:void(0);" class="SerQstYes">Yes</a>
+      <a href="javascript:void(0);" class="SerQstNo">No</a>
+    </div>
   </div>
+  
   <!-- Step progress bar ends -->
