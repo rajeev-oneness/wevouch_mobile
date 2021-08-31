@@ -144,11 +144,7 @@
       <span class="text-danger">{{errorMessage}}</span>
       <div class="addWarranty-btns">
         <button class="skip-btn">Skip</button>
-        <button class="submit-btn" type="submit">Continue</button>
-        <span
-          class="rigth-arrow"
-          ><img src="./assets/images/right-arrow.png" alt=""
-        /></span>
+        <button class="submit-btn" type="submit">Continue &nbsp; <i class="fa fa-long-arrow-right"></i></button>
       </div>
     </form>
 
@@ -165,11 +161,11 @@
         
         <section class="ex-warr-head">
           <img src="./assets/images/ex-warr-icon.png" alt="" />
-          <h2>Add Extended Warranty</h2>
-          <i style="float: right; margin-top: -35px;"><svg onclick="addRemoveExWarranty()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+          <h2 class="mb-0">Add Extended Warranty</h2>
+          <i><svg onclick="addRemoveExWarranty()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
         </section>
 
-        <form class="addProductForm" style="margin: 20px auto 100px;" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarranty(extendedWarrantyForm)">
+        <form class="addProductForm w-100" style="margin: 20px auto 100px;" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarranty(extendedWarrantyForm)">
           <label>Service Provider <span>*</span></label>
           <input
               type="text"
@@ -225,9 +221,9 @@
       
       <div class="container scroll-section">
         <section class="ex-warr-head">
-          <img src="./assets/images/AMC.png" alt="" />
-          <h2>Add AMC Details</h2>
-          <i style="float: right; margin-top: -35px;"><svg onclick="addRemoveAMC()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+          <img src="./assets/images/AMC.png" alt="" width="22"/>
+          <h2 class="mb-0">Add AMC Details</h2>
+          <i><svg onclick="addRemoveAMC()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
         </section>
 
         <form class="addProductForm" #amcForm="ngForm" (ngSubmit)="addAmc(amcForm)">
