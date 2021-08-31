@@ -2,28 +2,28 @@
 <div class="carousel-header mt-3">
     <h3>Select a package ({{packages.length}})</h3>
   </div>
-  <div  id="subscribeCarousel" class="carousel-body">
+  <div  id="subscribeCarousel" class="carousel-body pr-3">
     <owl-carousel-o [options]="productList">
       <ng-container *ngFor="let package of packages">
         <ng-template carouselSlide>
           <div class="item">
             <div class="plans">
-              <h3>{{package.name}}</h3>
-              <p>{{package.description}}</p>
-              <h1>&#8377;{{package.amount}}/-</h1>
+              <h3>{{package.name}} <span *ngIf="package.amount == 0">Free Plan!</span></h3>
+              <p class="mb-3">{{package.description}}</p>
+              <h1><span>&#8377;</span>{{package.amount}}/-</h1>
               <P>The perfect plan for a hassle-free experience</P>
       
               <ul>
-                <li>Pick-up Option</li>
-                <li>Warranty Reminders</li>
-                <li>Chat support</li>
-                <li>365 Days Validity</li>
-                <li>Unlimited Products</li>
-                <li>Single User</li>
+                <li><i class="fa fa-check"></i>Pick-up Option</li>
+                <li><i class="fa fa-check"></i>Warranty Reminders</li>
+                <li><i class="fa fa-check"></i>Chat support</li>
+                <li><i class="fa fa-check"></i>365 Days Validity</li>
+                <li><i class="fa fa-check"></i>Unlimited Products</li>
+                <li><i class="fa fa-check"></i>Single User</li>
               </ul>
-              <div *ngIf="package.amount == 0">
+              <!-- <div *ngIf="package.amount == 0">
                 <span class="text-danger">Free Plan!</span>
-              </div>
+              </div> -->
               <div *ngIf="userInfo.subscription._id === package._id">
                 <span class="text-danger">Activated Plan!</span>
               </div>

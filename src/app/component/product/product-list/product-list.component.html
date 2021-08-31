@@ -19,7 +19,9 @@
       <ng-template carouselSlide>
         <div class="item">
           <div (click)="showHideProductDetail(product._id)" class="addedProductBox">
-            <img src="{{product.productImagesUrl}}" alt="Product Image" />
+            <div class="cl_image">
+              <img src="{{product.productImagesUrl}}" alt="Product Image" />
+            </div>
             <h6>{{product.name}}</h6>
             <p>Expires on {{product.expiresOn | date:'MMM dd, yyyy'}}</p>
           </div>

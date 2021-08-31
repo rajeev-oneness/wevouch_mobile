@@ -1,10 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;500&display=swap");
+// @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Lato", sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 body {
   box-sizing: border-box;
@@ -17,15 +18,16 @@ $secondary-color: #00c2cb;
 
 @mixin submit-btn {
   width: 100%;
-  padding: 10px 18px;
   border: 0;
   border-radius: 10px;
   background-color: $secondary-color;
   color: $primary-color;
-  font-family: "Lato", sans-serif;
-  font-size: 14px;
   margin-top: 30px;
   box-shadow: 0 20px 20px 0 #233148cc;
+  padding: 14px 18px !important;
+  font-family: 'Rubik', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
 }
 
 .white {
@@ -38,6 +40,7 @@ $secondary-color: #00c2cb;
   background-color: $white;
   overflow: hidden;
   padding-top: 40px;
+  padding-bottom: 30%;
 }
 
 // Slider 1
@@ -127,7 +130,7 @@ $secondary-color: #00c2cb;
 .login-wrapper {
   background-color: $primary-color;
   background-image: url("../images/bg_curv.png");
-  background-size: 160%;
+  // background-size: 160%;
   background-repeat: no-repeat;
   background-position: center center;
   color: $white;
@@ -154,8 +157,7 @@ $secondary-color: #00c2cb;
       font-weight: 500;
       color: #a1adc0;
     }
-    input,
-    select {
+    input, select {
       width: 100%;
       padding: 10px 18px;
       border-radius: 10px;
@@ -166,12 +168,12 @@ $secondary-color: #00c2cb;
         color: #b0b9c7;
         font-size: 12px;
       }
-      &:focus {
+      &:focus{
         color: #fff !important;
         background-color: #202c40 !important;
         border-color: transparent;
         outline: 0;
-        box-shadow: inherit;
+        box-shadow:inherit;
       }
     }
     .f-pass {
@@ -338,7 +340,7 @@ header {
     margin: 0 auto;
     background-color: #435574;
     border-radius: 15px;
-    padding: 20px;
+    padding: 12px 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -347,7 +349,7 @@ header {
     box-shadow: 2px 3px 15px 0px #1e2b41;
 
     .intro-text {
-      width: 80%;
+      width: 75%;
       text-align: left;
       h1 {
         font-size: 18px;
@@ -364,7 +366,7 @@ header {
       }
     }
     .intro-img {
-      width: 20%;
+      width: 25%;
       img {
         width: 50%;
         border-radius: 100%;
@@ -423,6 +425,7 @@ nav {
       a {
         display: inline-block;
         text-align: center;
+        text-decoration: none;
         p {
           margin: 0 !important;
           color: #b0b9c7;
@@ -457,7 +460,7 @@ nav {
   height: 70px;
   background-color: $secondary-color;
   border-radius: 100%;
-  border: 6px solid $primary-color;
+  border: 6px solid #202c40;
   display: grid;
   place-content: center;
   position: fixed;
@@ -603,7 +606,7 @@ nav {
 #addProduct,
 #addProductWarranty,
 #addProductFinish {
-  min-height: 120vh;
+  // min-height: 100vh;
   header {
     .hidden {
       visibility: hidden;
@@ -706,7 +709,7 @@ nav {
 #addProductFinish,
 #home,
 #chats {
-  min-height: 150vh;
+  // min-height: 100vh;
   .warranty-field {
     width: 100%;
     display: flex;
@@ -795,7 +798,7 @@ nav {
     }
     .submit-btn {
       @include submit-btn();
-      color: $white;
+      // color: $white;
       width: 60%;
       position: unset;
       margin: 0;
@@ -831,7 +834,7 @@ nav {
       width: 5%;
     }
     label {
-      width: 90%;
+      width: 88%;
       text-align: left;
       margin: 0;
     }
@@ -854,9 +857,10 @@ nav {
   }
   p {
     color: #b0b9c7;
-    font-size: 10px;
+    font-size: 12px;
     margin: 0;
     margin-top: 15px;
+    text-align: left;
   }
 }
 
@@ -917,7 +921,7 @@ nav {
     }
     label {
       width: 100%;
-      color: $white;
+      color: #a1adc0;
       font-size: 12px;
       font-weight: 500;
       margin-bottom: 2px;
@@ -980,13 +984,13 @@ nav {
   }
 }
 .db-none {
-  top: 25% !important;
+  top: 30% !important;
 }
 
 // Add Product Finish
 #addProductFinish {
-  min-height: 120vh;
-
+  // min-height: 100vh;
+  
   /*.progress {
     height: 10px;
     position: relative;
@@ -1007,6 +1011,7 @@ nav {
       width: 70%;
     }
   }*/
+  
 }
 
 // Product Added
@@ -1117,11 +1122,11 @@ nav {
 
 // Home
 #home {
-  min-height: 130vh;
+  // min-height: 100vh;
   background-image: url("../images/bg_curv.png");
 
   .carousel-header {
-    width: 75%;
+    width: 81%;
     margin: 0 auto;
 
     h3 {
@@ -1138,29 +1143,27 @@ nav {
       border: 0;
     }
   }
-  .carousel-body {
-    width: 90%;
+  .carousel-body{
+    width: 100%;
     margin: 0 auto;
     overflow: hidden;
     margin-top: 15px;
-    .owl-nav {
+    padding: 0 0 0 8%;
+    .owl-nav{
       display: none;
     }
   }
   .addedProductBox {
     width: 100%;
-    min-height: 130px;
+    min-height: 100px;
     background-color: $white;
     margin: 0 auto;
     text-align: center;
     border-radius: 10px;
     padding: 6px 8px;
     img {
-      width: 110px;
-      height: 110px;
-      object-fit: cover;
+      width: 80%;
       margin: 0 auto;
-      margin-bottom: 10px;
     }
     h6 {
       color: #818181;
@@ -1197,17 +1200,20 @@ nav {
     width: 85%;
     margin: 0 auto;
     background-color: #53405b;
-    border-radius: 25px;
+    border-radius: 10px;
     text-align: left;
     position: relative;
     padding: 15px 90px 20px 20px;
     h6 {
       color: #ff5281;
+      margin-bottom: 0;
+      font-size: 16px;
     }
     p {
       margin: 0;
       color: $white;
-      font-size: 11px;
+      font-size: 13px;
+      font-weight: 300;
       margin-bottom: 10px;
     }
     .raiseIssueBTN {
@@ -1219,7 +1225,7 @@ nav {
       border-radius: 10px;
       position: absolute;
       bottom: -15px;
-      left: 30px;
+      left: 20px;
     }
     img {
       transform: scale(0.8);
@@ -1286,7 +1292,7 @@ $crimsonColor: #ed4767;
 // }
 #claimWarranty {
   width: 100%;
-  min-height: 120vh;
+  // min-height: 100vh;
   background-color: #f2f3f7;
   padding: 0 15px;
   padding-top: 25px;
@@ -1353,6 +1359,7 @@ $crimsonColor: #ed4767;
   text-align: center;
   border-radius: 10px;
   padding-bottom: 5px;
+  padding-top: 10px;
   margin-bottom: 10px;
   box-shadow: 0px 0px 8px 0px #5d5d5d;
   img {
@@ -1409,7 +1416,7 @@ $crimsonColor: #ed4767;
 
 #chats {
   background-image: none;
-  min-height: 100vh;
+  // min-height: 100vh;
   padding-bottom: 160px;
   padding-top: 55px;
   position: relative;
@@ -1454,7 +1461,7 @@ $crimsonColor: #ed4767;
 #chats-container {
   width: 90%;
   margin: 0 auto;
-  padding: 15px 25px;
+  padding: 15px 25px 60px;
   position: relative;
   .date-container {
     width: 100%;
@@ -1549,7 +1556,7 @@ $crimsonColor: #ed4767;
   }
   .free-ticket {
     width: 100%;
-    padding: 20px 15px;
+    padding:15px 25px;
     background-color: #f2f3f7;
     text-align: left;
     color: $primary-color;
@@ -1563,6 +1570,7 @@ $crimsonColor: #ed4767;
     }
     h1 {
       font-size: 18px;
+      margin: 0;
     }
   }
   h1 {
@@ -1738,7 +1746,7 @@ $crimsonColor: #ed4767;
   }
 }
 .subscribe {
-  min-height: 100vh !important;
+  // min-height: 100vh !important;
 }
 .subscribe .carousel-header h3 {
   font-size: 12px !important;
@@ -1770,7 +1778,6 @@ $crimsonColor: #ed4767;
     font-size: 30px;
     font-weight: 900;
     color: $primary-color;
-    font-family: "Futura Md BT";
     text-align: left;
   }
   p {
@@ -1778,6 +1785,8 @@ $crimsonColor: #ed4767;
     color: #8092b2;
     font-size: 11px;
     text-align: left;
+    line-height: 17px;
+    
   }
   ul {
     list-style: none;
@@ -1803,7 +1812,7 @@ $crimsonColor: #ed4767;
 // Account Edit
 
 .account-info-wrapper {
-  min-height: 120vh !important;
+  // min-height: 100vh !important;
 }
 .account-info-edit {
   padding: 0 40px;
@@ -1875,8 +1884,7 @@ $crimsonColor: #ed4767;
     }
   }
 }
-
-/*.edit-icon {
+.edit-icon {
   width: 25px;
   height: 25px;
   position: absolute;
@@ -1884,11 +1892,11 @@ $crimsonColor: #ed4767;
   right: 32%;
   background-color: $secondary-color;
   border-radius: 100%;
-}*/
+}
 
 // Account
 .account-wrapper {
-  min-height: 100vh !important;
+  // min-height: 100vh !important;
 }
 .account-details {
   padding: 0 40px;
@@ -1977,7 +1985,7 @@ $crimsonColor: #ed4767;
 
 // Settings
 #settings {
-  min-height: 110vh;
+  // min-height: 100vh;
 }
 .settings-container {
   width: 85%;
@@ -2199,7 +2207,7 @@ $crimsonColor: #ed4767;
 // }
 
 #tktDetails {
-  min-height: 120vh;
+  // min-height: 100vh;
   padding-bottom: 100px;
 }
 
@@ -2216,11 +2224,11 @@ $crimsonColor: #ed4767;
     width: 75%;
   }
 
-  .timeline .processGoing::after {
+  .timeline .processGoing::after{
     box-shadow: 0 0 13px 2px $secondary-color !important;
     background-color: $white !important;
   }
-  .timeline .processGoing p {
+  .timeline .processGoing p{
     color: $white !important;
   }
   .timeline .event {
@@ -2229,16 +2237,16 @@ $crimsonColor: #ed4767;
     padding-top: 0;
     padding-left: 25px;
     position: relative;
-    p {
+    p{
       color: #818181;
     }
   }
-  .timeline .processDone {
-    p {
+  .timeline .processDone{
+    p{
       color: $white;
     }
     border-color: $secondary-color;
-    &::after {
+    &::after{
       box-shadow: 0 0 0 3px $secondary-color !important;
       background-color: $white !important;
     }
@@ -2257,24 +2265,24 @@ $crimsonColor: #ed4767;
     top: 0;
   }
 
-  .timeline .event {
-    p {
+  .timeline .event{
+    p{
       font-size: 12px;
     }
   }
-  .timeline .event:last-of-type {
+  .timeline .event:last-of-type{
     border: 3px solid transparent;
   }
-  .serviceQuestion {
+  .serviceQuestion{
     padding: 10px 15px;
     border: 2px dotted $secondary-color;
     border-radius: 10px;
-    background-color: #202c40;
-    p {
+    background-color: #202C40;
+    p{
       margin: 0;
       font-size: 11px !important;
     }
-    a {
+    a{
       display: inline-block;
       padding: 4px 12px;
       margin-top: 5px;
@@ -2282,11 +2290,11 @@ $crimsonColor: #ed4767;
       margin-right: 5px;
       font-size: 12px;
     }
-    .SerQstYes {
+    .SerQstYes{
       background-color: $secondary-color;
       color: $primary-color;
     }
-    .SerQstNo {
+    .SerQstNo{
       background-color: $crimsonColor;
       color: $white;
     }
@@ -2294,7 +2302,7 @@ $crimsonColor: #ed4767;
 }
 
 .img-uploading-container {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   background-color: #202c40;
   border-radius: 15px;
@@ -2334,6 +2342,7 @@ $crimsonColor: #ed4767;
     border: 6px solid #202c40;
     border-radius: 15px;
     width: 85%;
+    height: 95px;
     margin: 0 auto;
     img {
       width: 90%;
@@ -2350,16 +2359,18 @@ $crimsonColor: #ed4767;
   }
 }
 .progress {
-  height: 10px;
   position: relative;
-  background: #242233;
   overflow: hidden;
   font-size: 10px;
+  height: 4px !important;
+  background: #2e3d56 !important;
 }
 .progress .animated-progress {
-  background-image: linear-gradient(to right, #00c1cb, #1b2c2d);
+  // background-image: linear-gradient(to right, #00c1cb, #1b2c2d);
+  background: #00c2cb;
   animation: progressBar 3s ease-in-out;
   animation-fill-mode: both;
+  height: 4px !important;
 }
 @keyframes progressBar {
   0% {
@@ -2369,34 +2380,38 @@ $crimsonColor: #ed4767;
     width: 70%;
   }
 }
-.add-prod-img-container {
-  .file-input-box {
+.add-prod-img-container{
+  .file-input-box{
     width: 80px !important;
     height: 80px !important;
     margin: 0 auto;
     border: 1px dotted #00c2cb !important;
-    border-radius: 25px !important;
+    border-radius: 18px !important;
     position: relative;
-    .file-box-bg {
+    height: 90px;
+
+    .file-box-bg{
       position: relative;
       width: 100%;
       height: 100%;
-      border: 6px solid #00c1cb8e !important;
-      border-radius: 25px;
       -webkit-transform: scale(1.15);
       transform: scale(1.15);
+      border: 0 !important;
+      border-radius: 18px !important;
+      background: rgba(0, 194, 204, 0.12) !important;
+      height: 90px;
     }
   }
 }
-.invoice-upload {
-  .file-input-box {
+.invoice-upload{
+  .file-input-box{
     width: 80px !important;
     height: 80px !important;
     margin: 0 auto;
     border: 1px dotted #00c2cb !important;
     border-radius: 25px !important;
     position: relative;
-    .file-box-bg {
+    .file-box-bg{
       position: relative;
       width: 100%;
       height: 100%;
@@ -2408,10 +2423,8 @@ $crimsonColor: #ed4767;
   }
 }
 
-.scroll-section {
+.scroll-section{
   height: 458px;
   overflow: hidden;
   overflow-y: auto;
 }
-
-

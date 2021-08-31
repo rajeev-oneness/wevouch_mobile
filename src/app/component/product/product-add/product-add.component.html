@@ -44,10 +44,10 @@
     </form>
   </div>
 
-  <div *ngIf="warantyTab" class="scroll-section">
+  <div *ngIf="warantyTab" class="">
     <div class="invoice-upload">
-      <h3>Upload Invoice photo</h3>
-      <p>Recieved on the day of purchase</p>
+      <h3 class="mb-0">Upload Invoice photo</h3>
+      <p class="mb-4 text-center">Recieved on the day of purchase</p>
       <div class="file-input-box">
         <div class="file-box-bg">
           <input type="file" value="+" placeholder="+" (change)="onSelectFile($event)"/>
@@ -165,7 +165,7 @@
           <i><svg onclick="addRemoveExWarranty()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
         </section>
 
-        <form class="addProductForm w-100" style="margin: 20px auto 100px;" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarranty(extendedWarrantyForm)">
+        <form class="addProductForm w-100" style="margin: 20px auto 100px; width: 100% !important;" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarranty(extendedWarrantyForm)">
           <label>Service Provider <span>*</span></label>
           <input
               type="text"
@@ -226,7 +226,7 @@
           <i><svg onclick="addRemoveAMC()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
         </section>
 
-        <form class="addProductForm" #amcForm="ngForm" (ngSubmit)="addAmc(amcForm)">
+        <form class="addProductForm" style=" width: 100% !important;" #amcForm="ngForm" (ngSubmit)="addAmc(amcForm)">
           <label>Service Provider <span>*</span></label>
           <input
               type="text"
@@ -291,8 +291,8 @@
 
   <div *ngIf="finishTab">
     <div class="invoice-upload">
-      <h3>Add Product Pictures</h3>
-      <p>Support JPG, JPG2000, PNG</p>
+      <h3 class="mb-0">Add Product Pictures</h3>
+      <p class="text-center">Support JPG, JPG2000, PNG</p>
 
     </div>
     
@@ -336,23 +336,20 @@
       <div class="img-uploading-left">
         <h6>Uploading... <span>3 mins left</span> <span>70%</span></h6>
         <div class="progress">
-          <div class="progress-bar animated-progress" style="width:70%">70%</div>
+          <div class="progress-bar animated-progress" style="width:70%"></div>
         </div>
       </div>
       <div class="img-uploading-right">
-        <img src="./assets/images/pause-icon.png" alt="">
-        <img src="./assets/images/cut-icon.png" alt="">
+        <img src="./assets/images/pause-icon.png" alt="" style="margin-right: 6px;">
+        <img src="./assets/images/cut-icon2.png" alt="">
       </div>
     </div>
 
     <div class="btn-container">
       <div class="addWarranty-btns">
         <button class="skip-btn" type="button" (click)="addFinish()">Skip</button>
-        <button class="submit-btn" type="button" (click)="addFinish()">Continue</button>
-        <span
-          class="rigth-arrow"
-          ><img src="./assets/images/right-arrow.png" alt=""
-        /></span>
+        <button class="submit-btn" type="submit" (click)="addFinish()">Continue &nbsp; <i class="fa fa-long-arrow-right"></i></button>
+        
       </div>
     </div>
 

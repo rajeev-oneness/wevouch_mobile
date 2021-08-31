@@ -15,22 +15,22 @@ export class ProductListComponent implements OnInit {
   title = 'angularowlslider';
   productList: any = {
     loop: true,
-    margin: 10,
+    margin: 15,
     nav: false,
     dots: false,
-    autoplay:true,
+    autoplay:false,
 		autoplayTimeout: 5000,
 		autoplayHoverPause: true,
     responsiveClass: true,
     responsive: {
       0:{
-				items:2,
+				items:1.8,
 			},
 			600:{
-				items:2,
+				items:1.8,
 			},
 			760:{
-				items:3,
+				items:1.8,
 			}
     },
   }
