@@ -35,7 +35,7 @@
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>
   </div>
-  <div id="step_two" *ngIf="stepTwo" class="scroll-section">
+  <div id="step_two" *ngIf="stepTwo">
     <form class="addProductForm" #ticketSecondForm="ngForm" (ngSubmit)="secondTab(ticketSecondForm)">
       <div class="c-color-swatch mx-auto">
           <input type="radio" name="transportationType" #transportationType="ngModel" [ngModel]="addTicketValue.transportationType" value="Carry In" id="color-F9ED69" hidden/>
@@ -129,7 +129,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <label>Select Time <span class="op">*</span></label>
-      <input type="time" id="datetime" name="selectedTime" #selectedTime="ngModel" [ngModel]="addTicketValue.selectedTime" placeholder="time" class=" form-control mb-2">
+      <input type="time" id="datetime" style="height: 46px;" name="selectedTime" #selectedTime="ngModel" [ngModel]="addTicketValue.selectedTime" placeholder="time" class=" form-control mb-2">
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>

@@ -50,8 +50,9 @@ form .submit-btn {
     position: relative;
     border: 6px solid #202c40;
     border-radius: 15px;
-    width: 98px;
+    width: 85px;
     margin: 0 auto 0 20px;
+    height: 85px;
 }
 .Invoice-img-box img {
     width: 90%;
