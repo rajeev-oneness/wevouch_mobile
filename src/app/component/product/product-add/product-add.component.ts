@@ -184,27 +184,33 @@ export class ProductAddComponent implements OnInit {
   }
   addWaranty(formData : any) {
     this.errorMessage = "";
-    this.uploadedFile = '';
     window.scrollTo(0, 0);
     if (formData?.valid) {
-      this.addProductValue.purchaseDate = formData.value.purchaseDate;
-      this.addProductValue.serialNo = formData.value.serialNo;
-      this.addProductValue.modelNo = formData.value.modelNo;
-      if (formData.value.warrantyType === 'year') {
-        this.addProductValue.warrantyPeriod =
-          Number(formData.value.warrantyPeriod) * 12;
+      if (this.invoiceImgUrl) {
+        this.addProductValue.purchaseDate = formData.value.purchaseDate;
+        this.addProductValue.serialNo = formData.value.serialNo;
+        this.addProductValue.modelNo = formData.value.modelNo;
+        if (formData.value.warrantyType === 'year') {
+          this.addProductValue.warrantyPeriod =
+            Number(formData.value.warrantyPeriod) * 12;
+        } else {
+          this.addProductValue.warrantyPeriod =
+            formData.value.warrantyPeriod || 0;
+        }
+        if(this.extdWarrantyStatus === true && this.amcStatus === true) {
+          this.productTab = false;
+          this.warantyTab = false;
+          this.finishTab = true;
+          this.uploadedFile = '';
+          this.errorMessage = "";
+          this.fileFormatError = "";
+        } else {
+          this.errorMessage = "Please fill Extended warranty and amc details"
+        }
       } else {
-        this.addProductValue.warrantyPeriod =
-          formData.value.warrantyPeriod || 0;
+        this.fileFormatError = 'Please add invoice image'
       }
-      if(this.extdWarrantyStatus === true && this.amcStatus === true) {
-        this.productTab = false;
-        this.warantyTab = false;
-        this.finishTab = true;
-        this.errorMessage = "";
-      } else {
-        this.errorMessage = "Please fill Extended warranty and amc details"
-      }
+      
     } else {
       this.errorMessage = 'Please fill out all the details';
     }
