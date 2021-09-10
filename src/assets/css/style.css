@@ -8,6 +8,7 @@
 
 body {
   box-sizing: border-box;
+  font-family: "Rubik", sans-serif !important;
 }
 
 .white {
@@ -124,7 +125,7 @@ body {
   width: auto;
 }
 .login-wrapper form {
-  width: 70%;
+  width: 81%;
   margin: 20px auto 0;
 }
 .login-wrapper form label {
@@ -132,8 +133,8 @@ body {
   padding-bottom: 5px;
   text-align: left;
   margin-top: 8px;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 400;
   color: #a1adc0;
 }
 .login-wrapper form input, .login-wrapper form select {
@@ -143,6 +144,9 @@ body {
   border: 0;
   background-color: #202c40;
   color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  font-family: "Rubik", sans-serif;
 }
 .login-wrapper form input::-moz-placeholder, .login-wrapper form select::-moz-placeholder {
   color: #b0b9c7;
@@ -938,11 +942,12 @@ nav ul .active::after {
 #addProductFinish p,
 #home p,
 #chats p {
-  color: #b0b9c7;
-  font-size: 12px;
+  color: #fff;
+  font-size: 13px;
   margin: 0;
   margin-top: 15px;
   text-align: left;
+  font-weight: 300;
 }
 
 #extended-warranty-overlay,
@@ -2500,4 +2505,17 @@ nav ul .active::after {
   height: 458px;
   overflow: hidden;
   overflow-y: auto;
+}
+
+.clam_dash {
+  bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.scroll_dash {
+  height: 648px !important;
+}
+
+.ticketlist {
+  padding-left: 0 !important;
 }/*# sourceMappingURL=style.css.map */

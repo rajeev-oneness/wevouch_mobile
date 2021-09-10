@@ -9,6 +9,7 @@
 }
 body {
   box-sizing: border-box;
+  font-family: 'Rubik', sans-serif !important;
 }
 // Variables
 $white: #fff;
@@ -146,15 +147,15 @@ $secondary-color: #00c2cb;
   }
 
   form {
-    width: 70%;
+    width: 81%;
     margin: 20px auto 0;
     label {
       width: 100%;
       padding-bottom: 5px;
       text-align: left;
       margin-top: 8px;
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 13px;
+      font-weight: 400;
       color: #a1adc0;
     }
     input, select {
@@ -164,6 +165,9 @@ $secondary-color: #00c2cb;
       border: 0;
       background-color: #202c40;
       color: $white;
+      font-size: 13px;
+      font-weight: 400;
+      font-family: 'Rubik', sans-serif;
       &::placeholder {
         color: #b0b9c7;
         font-size: 12px;
@@ -856,11 +860,12 @@ nav {
     }
   }
   p {
-    color: #b0b9c7;
-    font-size: 12px;
+    color: #fff;
+    font-size: 13px;
     margin: 0;
     margin-top: 15px;
     text-align: left;
+    font-weight: 300;
   }
 }
 
@@ -2427,4 +2432,14 @@ $crimsonColor: #ed4767;
   height: 458px;
   overflow: hidden;
   overflow-y: auto;
+}
+.clam_dash{
+  bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+.scroll_dash{
+  height: 648px !important;
+}
+.ticketlist{
+  padding-left: 0 !important;
 }

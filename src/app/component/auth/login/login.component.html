@@ -4,7 +4,7 @@
 
     <h2>Login</h2>
    
-    <div *ngIf="mainLogin">
+    <div *ngIf="mainLogin justi">
         <form #userLoginForm="ngForm" (ngSubmit)="loginUser(userLoginForm)">
             <label for="email">Email</label>
             <input #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">

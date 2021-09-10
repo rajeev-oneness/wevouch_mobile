@@ -12,7 +12,7 @@ export class TicketListComponent implements OnInit {
   title = 'angularowlslider';
   ticketList: any = {
     loop: true,
-    margin: 10,
+    margin: 15,
     nav: false,
     dots: false,
     autoplay:true,
@@ -21,13 +21,13 @@ export class TicketListComponent implements OnInit {
     responsiveClass: true,
     responsive: {
       0:{
-				items:1,
+				items:1.2,
 			},
 			600:{
-				items:1,
+				items:1.2,
 			},
 			760:{
-				items:1,
+				items:1.2,
 			}
     },
   }
