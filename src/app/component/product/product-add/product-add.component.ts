@@ -184,7 +184,7 @@ export class ProductAddComponent implements OnInit {
   }
   addWaranty(formData : any) {
     this.errorMessage = "";
-    this.uploadedFile = '';
+    
     window.scrollTo(0, 0);
     if (formData?.valid) {
       this.addProductValue.purchaseDate = formData.value.purchaseDate;
@@ -198,6 +198,7 @@ export class ProductAddComponent implements OnInit {
           formData.value.warrantyPeriod || 0;
       }
       if(this.extdWarrantyStatus === true && this.amcStatus === true) {
+        this.uploadedFile = '';
         this.productTab = false;
         this.warantyTab = false;
         this.finishTab = true;
