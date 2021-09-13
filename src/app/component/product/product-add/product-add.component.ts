@@ -29,6 +29,7 @@ export class ProductAddComponent implements OnInit {
   public errorMessage: string = '';
   public addProductValue: any = {};
   public userPhn : number = 0;
+  public userEmail : any = '';
   public Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -43,6 +44,7 @@ export class ProductAddComponent implements OnInit {
   ngOnInit(): void {
     let user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this.userPhn = parseInt(user.mobile); 
+    this.userEmail = parseInt(user.email); 
     this.fetchBrands();
   }
 
@@ -262,6 +264,12 @@ export class ProductAddComponent implements OnInit {
     this._api.addProduct(this.addProductValue).subscribe(
       (res) => {
         // this._loader.stopLoader('loader');
+        const mailForm = {
+          "toEmail" : this.userEmail, 
+          "subject" : "Wevouch - Product added", 
+          "text" : "You have successfully added a product. PLease check the product list to check the details."
+        }
+        this._api.sendMailApi(mailForm).subscribe();
         this.Toast.fire({
           icon: 'success',
           title: 'Product added successfully!'

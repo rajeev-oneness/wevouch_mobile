@@ -10,8 +10,8 @@
   <form #userUpadteForm="ngForm" (ngSubmit)="updateUser(userUpadteForm)">
     <label for="fullName">Full Name</label>
     <input class="" type="text" name="name" #name="ngModel" [(ngModel)]="userDetail.name" [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
-    <label for="fullName">Eamil</label>
-    <input class="" type="email" name="email" #email="ngModel" [(ngModel)]="userDetail.email" [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
+    <!-- <label for="fullName">Eamil</label>
+    <input class="" type="email" name="email" #email="ngModel" [(ngModel)]="userDetail.email" [ngClass]="{'is-invalid':email?.invalid && email?.touched}"> -->
     
     <label for="fullName">Mobile</label>
     <input class="" type="number" name="mobile" #mobile="ngModel" [(ngModel)]="userDetail.mobile" [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
@@ -29,8 +29,6 @@
         </select>
       </div>
     </div>
-    <label for="address">Address</label>
-    <textarea class="" type="number" name="address" #address="ngModel" [(ngModel)]="userDetail.address" [ngClass]="{'is-invalid':address?.invalid && address?.touched}"></textarea>
     
     <span class="text-danger">{{errorMessage}}</span>
     <div class="addWarranty-btns">

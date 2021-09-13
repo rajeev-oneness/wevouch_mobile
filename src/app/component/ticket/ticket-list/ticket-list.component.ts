@@ -41,7 +41,8 @@ export class TicketListComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
-    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    const userData = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    this.getUser(userData._id);
     // this._api.categoryList().subscribe(
     //   res => {
     //     this.categories = res.filter((t : any) => t.status === 'active');
@@ -50,6 +51,18 @@ export class TicketListComponent implements OnInit {
     //     this.fetchTicketByCategory(this.defaultCategoryId);
     //   }, err => {}
     // )
+  }
+  
+  getUser(userId : any) {
+    this._api.userDetails(userId).subscribe(
+      res => {
+        this.user = res;
+        this.getTickets();
+      }
+    )
+  }
+
+  getTickets() {
     this._api.ticketList(this.user._id).subscribe(
       res => {
         this.tickets = res

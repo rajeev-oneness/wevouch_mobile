@@ -168,6 +168,11 @@ export class TicketAddComponent implements OnInit {
       console.log(mainForm);
       this._api.ticketAdd(mainForm).subscribe(
         (res) => {
+          this._api.userDetails(this.user._id).subscribe(
+            res => {
+              this._api.updateUserLocally(res);
+            }
+          )
           this.addedTicketDetail = res.ticket;
           console.log(this.addedTicketDetail);
           this.Toast.fire({

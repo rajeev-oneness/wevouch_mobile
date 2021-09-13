@@ -72,10 +72,19 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
-    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
-    this.getProducts();
+    const userData = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    this.getUser(userData._id);
   }
   
+  getUser(userId : any) {
+    this._api.userDetails(userId).subscribe(
+      res => {
+        this.user = res;
+        this.getProducts();
+      }
+    )
+  }
+
   getProducts() {
     this._loader.startLoader('loader');
     this._api.productList(this.user._id).subscribe(

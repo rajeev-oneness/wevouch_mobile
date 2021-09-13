@@ -63,6 +63,11 @@ export class ApiService {
     return this._http.post<any>(fileUploadURL, file, {headers: this.header})
   }
 
+  //send mail api
+  sendMailApi(formData : any) {
+    return this._http.post<any>(_apiUrl+'user/send-email',formData);
+  }
+
   //auth
   userLoginApi(formData : any) {
     return this._http.post<any>(_apiUrl+'user/login',formData);

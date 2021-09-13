@@ -95,8 +95,21 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
-    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    const userData = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    this.getUser(userData._id);
     // console.log(this.user);
+  }
+
+  getUser(userId : any) {
+    this._api.userDetails(userId).subscribe(
+      res => {
+        this.user = res;
+        this.getProducts();
+      }
+    )
+  }
+
+  getProducts() {
     this._api.productList(this.user._id).subscribe(
       res => {
         console.log(res);
