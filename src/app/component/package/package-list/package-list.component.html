@@ -13,6 +13,7 @@
               <P>The perfect plan for a hassle-free experience</P>
               <ul>
                 <li *ngFor="let description of package.description"><i class="fa fa-check"></i>{{description}}</li>
+                <li><i class="fa fa-check"></i>{{package.ticketCount}} Tickets</li>
               </ul>
               <!-- <div *ngIf="package.amount == 0">
                 <span class="text-danger">Free Plan!</span>

@@ -15,6 +15,7 @@ export class ProfileEditComponent implements OnInit {
   constructor(private _loader: NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
   public userDetail : any = {};
   public errorMessage : any = '';
+  public passwordErrorMessage : any = '';
   public user_id : any = '';
   public Toast = Swal.mixin({
     toast: true,
@@ -29,6 +30,7 @@ export class ProfileEditComponent implements OnInit {
   });
   public uploadedFile:any = '';
   public profilePicUrl:any = '';
+  public confirmPassword:any = '';
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -117,6 +119,49 @@ export class ProfileEditComponent implements OnInit {
     }
   }
 
+  changePassword(formData : any) {
+    this.passwordErrorMessage = '';
+    for( let i in formData.controls ){
+      formData.controls[i].markAsTouched();
+    }
+    if (formData?.valid) {
+      if (this.confirmPassword === formData.value.newPassword) {
+        if (formData.value.password === formData.value.newPassword) {
+          this.passwordErrorMessage = 'Old and new passwords cannot be same.';
+        } else {
+          this.passwordErrorMessage = '';
+          this._loader.startLoader('loader');
+          const toSendData = formData.value;
+          toSendData.email = this.userDetail.email;
+          this._api.changePassword(toSendData).subscribe(
+            res => {
+              this._loader.stopLoader('loader');
+              const notificationForm = {
+                "title": "Password Changed", 
+                "userId": this.userDetail._id, 
+                "description": "Your account password has updated."
+              }
+              this._api.addNotification(notificationForm).subscribe(
+                res=> {console.log(res);}
+              );
+              this.Toast.fire({
+                icon: 'success',
+                title: 'Password changed successfully!'
+              })
+            },
+            err => {
+              this.passwordErrorMessage = err.error.message;
+              this._loader.stopLoader('loader');
+            }
+          );
+        }
+      }else {
+        this.passwordErrorMessage = 'Password confirmation not matched';
+      }
+    } else {
+      this.passwordErrorMessage = 'New and Current Password are required';
+    }
+  }
   
 
 }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavigationStart, Router } from "@angular/router";
+import { ApiService } from "src/app/service/api.service";
+import { dateDiffInDays } from "src/app/service/globalFunction";
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,7 +13,7 @@ export class AppComponent {
   public showTab: boolean = true;
   public showHeader: boolean = true;
 
-  constructor(private _router:Router) {
+  constructor(private _router:Router, private _api:ApiService) {
     _router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
         let url = event['url'];
@@ -31,5 +34,9 @@ export class AppComponent {
         }
       }
     });
+
+    
   }
+  
+
 }

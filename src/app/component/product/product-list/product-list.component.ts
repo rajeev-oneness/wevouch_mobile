@@ -4,6 +4,7 @@ import { ApiService } from "src/app/service/api.service";
 import { Router } from "@angular/router";
 import  Swal  from "sweetalert2";
 import { dateDiffInDays } from "src/app/service/globalFunction";
+import { dateDiffInHours } from "src/app/service/globalFunction";
 
 @Component({
   selector: 'app-product-list',
@@ -93,7 +94,57 @@ export class ProductListComponent implements OnInit {
         this.products = res;
         for (let index = 0; index < res.length; index++) {
           let purchaseDate = new Date(res[index].purchaseDate);
-          res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod)
+          res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod);
+          let warrantyDaysLeft = dateDiffInDays(this.dateNow, res[index].expiresOn);
+          console.log(warrantyDaysLeft+" days left");
+          if(warrantyDaysLeft == 30 || warrantyDaysLeft == 15 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
+            let title = '';
+            let text = '';
+            if(warrantyDaysLeft <= 0 ) {
+              title = "Warranty expired";
+              text = "Warranty of Product "+res[index].name+" has expired.";
+            } else {
+              title = "Warranty Expiry in "+warrantyDaysLeft+" days";
+              text = "Warranty of Product "+res[index].name+" will expire within "+warrantyDaysLeft+" days";
+            }
+            this.sendNotification(title, text);
+          } else {}
+          if(res[index].amcDetails?.noOfYears) {
+            let amcSrtartDate = new Date(res[index].amcDetails.startDate);
+            let amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res[index].amcDetails.noOfYears*12));
+            let amcLeftDays = dateDiffInDays(this.dateNow, amcValidTill);
+            console.log(amcLeftDays+" days left of amc");
+            if(amcLeftDays == 7 || amcLeftDays == 5 || amcLeftDays == 0) {
+              let title = '';
+              let text = '';
+              if(amcLeftDays == 0 ) {
+                title = "AMC service expired";
+                text = "AMC service of Product "+res[index].name+" has expired.";
+              } else {
+                title = "AMC service Expiry in "+amcLeftDays+" days";
+                text = "AMC service of Product "+res[index].name+" will expire within "+amcLeftDays+" days";
+              }
+              this.sendNotification(title, text);
+            } else {}
+          }
+          if(res[index].extendedWarranty?.noOfYears) {
+            let extdWarrantyStart = new Date(res[index].extendedWarranty.startDate);
+            let extdWarrantyValidTill = extdWarrantyStart.setMonth(extdWarrantyStart.getMonth()+(res[index].extendedWarranty.noOfYears*12));
+            let extdwarrantyLeftDays = dateDiffInDays(this.dateNow, extdWarrantyValidTill);
+            console.log(extdwarrantyLeftDays+" days left of Extended warranty");
+            if(extdwarrantyLeftDays == 7 || extdwarrantyLeftDays == 0) {
+              let title = '';
+              let text = '';
+              if(extdwarrantyLeftDays == 0 ) {
+                title = "Extended warranty expired";
+                text = "Extended warranty of Product "+res[index].name+" has expired.";
+              } else {
+                title = "Extended warranty Expiry in "+extdwarrantyLeftDays+" days";
+                text = "Extended warranty of Product "+res[index].name+" will expire within "+extdwarrantyLeftDays+" days";
+              }
+              this.sendNotification(title, text);
+            } else {}
+          }
         }
         this._loader.stopLoader('loader');
       }, err => {}
@@ -129,6 +180,17 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+  sendNotification(title : any, description : any){
+      const notificationForm = {
+        "title": title, 
+        "userId": this.user._id, 
+        "description": description
+      }
+      this._api.addNotification(notificationForm).subscribe(
+        res=> {console.log(res);}
+      );
+  }
+
   deleteProduct(productId : any) {
     Swal.fire({
       title: 'Are you sure?',
@@ -143,6 +205,14 @@ export class ProductListComponent implements OnInit {
         this._api.deleteProduct(productId).subscribe(
           res => {
             console.log(res);
+            const notificationForm = {
+              "title": "Product deleted", 
+              "userId": this.user._id, 
+              "description": "Product "+this.productDeatil.name+" has deleted."
+            }
+            this._api.addNotification(notificationForm).subscribe(
+              res=> {console.log(res);}
+            );
             this._loader.stopLoader('loader');
             this.showHideProductDetail();
             this.getProducts();

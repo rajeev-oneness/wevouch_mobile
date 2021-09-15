@@ -34,6 +34,9 @@
     <small *ngIf="password?.invalid && password?.touched" [ngClass]="{'text-danger':password?.invalid && password?.touched}">
       Must contain at least one number, one uppercase, lowercase letter, and at least 6 characters
     </small>
+
+    <label>Confirm Password</label>
+    <input class="form-control" tabindex="2" [value]="confirmPassword" (blur)="confirmPasswordCheck($event)" type="password" placeholder="Confirm Password">
     
     <label>Age</label>
     <input class="form-control" tabindex="2" #age="ngModel" ngModel type="text" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" required [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
@@ -47,7 +50,6 @@
 
     <!-- <label>Confirm Password</label>
     <input class="form-control"> -->
-
     <span class="text-danger">{{errorMessage}}</span>
     <button class="submit-btn" type="submit" value="Sign up">Sign up</button>
   </form>

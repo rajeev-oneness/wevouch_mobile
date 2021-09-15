@@ -104,86 +104,12 @@ export class DashboardComponent implements OnInit {
     this._api.userDetails(userId).subscribe(
       res => {
         this.user = res;
-        this.getProducts();
       }
     )
   }
 
-  getProducts() {
-    this._api.productList(this.user._id).subscribe(
-      res => {
-        console.log(res);
-        for (let index = 0; index < res.length; index++) {
-          let purchaseDate = new Date(res[index].purchaseDate);
-          res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod)
-        }
-        this.products = res;
-        this._loader.stopLoader('loader');
-      }, err => {}
-    )
-  }
 
-  showHideProductDetail(productId = '') {
-    this.amcValidTill = ''
-    this.amcLeftDays = ''
-    this.showDetail = !this.showDetail;
-    if(productId != '') {
-      this._api.productDetail(productId).subscribe(
-        res => {
-          console.log(res);
-          this.productDeatil = res;
-          let purchaseDate = new Date(res.purchaseDate);
-          this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
-          if(res.amcDetails?.noOfYears) {
-            let amcSrtartDate = new Date(res.amcDetails.startDate);
-            this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));
-            this.amcLeftDays = dateDiffInDays(this.dateNow, this.amcValidTill);
-          }
-        }, err => {}
-      )
-      this._api.ticketListByProduct(productId).subscribe(
-        res => {
-          console.log(res);
-          this.tickets = res;
-          this.newTickets = res.filter((t: any) => t.status === 'new');
-          this.ongoingTickets = res.filter((t: any) => t.status === 'ongoing');
-        }, err => {}
-      )
-    }
-  }
-
-  deleteProduct(productId : any) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'This product will not recover!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Delete!',
-      cancelButtonText: 'keep it'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this._loader.startLoader('loader');
-        this._api.deleteProduct(productId).subscribe(
-          res => {
-            console.log(res);
-            this._loader.stopLoader('loader');
-            this._router.navigate(['/product/list']);
-          }, err => {}
-        )
-        Swal.fire(
-          'Deleted!',
-          'product has been deleted.',
-          'success'
-        )
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'product is safe :)',
-          'error'
-        )
-      }
-    })
-  }
+  
 
 
 }

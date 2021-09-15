@@ -36,6 +36,26 @@
       <a class="cancel-btn" type="button" routerLink="/profile/details">Cancel</a>
     </div>
   </form>
+  <hr>
+  <h3>Change password</h3>
+  <form #updatePaswordForm="ngForm" (ngSubmit)="changePassword(updatePaswordForm)">
+    <label for="fullName">Old Password</label>
+    <input class="" type="password" name="password" #password="ngModel" ngModel required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
+    <label for="fullName">New Password</label>
+    <input class="" type="password" name="newPassword" #newPassword="ngModel" ngModel pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required [ngClass]="{'is-invalid':newPassword?.invalid && newPassword?.touched}">
+    <small *ngIf="newPassword?.invalid && newPassword?.touched" [ngClass]="{'text-danger':newPassword?.invalid && newPassword?.touched}">
+      Must contain at least one number, one uppercase, lowercase letter, and at least 6 characters
+    </small>
+    <label for="fullName">Confirm Password</label>
+    <input class="" type="password" #confirmPass="ngModel" [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}">
+
+    
+    <span class="text-danger">{{passwordErrorMessage}}</span>
+    <div class="addWarranty-btns">
+      <button class="save-btn" type="submit" value="Save">Save</button>
+      <a class="cancel-btn" type="button" routerLink="/profile/details">Cancel</a>
+    </div>
+  </form>
 </section>
 
 <!-- Take picture  -->

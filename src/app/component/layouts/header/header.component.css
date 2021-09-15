@@ -1,0 +1,16 @@
+.notification-badge-dot {
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    border-radius: 50%;
+    background: #ed4767;
+    font-size: 13px;
+    text-align: center;
+    align-items: center;
+    top: 46px;
+    right: 25px;
+    padding-top: 0px;
+    padding-right: 1px;
+    padding-left: 0px;
+    padding-bottom: 19px;
+}

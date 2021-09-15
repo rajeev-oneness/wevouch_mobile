@@ -84,6 +84,9 @@ export class ApiService {
   updateUserDetails(userId : any, formData : any) {
     return this._http.patch<any>(_apiUrl+'user/update/'+userId, formData);
   }
+  changePassword(formData : any) {
+    return this._http.post<any>(_apiUrl+'user/change-password', formData);
+  }
 
   //product
   productList(userId : any) {
@@ -151,7 +154,9 @@ export class ApiService {
   //notification list
   notificationList(userId : any) {
     return this._http.get<any>(_apiUrl+'notification/get-by-user/'+userId);
-    // return this._http.get<any>(_apiUrl+'notification/list');
+  }
+  addNotification(formData : any) {
+    return this._http.post<any>(_apiUrl+'notification/add', formData);
   }
 
   //address management section

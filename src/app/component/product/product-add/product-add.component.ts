@@ -15,8 +15,9 @@ export class ProductAddComponent implements OnInit {
   public productTab : boolean = true;
   public warantyTab : boolean = false;
   public finishTab : boolean = false;
-  public extdWarrantyStatus : boolean = false;
-  public amcStatus : boolean = false;
+  public extdWarrantyStatus : boolean = true;
+  public amcStatus : boolean = true;
+  public productImage : boolean = false;
   public categoriesList: any = [];
   public brandList: any = [];
   public subCategoriesList: any = [];
@@ -251,35 +252,39 @@ export class ProductAddComponent implements OnInit {
   
   addFinish() {
     this.errorMessage = "";
-    this._loader.startLoader('loader');
-    this.addProductValue.productImagesUrl = [
-      this.productImgUrl
-    ];
-    this.addProductValue.userId = JSON.parse(
-      localStorage.getItem('userInfo') || '{}'
-    )._id;
-    this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
-    console.log(this.addProductValue);
-    this._loader.stopLoader('loader');
-    this._api.addProduct(this.addProductValue).subscribe(
-      (res) => {
-        // this._loader.stopLoader('loader');
-        const mailForm = {
-          "toEmail" : this.userEmail, 
-          "subject" : "Wevouch - Product added", 
-          "text" : "You have successfully added a product. PLease check the product list to check the details."
+    if (this.productImgUrl) {
+      this._loader.startLoader('loader');
+      this.addProductValue.productImagesUrl = [
+        this.productImgUrl
+      ];
+      this.addProductValue.userId = JSON.parse(
+        localStorage.getItem('userInfo') || '{}'
+      )._id;
+      this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
+      console.log(this.addProductValue);
+      this._loader.stopLoader('loader');
+      this._api.addProduct(this.addProductValue).subscribe(
+        (res) => {
+          // this._loader.stopLoader('loader');
+          const mailForm = {
+            "toEmail" : this.userEmail, 
+            "subject" : "Wevouch - Product added", 
+            "text" : "You have successfully added a product. PLease check the product list to check the details."
+          }
+          this._api.sendMailApi(mailForm).subscribe();
+          this.Toast.fire({
+            icon: 'success',
+            title: 'Product added successfully!'
+          })
+          this._router.navigate(['/product/list']);
+        },
+        (err) => {
+          this.errorMessage = err.error.message;
+          this._loader.stopLoader('loader');
         }
-        this._api.sendMailApi(mailForm).subscribe();
-        this.Toast.fire({
-          icon: 'success',
-          title: 'Product added successfully!'
-        })
-        this._router.navigate(['/product/list']);
-      },
-      (err) => {
-        this.errorMessage = err.error.message;
-        this._loader.stopLoader('loader');
-      }
-    );
+      );
+    } else {
+      this.errorMessage = "Please add product image";
+    }
   }
 }

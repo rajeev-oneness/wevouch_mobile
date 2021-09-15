@@ -49,6 +49,7 @@ export class ProductEditComponent implements OnInit {
   });
   public uploadedFile1: any ='';
   public uploadedFile2: any ='';
+  public userDetail: any = JSON.parse(localStorage.getItem('userInfo') || '{}');
 
   ngOnInit(): void {
     this.productId = this._activated.snapshot.paramMap.get('productId');
@@ -290,6 +291,7 @@ export class ProductEditComponent implements OnInit {
     console.log(this.addProductValue);
     this._api.updateProduct(this.productId, this.addProductValue).subscribe(
       (res) => {
+        
         this._loader.stopLoader('loader');
         this.Toast.fire({
           icon: 'success',
