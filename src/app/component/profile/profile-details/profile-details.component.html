@@ -53,13 +53,25 @@
   <button class="submit-btn addressBTN" routerLink="/address/list">Manage Address</button>
 
 
-  <div class="upgradePlanBox mt-2">
-    <div class="upgradePlanBoxtxt">
-      <h5 class="mb-0">Membership</h5>
-      <h4>{{userDetail.subscription?.name}}</h4>
+  <div>
+    <div class="upgradePlanBox mt-2" *ngIf="userDetail?.referralCode">
+      <div class="upgradePlanBoxtxt">
+        <h5 class="mb-0">Referral Code</h5>
+        <h4>{{userDetail?.referralCode}}</h4>
+      </div>
+      <a class="upgradeBTN" (click)="copyReferralCode(userDetail?.referralCode)">
+        <span *ngIf="!copyState">Copy <span><i class="fa fa-copy"></i></span></span>
+        <span *ngIf="copyState">Copied <span><i class="fa fa-check"></i></span></span>
+      </a>
     </div>
-    <a class="upgradeBTN" routerLink="/package/list">
-      Upgrade <span><img src="./assets/images/right-arrow.png" alt="" /></span>
-    </a>
+    <div class="upgradePlanBox mt-2">
+      <div class="upgradePlanBoxtxt">
+        <h5 class="mb-0">Membership</h5>
+        <h4>{{userDetail.subscription?.name}}</h4>
+      </div>
+      <a class="upgradeBTN" routerLink="/package/list">
+        Upgrade <span><img src="./assets/images/right-arrow.png" alt="" /></span>
+      </a>
+    </div>
   </div>
 </section>

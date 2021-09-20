@@ -11,7 +11,10 @@ import { Router } from '@angular/router';
 export class ProfileDetailsComponent implements OnInit {
 
   constructor(private _loader: NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
+  
   public userDetail : any = {};
+  public copyState : boolean = false;
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this._loader.startLoader('loader');
@@ -31,6 +34,11 @@ export class ProfileDetailsComponent implements OnInit {
         this._loader.stopLoader('loader');
       }, err => {}
     )
+  }
+
+  copyReferralCode(copyText : any) {
+    navigator.clipboard.writeText(copyText);
+    this.copyState = true;
   }
 
 }
