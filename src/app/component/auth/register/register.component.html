@@ -39,7 +39,7 @@
     <input class="form-control" tabindex="2" [value]="confirmPassword" (blur)="confirmPasswordCheck($event)" type="password" placeholder="Confirm Password">
     
     <label>Age</label>
-    <input class="form-control" tabindex="2" #age="ngModel" ngModel type="text" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" required [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
+    <input class="form-control" tabindex="2" #age="ngModel" ngModel type="text" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
     
     <label>Gender</label>
     <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">
@@ -47,6 +47,9 @@
       <option value="Female">Female</option>
       <option value="Others">Others</option>
     </select>
+
+    <label>Referral code <span class="text-muted">(if any)</span></label>
+    <input class="form-control" tabindex="2" #userReferralCode="ngModel" ngModel type="text" name="userReferralCode" placeholder="eg: abc123">
 
     <!-- <label>Confirm Password</label>
     <input class="form-control"> -->

@@ -28,7 +28,7 @@ export class NotificationComponent implements OnInit {
             for (let index = (res.length-1); index >= 0; index--) {
               array.push(res[index]);
             }
-            this.notificationList = res;
+            this.notificationList = array;
           }, err => {}
         )
       },5000);
