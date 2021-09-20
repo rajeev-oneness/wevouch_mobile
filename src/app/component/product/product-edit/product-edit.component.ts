@@ -50,6 +50,9 @@ export class ProductEditComponent implements OnInit {
   public uploadedFile1: any ='';
   public uploadedFile2: any ='';
   public userDetail: any = JSON.parse(localStorage.getItem('userInfo') || '{}');
+  public secondTimeCall: boolean = false;
+  public warrantyTime : any = '';
+  public warrantyMode : any = 'year';
 
   ngOnInit(): void {
     this.productId = this._activated.snapshot.paramMap.get('productId');
@@ -63,10 +66,20 @@ export class ProductEditComponent implements OnInit {
         this.modelId = res.modelNo;
         // this.fetchSubCategory();
         this.fetchBrands();
+        if(res.warrantyPeriod%12 === 0){
+          this.warrantyTime = res.warrantyPeriod/12
+        } 
+        else {
+          this.warrantyTime = res.warrantyPeriod;
+          this.warrantyMode = 'month';
+        }
+
         this.purchaseDateTime = getDateFormat(res.purchaseDate);
-        this.amcStartDate = getDateFormat(res.amcDetails.startDate);
-        this.extendedWarrantyStartDate = getDateFormat(res.extendedWarranty.startDate);
-        this.extendedWarrantyEndDate = getDateFormat(res.extendedWarranty.endDate);
+        if (res.amcDetails || res.extendedWarranty) {
+          this.amcStartDate = getDateFormat(res.amcDetails.startDate);
+          this.extendedWarrantyStartDate = getDateFormat(res.extendedWarranty.startDate);
+          this.extendedWarrantyEndDate = getDateFormat(res.extendedWarranty.endDate);
+        }
         this.invoiceImgUrl = res.invoicePhotoUrl;
         this.uploadedFile1 = res.invoicePhotoUrl;
         this.productImgUrl = res.productImagesUrl[0];
@@ -84,13 +97,12 @@ export class ProductEditComponent implements OnInit {
         this.brandList = res.brands;
         this.brandId = res.brands.filter((t : any) => t.name === this.productDetail.brands)[0].id;
         console.log(this.brandId);
-        
         this.fetchCategory();
       }, err => {}
     )
   }
   
-  fetchCategory() {
+  fetchCategory(callTime : any = '') {
     console.log(this.brandId);
     this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
     console.log(this.brandName);
@@ -98,6 +110,11 @@ export class ProductEditComponent implements OnInit {
     this._api.getProductCategories(this.brandId).subscribe(
       res => {
         this.categoriesList = res.categories;
+        if (callTime != '') {
+          console.log('brand 2nd');
+          this.secondTimeCall = true;
+          this.category = this.categoriesList[0].category;
+        }
         console.log(this.categoriesList);
         this.fetchSubCategory();
         this._loader.stopLoader('loader');
@@ -105,25 +122,31 @@ export class ProductEditComponent implements OnInit {
     )
   }
   
-  fetchSubCategory() {
+  fetchSubCategory(callTime : any = '') {
     console.log(this.category);
     
     this._api.getProductSubCategories(this.category).subscribe(
       res => {
         this.subCategoriesList = res.sub_categories;
+        if (callTime != '' || this.secondTimeCall) {
+          console.log('category 2nd');
+          this.subCategory = this.subCategoriesList[0].sub_category
+        }
         // console.log(this.subCategoriesList);
         this.fetchModel();
       }, err => {}
     )
   }
 
-  fetchModel() {
+  fetchModel(callTime : any = '') {
     this._api.getProductModels(this.subCategory).subscribe(
       res => {
         this.modelList = res.models;
-        this.modelId = res.models[0].model_no;
+        if (callTime != '' || this.secondTimeCall) {
+          this.modelId = res.models[0].model_no;
+        }
         this._loader.stopLoader('loader');
-        // console.log(this.modelList);
+        console.log("models:",this.modelList);
       }
     )
   }
@@ -135,6 +158,7 @@ export class ProductEditComponent implements OnInit {
   public invoiceImgUrl : any = '';
   public productImgUrl : any = '';
   onSelectFile1(event: any) {
+    this._loader.startLoader('loader');
     this.fileFormatError = '';this.hasFile = false;
     this.selectedFile = event.target.files[0];
     if(this.selectedFile != undefined && this.selectedFile != null){
@@ -154,6 +178,7 @@ export class ProductEditComponent implements OnInit {
             res => {
               console.log(res);
               this.invoiceImgUrl = res.file_link;
+              this._loader.stopLoader('loader');
             }
           )
         }
@@ -165,8 +190,7 @@ export class ProductEditComponent implements OnInit {
   }
   
   onSelectFile2(event: any) {
-    console.log('hello');
-    
+    this._loader.startLoader('loader');
     this.fileFormatError = '';this.hasFile = false;
     this.selectedFile = event.target.files[0];
     if(this.selectedFile != undefined && this.selectedFile != null){
@@ -186,6 +210,7 @@ export class ProductEditComponent implements OnInit {
             res => {
               console.log(res);
               this.productImgUrl = res.file_link;
+              this._loader.stopLoader('loader');
             }
           )
         }

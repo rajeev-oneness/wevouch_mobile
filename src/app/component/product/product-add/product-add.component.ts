@@ -50,6 +50,7 @@ export class ProductAddComponent implements OnInit {
   }
 
   fetchBrands() {
+    this._loader.startLoader('loader');
     this._api.getProductBrands().subscribe(
       res => {
         // console.log('brands :', res.brands);
@@ -96,6 +97,7 @@ export class ProductAddComponent implements OnInit {
         this.modelList = res.models;
         this.modelId = res.models[0].model_no;
         // console.log(this.modelList);
+        this._loader.stopLoader('loader');
       }
     )
   }
@@ -125,23 +127,25 @@ export class ProductAddComponent implements OnInit {
   public invoiceImgUrl : any = '';
   public productImgUrl : any = '';
   onSelectFile(event: any) {
+    this._loader.startLoader('loader');
     this.fileFormatError = '';this.hasFile = false;
     this.selectedFile = event.target.files[0];
     if(this.selectedFile != undefined && this.selectedFile != null){
-        let validFormat = ['png','jpeg','jpg'];
-        let fileName = this.selectedFile.name.split('.').pop();
-        let data = validFormat.find(ob => ob === fileName);
-        if(data != null || data != undefined){
-          var reader = new FileReader();
-          reader.readAsDataURL(event.target.files[0]); // read file as data url
-          reader.onload = (event) => { // called once readAsDataURL is completed
-            this.uploadedFile = event.target?.result;
-            this.hasFile = true;
-            this.storeFile(this.selectedFile);
-          }
-          return true;
+      let validFormat = ['png','jpeg','jpg'];
+      let fileName = this.selectedFile.name.split('.').pop();
+      let data = validFormat.find(ob => ob === fileName);
+      if(data != null || data != undefined){
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]); // read file as data url
+        reader.onload = (event) => { // called once readAsDataURL is completed
+          this.uploadedFile = event.target?.result;
+          this.hasFile = true;
+          this.storeFile(this.selectedFile);
         }
-        this.fileFormatError = 'This File Format is not accepted';
+        return true;
+      }
+      this.fileFormatError = 'This File Format is not accepted';
+      this._loader.stopLoader('loader');
     }
     return false;
   }
@@ -158,6 +162,7 @@ export class ProductAddComponent implements OnInit {
         if(this.finishTab === true) {
           this.productImgUrl = res.file_link;
         }
+        this._loader.stopLoader('loader');
       }
     )
   }
