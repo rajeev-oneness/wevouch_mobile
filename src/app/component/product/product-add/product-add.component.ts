@@ -174,7 +174,7 @@ export class ProductAddComponent implements OnInit {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      if (this.category && this.brandId && this.subCategory) {
+      if (this.category && this.brandId) {
         formData.value.brandId = this.brandName;
         console.log(formData.value);
         this.addProductValue = formData.value;
@@ -194,7 +194,6 @@ export class ProductAddComponent implements OnInit {
     this.errorMessage = "";
     window.scrollTo(0, 0);
     if (formData?.valid) {
-      if (this.invoiceImgUrl) {
         this.addProductValue.purchaseDate = formData.value.purchaseDate;
         this.addProductValue.serialNo = formData.value.serialNo;
         this.addProductValue.modelNo = formData.value.modelNo;
@@ -215,9 +214,6 @@ export class ProductAddComponent implements OnInit {
         } else {
           this.errorMessage = "Please fill Extended warranty and amc details"
         }
-      } else {
-        this.fileFormatError = 'Please add invoice image'
-      }
       
     } else {
       this.errorMessage = 'Please fill out all the details';
@@ -257,39 +253,35 @@ export class ProductAddComponent implements OnInit {
   
   addFinish() {
     this.errorMessage = "";
-    if (this.productImgUrl) {
-      this._loader.startLoader('loader');
-      this.addProductValue.productImagesUrl = [
-        this.productImgUrl
-      ];
-      this.addProductValue.userId = JSON.parse(
-        localStorage.getItem('userInfo') || '{}'
-      )._id;
-      this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
-      console.log(this.addProductValue);
-      this._loader.stopLoader('loader');
-      this._api.addProduct(this.addProductValue).subscribe(
-        (res) => {
-          // this._loader.stopLoader('loader');
-          const mailForm = {
-            "toEmail" : this.userEmail, 
-            "subject" : "Wevouch - Product added", 
-            "text" : "You have successfully added a product. PLease check the product list to check the details."
-          }
-          this._api.sendMailApi(mailForm).subscribe();
-          this.Toast.fire({
-            icon: 'success',
-            title: 'Product added successfully!'
-          })
-          this._router.navigate(['/product/list']);
-        },
-        (err) => {
-          this.errorMessage = err.error.message;
-          this._loader.stopLoader('loader');
+    this._loader.startLoader('loader');
+    this.addProductValue.productImagesUrl = [
+      this.productImgUrl
+    ];
+    this.addProductValue.userId = JSON.parse(
+      localStorage.getItem('userInfo') || '{}'
+    )._id;
+    this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
+    console.log(this.addProductValue);
+    this._loader.stopLoader('loader');
+    this._api.addProduct(this.addProductValue).subscribe(
+      (res) => {
+        // this._loader.stopLoader('loader');
+        const mailForm = {
+          "toEmail" : this.userEmail, 
+          "subject" : "Wevouch - Product added", 
+          "text" : "You have successfully added a product. PLease check the product list to check the details."
         }
-      );
-    } else {
-      this.errorMessage = "Please add product image";
-    }
+        this._api.sendMailApi(mailForm).subscribe();
+        this.Toast.fire({
+          icon: 'success',
+          title: 'Product added successfully!'
+        })
+        this._router.navigate(['/product/list']);
+      },
+      (err) => {
+        this.errorMessage = err.error.message;
+        this._loader.stopLoader('loader');
+      }
+    );
   }
 }

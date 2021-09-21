@@ -20,7 +20,7 @@
         <div class="item">
           <div (click)="showHideProductDetail(product._id)" class="addedProductBox">
             <div class="cl_image">
-              <img src="{{product.productImagesUrl}}" alt="Product Image" />
+              <img src="{{(product.productImagesUrl != '')? product.productImagesUrl : './assets/images/blank-image.png'}}" alt="Product Image" />
             </div>
             <h6>{{product.name}}</h6>
             <p class="text-center">Expires on {{product.expiresOn | date:'MMM dd, yyyy'}}</p>
@@ -106,7 +106,7 @@
       <ng-template carouselSlide> -->
         <div class="item">
           <div class="claimWarrantyProductBox">
-            <img src="{{productDeatil?.productImagesUrl}}" width="200" alt="" />
+            <img src="{{(productDeatil?.productImagesUrl != '')? productDeatil.productImagesUrl : './assets/images/blank-image.png'}}" width="200" alt="" />
             <div class="claimWarrantyText">
               <div class="brand">
                 <h6>Brand</h6>
@@ -226,10 +226,10 @@
 <div *ngIf="(user.remainingTicketCount > 0)">
   <button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}" *ngIf="(newTickets.length === 0) && (ongoingTickets.length === 0)">
     <!-- <button class="claimWarrantyBTN" routerLink="/ticket/add/{{productDeatil._id}}"> -->
-    <span *ngIf="dateNow < warrantyValidTill;">
+    <span *ngIf="warrantyValidTill != '' && dateNow < warrantyValidTill;">
       Claim Warranty
     </span>
-    <span *ngIf="dateNow > warrantyValidTill;">
+    <span *ngIf="dateNow > warrantyValidTill || warrantyValidTill === '';">
       Raise service Ticket
     </span>
   </button>

@@ -93,23 +93,25 @@ export class ProductListComponent implements OnInit {
         console.log(res);
         this.products = res;
         for (let index = 0; index < res.length; index++) {
-          let purchaseDate = new Date(res[index].purchaseDate);
-          res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod);
-          let warrantyDaysLeft = dateDiffInDays(this.dateNow, res[index].expiresOn);
-          console.log(warrantyDaysLeft+" days left");
-          if(warrantyDaysLeft == 30 || warrantyDaysLeft == 15 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
-            let title = '';
-            let text = '';
-            if(warrantyDaysLeft <= 0 ) {
-              title = "Warranty expired";
-              text = "Warranty of Product "+res[index].name+" has expired.";
-            } else {
-              title = "Warranty Expiry in "+warrantyDaysLeft+" days";
-              text = "Warranty of Product "+res[index].name+" will expire within "+warrantyDaysLeft+" days";
-            }
-            this.sendNotification(title, text);
-          } else {}
-          if(res[index].amcDetails?.noOfYears) {
+          if (res[index]?.purchaseDate) {
+            let purchaseDate = new Date(res[index].purchaseDate);
+            res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod);
+            let warrantyDaysLeft = dateDiffInDays(this.dateNow, res[index].expiresOn);
+            console.log(warrantyDaysLeft+" days left");
+            if(warrantyDaysLeft == 30 || warrantyDaysLeft == 15 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
+              let title = '';
+              let text = '';
+              if(warrantyDaysLeft <= 0 ) {
+                title = "Warranty expired";
+                text = "Warranty of Product "+res[index].name+" has expired.";
+              } else {
+                title = "Warranty Expiry in "+warrantyDaysLeft+" days";
+                text = "Warranty of Product "+res[index].name+" will expire within "+warrantyDaysLeft+" days";
+              }
+              this.sendNotification(title, text);
+            } else {}
+          }
+          if(res[index]?.amcDetails?.noOfYears) {
             let amcSrtartDate = new Date(res[index].amcDetails.startDate);
             let amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res[index].amcDetails.noOfYears*12));
             let amcLeftDays = dateDiffInDays(this.dateNow, amcValidTill);
@@ -127,7 +129,7 @@ export class ProductListComponent implements OnInit {
               this.sendNotification(title, text);
             } else {}
           }
-          if(res[index].extendedWarranty?.noOfYears) {
+          if(res[index]?.extendedWarranty?.noOfYears) {
             let extdWarrantyStart = new Date(res[index].extendedWarranty.startDate);
             let extdWarrantyValidTill = extdWarrantyStart.setMonth(extdWarrantyStart.getMonth()+(res[index].extendedWarranty.noOfYears*12));
             let extdwarrantyLeftDays = dateDiffInDays(this.dateNow, extdWarrantyValidTill);
@@ -152,16 +154,20 @@ export class ProductListComponent implements OnInit {
   }
 
   showHideProductDetail(productId = '') {
-    this.amcValidTill = ''
-    this.amcLeftDays = ''
+    this.amcValidTill = '';
+    this.amcLeftDays = '';
     this.showDetail = !this.showDetail;
+    this.warrantyValidTill = '';
     if(productId != '') {
       this._api.productDetail(productId).subscribe(
         res => {
           console.log(res);
           this.productDeatil = res;
-          let purchaseDate = new Date(res.purchaseDate);
-          this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
+          if(res.purchaseDate) {
+            let purchaseDate = new Date(res.purchaseDate);
+            this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
+            console.log('warranty valid till' , this.warrantyValidTill);
+          }
           if(res.amcDetails?.noOfYears) {
             let amcSrtartDate = new Date(res.amcDetails.startDate);
             this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));

@@ -22,9 +22,6 @@
       <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product nickname" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
   
       <label>Brand Name <span>*</span></label>
-      <!-- <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId" (change)='fetchCategory()' required>
-        <option *ngFor="let option of brandList" [value]="option.id" >{{option.name}}</option>
-      </select> -->
       <ng-select 
         bindLabel="name"
         placeholder="Select item"
@@ -108,22 +105,22 @@
     <span class="text-danger">{{fileFormatError}}</span>
     <form class="addProductForm" #productSecondForm="ngForm" (ngSubmit)="addWaranty(productSecondForm)">
       <label>Purchase Date</label>
-      <input type="date" #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate" class="form-control" required [ngClass]="{'is-invalid':purchaseDate?.invalid && purchaseDate?.touched}">
+      <input type="date" #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate" class="form-control" [ngClass]="{'is-invalid':purchaseDate?.invalid && purchaseDate?.touched}">
 
       <label>Warranty Period</label>
       <div class="warranty-field">
         <div class="col-5">
-          <input type="number" #warrantyPeriod="ngModel" [ngModel]="1" name="warrantyPeriod" id="warrantyPeriod" class="form-control" required [ngClass]="{'is-invalid':warrantyPeriod?.invalid && warrantyPeriod?.touched}">
+          <input type="number" #warrantyPeriod="ngModel" [ngModel]="0" name="warrantyPeriod" id="warrantyPeriod" class="form-control" [ngClass]="{'is-invalid':warrantyPeriod?.invalid && warrantyPeriod?.touched}">
         </div>
         <div class="col-5 ml-1">
-          <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control" required [ngClass]="{'is-invalid':warrantyType?.invalid && warrantyType?.touched}">
+          <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control" [ngClass]="{'is-invalid':warrantyType?.invalid && warrantyType?.touched}">
             <option value="year">Years</option>
             <option value="month">Month</option>
           </select>
         </div>
       </div>
       <label>Serial No.</label>
-      <input type="number" #serialNo="ngModel" ngModel name="serialNo" id="serialNo" placeholder="eg:23562" class="form-control" required [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}">
+      <input type="number" #serialNo="ngModel" ngModel name="serialNo" id="serialNo" placeholder="eg:23562" class="form-control" [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}">
 
       <label>Model No. </label>
       <ng-select 

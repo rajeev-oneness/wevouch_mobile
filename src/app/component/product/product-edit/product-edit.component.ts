@@ -73,8 +73,9 @@ export class ProductEditComponent implements OnInit {
           this.warrantyTime = res.warrantyPeriod;
           this.warrantyMode = 'month';
         }
-
-        this.purchaseDateTime = getDateFormat(res.purchaseDate);
+        if(res.purchaseDate) {
+          this.purchaseDateTime = getDateFormat(res.purchaseDate);
+        }
         if (res.amcDetails || res.extendedWarranty) {
           this.amcStartDate = getDateFormat(res.amcDetails.startDate);
           this.extendedWarrantyStartDate = getDateFormat(res.extendedWarranty.startDate);
@@ -261,7 +262,7 @@ export class ProductEditComponent implements OnInit {
   addWaranty(formData : any) {
 
     window.scrollTo(0, 0);
-      this.addProductValue.purchaseDate = formData.value.purchaseDate;
+      this.addProductValue.purchaseDate = formData.value?.purchaseDate || '';
       this.addProductValue.serialNo = formData.value.serialNo;
       this.addProductValue.modelNo = formData.value.modelNo;
 
