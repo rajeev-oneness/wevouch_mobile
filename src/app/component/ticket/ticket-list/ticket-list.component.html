@@ -65,7 +65,7 @@
             <div class="item " routerLink="/ticket/details/{{ticket._id}}">
                 <div id="ticket-box" class="ticketBox" *ngIf="ticket.products; else noProductBlock">
                     <div class="ticketTop">
-                        <img src="{{ticket?.products.productImagesUrl}}" alt="product image" height="150" width="130" />
+                        <img src="{{(ticket.products.productImagesUrl != '')? ticket.products.productImagesUrl : './assets/images/blank-image.png'}}" alt="product image" height="150" width="130" />
                         <div class="ticketTopTxt">
                             <h3>{{ticket?.products.name || 'N/A'}}</h3>
                             <!-- <p>Expires on 14 March 2024</p> -->

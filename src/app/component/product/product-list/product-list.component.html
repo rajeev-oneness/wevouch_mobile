@@ -23,7 +23,10 @@
               <img src="{{(product.productImagesUrl != '')? product.productImagesUrl : './assets/images/blank-image.png'}}" alt="Product Image" />
             </div>
             <h6>{{product.name}}</h6>
-            <p class="text-center">Expires on {{product.expiresOn | date:'MMM dd, yyyy'}}</p>
+            <p class="text-center" *ngIf="product?.expiresOn; else noExpiryDateBlock">Expires on {{product.expiresOn | date:'MMM dd, yyyy'}}</p>
+            <ng-template #noExpiryDateBlock>
+              <p class="text-center">No expiry date</p>
+            </ng-template>
           </div>
         </div>
       </ng-template>
