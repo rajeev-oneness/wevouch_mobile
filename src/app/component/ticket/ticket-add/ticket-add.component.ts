@@ -40,8 +40,8 @@ export class TicketAddComponent implements OnInit {
   public stepFour : boolean = false;
   public addTicketValue : any = new Object();
   public addedTicketDetail : any = new Object();
-  // public addressCount : any = new Array();
-  public userAddresses : any = []
+  public supportExecutives : any = new Array();
+  public userAddresses : any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -174,6 +174,7 @@ export class TicketAddComponent implements OnInit {
             }
           )
           this.addedTicketDetail = res.ticket;
+          this.assignTicket(res.ticket._id);
           console.log(this.addedTicketDetail);
           this.Toast.fire({
             icon: 'success',
@@ -200,6 +201,24 @@ export class TicketAddComponent implements OnInit {
     } else {
       this.errorMessage = 'Please fill out all the details';
     }
+  }
+
+  assignTicket(ticketId : any) {
+    this._api.getSupportExcutives().subscribe(
+      res => {
+        this.supportExecutives = [];
+        for (let index = 0; index < res.length; index++) {
+          this.supportExecutives.push(res[index]._id);
+        }
+        const random = Math.floor(Math.random() * this.supportExecutives.length);
+        console.log(random, this.supportExecutives[random]);
+        const executiveForm = {
+          "ticketId": ticketId, 
+          "executiveId": this.supportExecutives[random]
+        };
+        this._api.assignTicketToExecutive(executiveForm).subscribe();
+      }, err => {}
+    )
   }
 
   addMoreAddress(formData: any) {
