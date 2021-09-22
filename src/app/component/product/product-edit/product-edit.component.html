@@ -63,7 +63,13 @@
             </ng-option>
       </ng-select>
       
-      <label>Registered Mobile No.</label>
+      <label>Registered Mobile No.
+        <a href="javascript:woid:(0);">i 
+          <span class="tdive">
+            Add the mobile number you provided while purchasing / registering the product with the brand. This is mandatory while claiming warranty for your product.
+          </span>
+        </a>
+      </label>
       <input type="number" #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" required [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}">
       
       <span class="text-danger">{{errorMessage}}</span>
