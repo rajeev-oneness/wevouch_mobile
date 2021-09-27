@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  basePath: '/dev/wevouchmobile/',
-  dasboardPath: '/dev/wevouchmobile/home',
-  projectPath : '/dev/wevouchmobile/login',
+  basePath: '/mobile/',
+  dasboardPath: '/mobile/home',
+  projectPath : '/mobile/login',
   apiUrl : 'http://3.138.109.91:5000/api/',
   rzp_key_id: 'rzp_test_3y2EfpyvWXWhg3',
   rzp_key_secret: 'WH3KAIawNotIN7fhYCrtcZdp',
