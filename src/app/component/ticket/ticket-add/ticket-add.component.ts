@@ -179,7 +179,13 @@ export class TicketAddComponent implements OnInit {
           this.Toast.fire({
             icon: 'success',
             title: 'Ticket raised successfully!'
-          })
+          });
+          const notificationForm = {
+            "title": "Ticket raised", 
+            "userId": this.user._id, 
+            "description": "Dear "+this.user.name+", your ticket "+this.addedTicketDetail.uniqueId+" has been raised for the product "+this.productDetail.name+"."
+          }
+          this._api.addNotification(notificationForm).subscribe();
           this._loader.stopLoader('loader');
         },
         (err) => {

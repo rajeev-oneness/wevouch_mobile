@@ -98,15 +98,15 @@ export class ProductListComponent implements OnInit {
             res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod);
             let warrantyDaysLeft = dateDiffInDays(this.dateNow, res[index].expiresOn);
             console.log(warrantyDaysLeft+" days left");
-            if(warrantyDaysLeft == 30 || warrantyDaysLeft == 15 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
+            if(warrantyDaysLeft == 30 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
               let title = '';
               let text = '';
               if(warrantyDaysLeft <= 0 ) {
-                title = "Warranty expired";
-                text = "Warranty of Product "+res[index].name+" has expired.";
+                title = "Warranty Lapse";
+                text = "Dear "+this.user.name+", your warranty for "+res[index].name+" has lapsed.";
               } else {
                 title = "Warranty Expiry in "+warrantyDaysLeft+" days";
-                text = "Warranty of Product "+res[index].name+" will expire within "+warrantyDaysLeft+" days";
+                text = "Dear "+this.user.name+", your warranty for "+res[index].name+" will expire in "+warrantyDaysLeft+" days on <date>. Kindly extend your warranty before it expires.";
               }
               this.sendNotification(title, text);
             } else {}
@@ -116,15 +116,15 @@ export class ProductListComponent implements OnInit {
             let amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res[index].amcDetails.noOfYears*12));
             let amcLeftDays = dateDiffInDays(this.dateNow, amcValidTill);
             console.log(amcLeftDays+" days left of amc");
-            if(amcLeftDays == 7 || amcLeftDays == 5 || amcLeftDays == 0) {
+            if(amcLeftDays == 7 || amcLeftDays == 0) {
               let title = '';
               let text = '';
               if(amcLeftDays == 0 ) {
                 title = "AMC service expired";
                 text = "AMC service of Product "+res[index].name+" has expired.";
               } else {
-                title = "AMC service Expiry in "+amcLeftDays+" days";
-                text = "AMC service of Product "+res[index].name+" will expire within "+amcLeftDays+" days";
+                title = "AMC expiry in "+amcLeftDays+" days";
+                text = "Dear "+this.user.name+", your Annual Maintenance Contract for "+res[index].name+" will be expiring in "+amcLeftDays+" days.";
               }
               this.sendNotification(title, text);
             } else {}
@@ -139,10 +139,10 @@ export class ProductListComponent implements OnInit {
               let text = '';
               if(extdwarrantyLeftDays == 0 ) {
                 title = "Extended warranty expired";
-                text = "Extended warranty of Product "+res[index].name+" has expired.";
+                text = "Dear "+this.user.name+", your extended warranty for "+res[index].name+" has lapsed on "+extdWarrantyValidTill;
               } else {
                 title = "Extended warranty Expiry in "+extdwarrantyLeftDays+" days";
-                text = "Extended warranty of Product "+res[index].name+" will expire within "+extdwarrantyLeftDays+" days";
+                text = "Dear "+this.user.name+", your extended warranty for "+res[index].name+" is coming up for renewal on "+extdWarrantyValidTill+".";
               }
               this.sendNotification(title, text);
             } else {}
@@ -214,7 +214,7 @@ export class ProductListComponent implements OnInit {
             const notificationForm = {
               "title": "Product deleted", 
               "userId": this.user._id, 
-              "description": "Product "+this.productDeatil.name+" has deleted."
+              "description": "Dear "+this.user.name+", you have successfully deleted the product "+this.productDeatil.name+"."
             }
             this._api.addNotification(notificationForm).subscribe(
               res=> {console.log(res);}

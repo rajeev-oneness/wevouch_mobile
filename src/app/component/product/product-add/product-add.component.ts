@@ -265,13 +265,14 @@ export class ProductAddComponent implements OnInit {
     this._loader.stopLoader('loader');
     this._api.addProduct(this.addProductValue).subscribe(
       (res) => {
+        const userDetail = JSON.parse(localStorage.getItem('userInfo') || '{}')
         // this._loader.stopLoader('loader');
-        const mailForm = {
-          "toEmail" : this.userEmail, 
-          "subject" : "Wevouch - Product added", 
-          "text" : "You have successfully added a product. PLease check the product list to check the details."
+        const notificationForm = {
+          "title": "Product add", 
+          "userId": userDetail._id, 
+          "description": "Dear "+userDetail.name+", your product "+this.addProductValue.name+" has successfully been added."
         }
-        this._api.sendMailApi(mailForm).subscribe();
+        this._api.addNotification(notificationForm).subscribe();
         this.Toast.fire({
           icon: 'success',
           title: 'Product added successfully!'

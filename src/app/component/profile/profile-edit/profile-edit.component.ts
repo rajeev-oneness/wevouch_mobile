@@ -105,7 +105,10 @@ export class ProfileEditComponent implements OnInit {
             title: 'Profile updated successfully!'
           })
           // this._router.navigate(['/profile/details']);
-          window.location.href = environment.basePath+'profile/details'
+          // window.location.href = environment.basePath+'profile/details';
+          window.location.hash = environment.basePath+'profile/details';
+          // location.reload();
+
           this._loader.stopLoader('loader');
         },
         err => {
@@ -139,7 +142,7 @@ export class ProfileEditComponent implements OnInit {
               const notificationForm = {
                 "title": "Password Changed", 
                 "userId": this.userDetail._id, 
-                "description": "Your account password has updated."
+                "description": "Dear "+this.userDetail.name+", your WeVouch account password has been changed successfully."
               }
               this._api.addNotification(notificationForm).subscribe(
                 res=> {console.log(res);}
@@ -148,6 +151,9 @@ export class ProfileEditComponent implements OnInit {
                 icon: 'success',
                 title: 'Password changed successfully!'
               })
+              // window.location.href = environment.basePath+'profile/details';
+              window.location.hash = environment.basePath+'profile/details';
+              // location.reload();
             },
             err => {
               this.passwordErrorMessage = err.error.message;

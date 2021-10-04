@@ -76,6 +76,8 @@ export class PackageListComponent implements OnInit {
         let userId = this.userInfo._id;
         let subscriptionId = res._id;
         this.packageName = res.name;
+        let packageTicket = res.ticketCount;
+        let packageExpiry = res.expiryDate;
         this.purchaseOptions = {
           "key": environment.rzp_key_id,
           "amount": res.amount*100,
@@ -99,13 +101,13 @@ export class PackageListComponent implements OnInit {
                 const notificationForm = {
                   "title": "Plan subscription", 
                   "userId": userId, 
-                  "description": this.packageName+" package subscribed."
+                  "description": "Dear "+this.userInfo.name+", you have successfully subscribed to our "+this.packageName+" Plan of "+packageTicket+" tickets yearly. Your plan expires on "+packageExpiry
                 }
                 this._api.addNotification(notificationForm).subscribe();
                 const notificationForm2 = {
-                  "title": "Upgrade subscription", 
+                  "title": "Subscription Upgrade", 
                   "userId": userId, 
-                  "description": "Your subscription is upgraded."
+                  "description": "Dear "+this.userInfo.name+", your subscription has been successfully upgraded to "+this.packageName+" plan. We are glad you are enjoying our services."
                 }
                 this._api.addNotification(notificationForm2).subscribe();
                 Swal.fire({
@@ -120,6 +122,8 @@ export class PackageListComponent implements OnInit {
                       'success'
                     )
                     window.location.href = environment.basePath+'profile/details';
+                    location.reload();
+
                   }
                 })
               }, err => {}
