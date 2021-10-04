@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Router } from '@angular/router';
 
 var originalURL = environment.apiUrl;
+// var originalURL = "https://boiling-dawn-74925.herokuapp.com/api/";
 var fileUploadURL = environment.hosted_api_url+"upload.php";
 var productAssets = environment.hosted_api_url+"Api.php";
 var _apiUrl = originalURL;
@@ -34,7 +35,7 @@ export class ApiService {
     // localStorage.setItem('accessToken', 'accessToken1234567890adminWeVouch');
     localStorage.setItem('userInfo',JSON.stringify(data));
     window.location.href = environment.dasboardPath;
-    location.reload();
+    // location.reload();
     // this._router.navigate([(routeIntended) ? routeIntended : '/admin/dashboard']);
   }
 
@@ -47,7 +48,7 @@ export class ApiService {
   logoutUser():void{
     localStorage.clear();
     window.location.href = environment.projectPath;
-    location.reload();
+    // location.reload();
 
   }
 
@@ -77,6 +78,9 @@ export class ApiService {
   }
   loginWithOtp(formData : any) {
     return this._http.post<any>(_apiUrl+'user/phone-otp',formData);
+  }
+  socialLogin(formData: any) {
+    return this._http.post<any>(_apiUrl+"user/social-login", formData);
   }
   userSignupApi(formData : any){
     return this._http.post<any>(_apiUrl+'user/add',formData);
@@ -216,5 +220,20 @@ export class ApiService {
   getProductModels(subCategoryName : any) {
     return this._http.get<any>(productAssets+'?action=fetchModels&sub_category='+subCategoryName);
   }
+
+  //site/notification settings
+  getSettings(userId : any) {
+    return this._http.get<any>(_apiUrl+'usersettings/get-by-user/'+userId);
+  }
+  getSettingsById(settingsId : any) {
+    return this._http.get<any>(_apiUrl+'address/update/'+settingsId);
+  }
+  addSettings(formData : any) {
+    return this._http.post<any>(_apiUrl+'usersettings/add', formData);
+  }
+  editSettings(settingsId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'usersettings/update/'+settingsId, formData);
+  }
+  
 
 }

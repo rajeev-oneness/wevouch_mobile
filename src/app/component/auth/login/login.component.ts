@@ -88,21 +88,22 @@ export class LoginComponent implements OnInit {
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( (userData) => {
-      let user = {'name': userData.name, 'email': userData.email, 'status': 'active', 'mobile': "9999999999", 'password': "123456"};
-      // this._api.userSignupApi(user).subscribe( 
-      //   res => {
-      //     console.log(res);
-      //     // this._api.storeUserLocally(res.user);
-      //   }, err => {
-      //     this.errorMessage = err;
-      //     this._loader.stopLoader('loader');
-      //   }
-      // );
+      let user = {'email': userData.email, 'socialId': userData.id};
+      this._api.socialLogin(user).subscribe( 
+        res => {
+          this._api.storeUserLocally(res.user);
+          console.log(res);
+          
+          this._loader.stopLoader('loader');
+        }, err => {
+          this.errorMessage = err;
+          this._loader.stopLoader('loader');
+        }
+      );
       // this._api.storeUserLocally(userData);
       // this._router.navigate(['/home']);
       console.log('Google login', userData);
-      console.log(user);
-      
+      // console.log(user);
     });
   }
 
