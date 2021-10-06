@@ -1,4 +1,33 @@
-<section class="text-center login-wrapper wrapper">
+<section class="spalsh" *ngIf="showSlider">
+    <owl-carousel-o [options]="spalshSlid">
+        <ng-template carouselSlide>
+            <div class="slider">
+                <div class="row justify-content-end align-items-start h-100">
+                    <button class="btn-skip" (click)="hideSlider()">Skip <i class="fa fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </ng-template>  
+        <ng-template carouselSlide>
+            <div class="slider sl2">
+                <div class="row justify-content-end align-items-start h-100">
+                    <button class="btn-skip" (click)="hideSlider()">Skip <i class="fa fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </ng-template>  
+        <ng-template carouselSlide>
+            <div class="slider sl3">
+                <div class="row justify-content-end align-items-start h-100">
+                    <button class="btn-login" (click)="hideSlider()">Login <i class="fa fa-sign-in"></i></button>
+                    <button class="btn-skip" (click)="hideSlider()">Skip <i class="fa fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </ng-template>  
+      </owl-carousel-o>
+</section><!--Spalash section-->
+
+
+
+<section class="text-center login-wrapper wrapper" *ngIf="!showSlider">
 
     <img class="logo" src="./assets/images/login-logo.png" alt="">
 
@@ -80,8 +109,8 @@
     </div>
     <div class="social-icons">
         <a (click)="signInWithGoogle()"><img src="./assets/images/google.png" alt=""></a>
-        <a href="javascript:void(0);"><img src="./assets/images/fb.png" alt=""></a>
-        <a href="javascript:void(0);"><img src="./assets/images/twitter.png" alt=""></a>
+        <a (click)="signInWithFB()"><img src="./assets/images/fb.png" alt=""></a>
+        <!-- <a href="javascript:void(0);"><img src="./assets/images/twitter.png" alt=""></a> -->
         <a href="javascript:void(0);" (click)="loginWithOtp()"><img src="./assets/images/mobile.png" alt=""></a>
     </div>
     <div class="register-link">

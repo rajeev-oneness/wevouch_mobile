@@ -89,3 +89,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-form-field-infix {
   width: 227px !important;
 }
+
+.spalsh .owl-dots{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+.spalsh .owl-theme .owl-dots .owl-dot span {
+  background: #3b516f;
+}
+.spalsh .owl-theme .owl-dots .owl-dot.active span, .spalsh .owl-theme .owl-dots .owl-dot:hover span {
+  background: #03adbc;
+}

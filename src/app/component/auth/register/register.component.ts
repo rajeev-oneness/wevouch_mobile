@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
           }
         )
       } else {
-        this.errorMessage = "Password not macthed";
+        this.errorMessage = "Password not matched";
       }
     }else{
       this.errorMessage = 'Please fill out all the details';

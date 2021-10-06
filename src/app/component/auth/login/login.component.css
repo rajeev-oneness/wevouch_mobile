@@ -1,0 +1,71 @@
+.owl-item{
+    height: 94vh !important;
+}
+.spalsh {
+    background: #1b2c46;
+    height: 100%;
+}
+.slider{
+    background: url(../../../../assets/images/Splash_screen2.jpg) no-repeat;
+    padding: 5px 0;
+    background-size: cover;
+    background-position: center top;
+    position: relative;
+    margin-top: 0px;
+    height: 98vh;
+}
+.sl2{
+    background: url(../../../../assets/images/Splash_screen3.jpg) no-repeat;
+    background-size: cover;
+    background-position: center top;
+    position: relative;
+}
+.sl3{
+    background: url(../../../../assets/images/Splash_screen1.jpg) no-repeat;
+    background-size: cover;
+    background-position: center top;
+    position: relative;
+}
+.btn-login{
+    width: 86px;
+    position: unset;
+    background-color: transparent;
+    padding: 8px 9px;
+    border-radius: 10px;
+    border: 0;
+    color: #1b2c46;
+    position: absolute;
+    right: 7px;
+    top: 2%;
+    font-size: 16px;
+    font-weight: 500;
+}
+.btn-login i{
+    margin-left: 5px;
+}
+.btn-login:hover{
+    background: #1b2c46;
+    color: #fff;
+}
+
+.btn-skip{
+    width: 86px;
+    position: unset;
+    background-color: transparent;
+    padding: 8px 9px;
+    border-radius: 10px;
+    border: 0;
+    color: #03adbb;
+    position: absolute;
+    right: 7px;
+    bottom: 1%;
+    font-size: 16px;
+    font-weight: 500;
+}
+.btn-skip i{
+    margin-left: 5px;
+}
+.btn-skip:hover{
+    background: #1b2c46;
+    color: #fff;
+}

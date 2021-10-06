@@ -6,6 +6,7 @@ import { SocialAuthService } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import Swal from 'sweetalert2';
 import { environment } from "src/environments/environment";
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,34 @@ import { environment } from "src/environments/environment";
 })
 export class LoginComponent implements OnInit {
   
+  spalshSlid: OwlOptions = {
+    loop: true,
+    autoplay:true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: false
+  }
+
   public errorMessage = '';
+  public showSlider : boolean = true;
   public mainLogin: boolean = true;
   public otpStep1: boolean = false;
   public otpStep2: boolean = false;
@@ -42,7 +70,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router,private authService: SocialAuthService) {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     this._loader.startLoader('loader');
   }
   
@@ -65,11 +93,24 @@ export class LoginComponent implements OnInit {
       this._loader.startLoader('loader');
       this._api.userLoginApi(mainForm).subscribe(
         res => {
-          // this.errorMessage = res.message;
-          this.Toast.fire({
-            icon: 'success',
-            title: 'Logged in successfully!'
-          })
+          // let timerInterval: any;
+          // Swal.fire({
+          //   title: 'success!',
+          //   width: 200,
+          //   html: 'Login successfully',
+          //   timer: 20000,
+          //   timerProgressBar: true,
+          //   didOpen: () => {
+          //     Swal.showLoading()
+          //   },
+          //   willClose: () => {
+          //     clearInterval(timerInterval)
+          //   }
+          // }).then((result) => {
+          //   if (result.dismiss === Swal.DismissReason.timer) {
+          //     console.log('I was closed by the timer')
+          //   }
+          // })
           console.log(res);
           this._api.storeUserLocally(res.user);
           this._loader.stopLoader('loader');
@@ -91,9 +132,26 @@ export class LoginComponent implements OnInit {
       let user = {'email': userData.email, 'socialId': userData.id};
       this._api.socialLogin(user).subscribe( 
         res => {
+          // let timerInterval: any;
+          // Swal.fire({
+          //   title: 'success!',
+          //   width: 200,
+          //   html: 'Login successfully',
+          //   timer: 20000,
+          //   timerProgressBar: true,
+          //   didOpen: () => {
+          //     Swal.showLoading()
+          //   },
+          //   willClose: () => {
+          //     clearInterval(timerInterval)
+          //   }
+          // }).then((result) => {
+          //   if (result.dismiss === Swal.DismissReason.timer) {
+          //     console.log('I was closed by the timer')
+          //   }
+          // })
           this._api.storeUserLocally(res.user);
           console.log(res);
-          
           this._loader.stopLoader('loader');
         }, err => {
           this.errorMessage = err;
@@ -108,7 +166,12 @@ export class LoginComponent implements OnInit {
   }
 
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
+      (userData) => {
+        console.log(userData);
+        
+      }
+    );
   }
 
   signOut(): void {
@@ -236,6 +299,10 @@ export class LoginComponent implements OnInit {
     } else {
       this.errorMessage = 'OTP and New Password required!'
     }
+  }
+
+  hideSlider() {
+    this.showSlider = false;
   }
 
 }

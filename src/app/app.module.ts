@@ -61,7 +61,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
+            provider: new FacebookLoginProvider('563456771406347')
           }
         ]
       } as SocialAuthServiceConfig,
