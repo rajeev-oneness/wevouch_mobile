@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
       if (this.confirmPassword == formData.value.password) {
         console.log(formData.value);
         const mainForm = formData.value;
-        mainForm.image = 'http://cp-33.hostgator.tempwebhost.net/~a1627unp/wevouch/images/1629464354_businessman.png';
+        mainForm.image = 'https://ui-avatars.com/api/?background=random&name='+formData.value.name;
         this._loader.startLoader('loader');
         this._api.userSignupApi(mainForm).subscribe(
           res => {
