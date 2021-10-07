@@ -236,4 +236,19 @@ export class ApiService {
   }
   
 
+  //product icon category wise
+  getProductIcon(categoryName : any) {
+    return this._http.get<any>(productAssets+'?action=fetchIconCategoryWise&category='+categoryName);
+  }
+
+  //fetch cities
+  getCities() {
+    return this._http.get<any>(productAssets+'?action=fetchCities');
+  }
+
+  //get service center brand and city wise
+  getServiceCenter(brandId : any, cityName : any) {
+    return this._http.get<any>(productAssets+'?action=fetchServiceCenters&brand='+brandId+'&city='+cityName);
+  }
+
 }

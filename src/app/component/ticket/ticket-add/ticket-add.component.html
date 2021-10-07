@@ -38,42 +38,76 @@
   <div id="step_two" *ngIf="stepTwo">
     <form class="addProductForm" #ticketSecondForm="ngForm" (ngSubmit)="secondTab(ticketSecondForm)">
       <div class="c-color-swatch mx-auto">
-          <input type="radio" name="transportationType" #transportationType="ngModel" [ngModel]="addTicketValue.transportationType" value="Carry In" id="color-F9ED69" hidden/>
+          <input type="radio" name="transportationType" #transportationType="ngModel" [(ngModel)]="addTicketValue.transportationType" value="Carry In" id="color-F9ED69" hidden/>
           <label class="c-color-swatch__item" for="color-F9ED69"><img src="./assets/images/carryin.png">Carry-In</label>
           
-          <input type="radio" name="transportationType" #transportationType="ngModel" [ngModel]="addTicketValue.transportationType" value="Pick Up" id="color-F08A5D" hidden/>
+          <input type="radio" name="transportationType" #transportationType="ngModel" [(ngModel)]="addTicketValue.transportationType" value="Pick Up" id="color-F08A5D" hidden/>
           <label class="c-color-swatch__item" for="color-F08A5D"><img src="./assets/images/pickup.png">Pick-Up</label>
           
-          <input type="radio" name="transportationType" #transportationType="ngModel" [ngModel]="addTicketValue.transportationType" value="On Site" id="color-B83B5E" hidden checked/>
+          <input type="radio" name="transportationType" #transportationType="ngModel" [(ngModel)]="addTicketValue.transportationType" value="On Site" id="color-B83B5E" hidden checked/>
           <label class="c-color-swatch__item" for="color-B83B5E"><img src="./assets/images/onsite.png">On Site</label>
       </div>
-      <section class="account-details p-2" *ngIf="userAddresses.length > 0; else noAddressBlock">
-        <div class="upgradePlanBox mt-2 position-relative" *ngFor="let address of userAddresses">
-          <div class="address-radio">
-            <label>
-              <input type="radio" name="addressId" #addressId="ngModel" [ngModel]="addTicketValue.addressId" value="{{address._id}}">
-            </label>
-          </div>
-            <div class="upgradePlanBoxtxt text-left">
-                <h4>{{address.addressLine1}}</h4>
-                <h5>{{address.addressLine2}}</h5>
-                <h5>{{address.location}}</h5>
-                <h5>{{address.city}}, {{address.state}}, {{address.country}}</h5>
-                <h5>pin - {{address.pin}}</h5>
+      <div *ngIf="addTicketValue.transportationType == 'On Site'">
+        <section class="account-details p-2" *ngIf="userAddresses.length > 0; else noAddressBlock">
+          <div class="upgradePlanBox mt-2 position-relative" *ngFor="let address of userAddresses">
+            <div class="address-radio">
+              <label>
+                <input type="radio" name="addressId" #addressId="ngModel" [ngModel]="addTicketValue.addressId" value="{{address._id}}">
+              </label>
             </div>
-        </div>
-        <div class="submit-btn extended-warr" onclick="addRemoveExWarranty();" id="ex-warr-link">+ Add Address</div>
-      </section>
-      <ng-template #noAddressBlock>
-          <section class="account-details">
-              <div class="upgradePlanBox mt-2 position-relative">
-                  <div class="upgradePlanBoxtxt">
-                      <h4>No address found !</h4>
-                  </div>
+              <div class="upgradePlanBoxtxt text-left">
+                  <h4>{{address.addressLine1}}</h4>
+                  <h5>{{address.addressLine2}}</h5>
+                  <h5>{{address.location}}</h5>
+                  <h5>{{address.city}}, {{address.state}}, {{address.country}}</h5>
+                  <h5>pin - {{address.pin}}</h5>
               </div>
-              <div class="submit-btn extended-warr" onclick="addRemoveExWarranty();" id="ex-warr-link">+ Add Address</div>
-          </section>
-      </ng-template>
+          </div>
+          <div class="submit-btn extended-warr" onclick="addRemoveExWarranty();" id="ex-warr-link">+ Add Address</div>
+        </section>
+        <ng-template #noAddressBlock>
+            <section class="account-details">
+                <div class="upgradePlanBox mt-2 position-relative">
+                    <div class="upgradePlanBoxtxt">
+                        <h4>No address found !</h4>
+                    </div>
+                </div>
+                <div class="submit-btn extended-warr" onclick="addRemoveExWarranty();" id="ex-warr-link">+ Add Address</div>
+            </section>
+        </ng-template>
+      </div>
+      <div *ngIf="addTicketValue.transportationType == 'Carry In'">
+        <label for="">Select City</label>
+        <select class="form-control mt-2" id="functionType" (change)="selectCity()" [(ngModel)]="selectedCity" name="city">
+          <option *ngFor="let city of cityData" value="{{city.name}}">{{city.name}}</option>
+        </select>
+
+        <section class="account-details p-2" *ngIf="serviceCenters.length > 0; else noServiceCenterBlock">
+          <div class="upgradePlanBox mt-2 position-relative" *ngFor="let serviceCenter of serviceCenters">
+            <div class="address-radio">
+              <label>
+                <input type="radio" name="addressId" #addressId="ngModel" [ngModel]="addTicketValue.addressId" value="{{serviceCenter.id}}">
+              </label>
+            </div>
+              <div class="upgradePlanBoxtxt text-left">
+                  <h4>{{serviceCenter.name}}</h4>
+                  <h5>{{serviceCenter.address}}</h5>
+                  <h5>Phone: {{serviceCenter.phone}}</h5>
+                  <h5>email: {{serviceCenter.email}}</h5>
+              </div>
+          </div>
+        </section>
+        <ng-template #noServiceCenterBlock>
+            <section class="account-details">
+                <div class="upgradePlanBox mt-2 position-relative">
+                    <div class="upgradePlanBoxtxt">
+                        <h4>No service center found !</h4>
+                    </div>
+                </div>
+                <div class="submit-btn extended-warr" onclick="addRemoveExWarranty();" id="ex-warr-link">+ Add Address</div>
+            </section>
+        </ng-template>
+      </div>
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Raise Ticket</button>
     </form>

@@ -1,5 +1,6 @@
 <!-- Carousel  -->
-<div class="carousel-header mt-3">
+<div *ngIf="!thankYouTab">
+  <div class="carousel-header mt-3">
     <h3>Select a package ({{packages.length}})</h3>
   </div>
   <div  id="subscribeCarousel" class="carousel-body pr-3">
@@ -54,4 +55,25 @@
       </ng-template>  -->
     </owl-carousel-o>
   </div>
-  <!-- Carousel  -->
+</div>  
+<!-- Carousel  -->
+
+<div *ngIf="thankYouTab">
+  <div style="padding-top: 20%;">
+    <div class="">
+      <img src="./assets/images/done3.png" alt="">
+      <div class="mt-5">
+        <h2>
+          Thank You!
+        </h2>
+          <span class="col-6">Your payment was successful.</span><br>
+          <span>Your current package is updated.</span>
+      </div>
+      <div class="btn-container">
+        <div class="home-btn">
+          <button class="submit-btn" type="submit" routerLink="/profile/details">Manage profile &nbsp; <i class="fa fa-long-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

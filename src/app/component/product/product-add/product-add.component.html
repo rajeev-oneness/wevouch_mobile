@@ -1,4 +1,4 @@
-  <header>
+  <header *ngIf="!thankYouTab">
     <a (click)="previous()">
       <img src="./assets/images/back.png" alt="">
     </a>
@@ -8,7 +8,7 @@
     </a>
   </header>
 
-  <div class="progress-bar-container pt-4">
+  <div class="progress-bar-container pt-4" *ngIf="!thankYouTab">
       <ul class="progress_bar">
           <li id="f-child-none" [ngClass]="{'active':productTab || warantyTab || finishTab,'white':productTab}">Products</li>
           <li [ngClass]="{'active':warantyTab || finishTab,'white':warantyTab}">Warranty</li>
@@ -16,77 +16,343 @@
       </ul>
   </div>
 
-  <div *ngIf="productTab">
-    <form class="addProductForm" #productFirstForm="ngForm" (ngSubmit)="addProduct(productFirstForm)">
-      <label>Nickname <span class="op">*</span></label>
-      <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product nickname" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+  <div *ngIf="!thankYouTab">
+    <div *ngIf="productTab">
+      <form class="addProductForm" #productFirstForm="ngForm" (ngSubmit)="addProduct(productFirstForm)">
+        <label>Nickname <span class="op">*</span></label>
+        <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product nickname" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+    
+        <label>Brand Name <span>*</span></label>
+        <ng-select 
+          bindLabel="name"
+          placeholder="Select item"
+          appendTo="body"
+          [searchable]="true"
+          [(ngModel)]="brandId"
+          (change)='fetchCategory()'
+          name="brandId">
+              <ng-option [value]="item.id" *ngFor="let item of brandList">
+                  {{item.name}}
+              </ng-option>
+        </ng-select>
+    
+        <label>Category <span>*</span></label>
+        <ng-select 
+          bindLabel="category"
+          placeholder="Select item"
+          appendTo="body"
+          [searchable]="true"
+          [(ngModel)]="category"
+          (change)='fetchSubCategory()'
+          name="category">
+              <ng-option [value]="item.category" *ngFor="let item of categoriesList">
+                  {{item.category}}
+              </ng-option>
+        </ng-select>
+    
+        <label>Sub-category <span>*</span></label>
+        <ng-select 
+          bindLabel="sub_category"
+          placeholder="Select item"
+          appendTo="body"
+          [searchable]="true"
+          [(ngModel)]="subCategory"
+          (change)='fetchModel()'
+          name="subCategory">
+              <ng-option [value]="item.sub_category" *ngFor="let item of subCategoriesList">
+                  {{item.sub_category}}
+              </ng-option>
+        </ng-select>
+    
+        <label>Registered Mobile No. <span>*</span>
+          <a href="javascript:woid:(0);">i 
+            <span class="tdive">
+              Give the contact number you provided while registering the product.
+            </span>
+          </a>
+        </label>
+        <input type="number" #registeredMobileNo="ngModel" [ngModel]="userPhn" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}" pattern="(?=.*\d).{10}" required>
+        <small *ngIf="registeredMobileNo?.invalid && registeredMobileNo?.touched" [ngClass]="{'text-danger':registeredMobileNo?.invalid && registeredMobileNo?.touched}">
+          Mobile number must be of 10 digit.
+        </small>
+        <span class="text-danger">{{errorMessage}}</span>
+        <button class="submit-btn" type="submit">+ Add Products</button>
+      </form>
+    </div>
   
-      <label>Brand Name <span>*</span></label>
-      <ng-select 
-        bindLabel="name"
-        placeholder="Select item"
-        appendTo="body"
-        [searchable]="true"
-        [(ngModel)]="brandId"
-        (change)='fetchCategory()'
-        name="brandId">
-            <ng-option [value]="item.id" *ngFor="let item of brandList">
-                {{item.name}}
-            </ng-option>
-      </ng-select>
+    <div *ngIf="warantyTab" class="">
+      <div class="invoice-upload">
+        <h3>Upload Invoice photo</h3>
+        <p class="text-center">Recieved on the day of purchase</p>
+        <div class="d-flex justify-content-around">
+          <div class="file-input-box" style="margin: 0 0 0 auto;">
+            <div class="file-box-bg">
+              <input type="file" value="+" placeholder="+" (change)="onSelectFile($event)"/>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-plus"
+              >
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </div>
+          </div>
+          <div class="Invoice-img-box">
+            <img src="{{uploadedFile}}" alt="">
+          </div>
+        </div>
+      </div>
+      <span class="text-danger">{{fileFormatError}}</span>
+      <form class="addProductForm" #productSecondForm="ngForm" (ngSubmit)="addWaranty(productSecondForm)">
+        <label>Purchase Date</label>
+        <input type="date" #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate" class="form-control" [ngClass]="{'is-invalid':purchaseDate?.invalid && purchaseDate?.touched}">
   
-      <label>Category <span>*</span></label>
-      <ng-select 
-        bindLabel="category"
-        placeholder="Select item"
-        appendTo="body"
-        [searchable]="true"
-        [(ngModel)]="category"
-        (change)='fetchSubCategory()'
-        name="category">
-            <ng-option [value]="item.category" *ngFor="let item of categoriesList">
-                {{item.category}}
-            </ng-option>
-      </ng-select>
+        <label>Warranty Period</label>
+        <div class="warranty-field">
+          <div class="col-5">
+            <input type="number" #warrantyPeriod="ngModel" [ngModel]="0" name="warrantyPeriod" id="warrantyPeriod" class="form-control" [ngClass]="{'is-invalid':warrantyPeriod?.invalid && warrantyPeriod?.touched}">
+          </div>
+          <div class="col-5 ml-1">
+            <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control" [ngClass]="{'is-invalid':warrantyType?.invalid && warrantyType?.touched}">
+              <option value="year">Years</option>
+              <option value="month">Month</option>
+            </select>
+          </div>
+        </div>
+        <label>Serial No.</label>
+        <input type="number" #serialNo="ngModel" ngModel name="serialNo" id="serialNo" placeholder="eg:23562" class="form-control" [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}">
   
-      <label>Sub-category <span>*</span></label>
-      <ng-select 
-        bindLabel="sub_category"
-        placeholder="Select item"
-        appendTo="body"
-        [searchable]="true"
-        [(ngModel)]="subCategory"
-        (change)='fetchModel()'
-        name="subCategory">
-            <ng-option [value]="item.sub_category" *ngFor="let item of subCategoriesList">
-                {{item.sub_category}}
-            </ng-option>
-      </ng-select>
+        <label>Model No. </label>
+        <ng-select 
+          bindLabel="model_no"
+          placeholder="Select item"
+          appendTo="body"
+          [searchable]="true" 
+          #modelNo="ngModel" 
+          [ngModel]="modelId"
+          name="modelNo">
+              <ng-option [value]="item.model_no" *ngFor="let item of modelList">
+                  {{item.model_no}}
+              </ng-option>
+        </ng-select>
   
-      <label>Registered Mobile No. <span>*</span>
-        <a href="javascript:woid:(0);">i 
-          <span class="tdive">
-            Give the contact number you provided while registering the product.
-          </span>
+        <div class="int-warr">
+          <input type="checkbox" id="intl-warranty" />
+          <label for="intl-warranty">International Warranty</label>
+        </div>
+  
+        <a
+          onclick="addRemoveExWarranty();"
+          id="ex-warr-link"
+          class="extended-warr d-flex"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-plus"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <p>Add Extended Warranty Details</p>
         </a>
-      </label>
-      <input type="number" #registeredMobileNo="ngModel" [ngModel]="userPhn" name="registeredMobileNo" id="registeredMobileNo" placeholder="+91" class="form-control" [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}" pattern="(?=.*\d).{10}" required>
-      <small *ngIf="registeredMobileNo?.invalid && registeredMobileNo?.touched" [ngClass]="{'text-danger':registeredMobileNo?.invalid && registeredMobileNo?.touched}">
-        Mobile number must be of 10 digit.
-      </small>
-      <span class="text-danger">{{errorMessage}}</span>
-      <button class="submit-btn" type="submit">+ Add Products</button>
-    </form>
-  </div>
-
-  <div *ngIf="warantyTab" class="">
-    <div class="invoice-upload">
-      <h3>Upload Invoice photo</h3>
-      <p class="text-center">Recieved on the day of purchase</p>
-      <div class="d-flex justify-content-around">
-        <div class="file-input-box" style="margin: 0 0 0 auto;">
+  
+        <a onclick="addRemoveAMC()" class="extended-warr d-flex">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-plus"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <p>Add AMC Details</p>
+        </a>
+  
+        <p>Enter full details to receive warranty reminders!</p>
+        <span class="text-danger">{{errorMessage}}</span>
+        <div class="addWarranty-btns">
+          <button class="skip-btn">Skip</button>
+          <button class="submit-btn" type="submit">Continue &nbsp; <i class="fa fa-long-arrow-right"></i></button>
+        </div>
+      </form>
+  
+      <!-- overlay  -->
+  
+      <div
+        onclick="addRemoveExWarranty()"
+        id="ex-warr-b-overlay"
+        class=""
+      ></div>
+  
+      <div id="extended-warranty-overlay">
+        <div class="container">
+          
+          <section class="ex-warr-head">
+            <img src="./assets/images/ex-warr-icon.png" alt="" />
+            <h2 class="mb-0">Add Extended Warranty</h2>
+            <i><svg onclick="addRemoveExWarranty()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+          </section>
+  
+          <form class="addProductForm w-100" style="margin: 20px auto 100px; width: 100% !important;" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarranty(extendedWarrantyForm)">
+            <label>Service Provider <span>*</span></label>
+            <input
+                type="text"
+                #serviceProvider="ngModel" ngModel
+                placeholder="LG"
+                class="form-control"
+                required
+                name="serviceProvider"
+                 [ngClass]="{'is-invalid':serviceProvider?.invalid && serviceProvider?.touched}"
+              />
+  
+            <div class="d-flex">
+              <div class="st-date">
+                <label for="start-date">Start Date <span>*</span></label>
+                <input required type="date" id="startDate" style="padding: 10px 5px 10px 15px !important;" #startDate="ngModel" ngModel name="startDate" class="form-control" required [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}"/>
+              </div>
+  
+              <div class="end-date">
+                <label for="end-date">Warranty Period <span>*</span></label>
+                <select name="noOfYears" id="noOfYears" #noOfYears [ngModel]="'1'" class="form-control" required>
+                  <option value="1">1 year</option>
+                  <option value="2">2 years</option>
+                  <option value="3">3 years</option>
+                </select>
+              </div>
+            </div>
+  
+            <!-- <div class="addPhoto-wrap position-relative">
+              <label>Add Invoice Photo <span>*</span></label>
+              <input class="addPhotoPlaceholder" type="text" placeholder="Add Photo" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <input class="file-input" type="file" />
+            </div> -->
+  
+            <label>Vendor's Contact No. <span>*</span></label>
+            <input
+                type="number"
+                id="mobileNo"
+                #mobileNo="ngModel" ngModel
+                placeholder="+91"
+                class="form-control"
+                name="mobileNo" 
+                [ngClass]="{'is-invalid':mobileNo?.invalid && mobileNo?.touched}" 
+                required
+              />
+              <span class="text-danger">{{errorMessage}}</span>
+            <input class="addDetails-btn" type="submit" value="+ Add Details" onclick="addRemoveExWarranty()"/>
+          </form>
+        </div>
+      </div>
+  
+      <!-- Add AMC Details  -->
+      <div onclick="addRemoveAMC()" id="AMC-b-overlay" class=""></div>
+  
+      <div id="AMC-overlay" class="">
+        
+        <div class="container">
+          <section class="ex-warr-head">
+            <img src="./assets/images/AMC.png" alt="" width="22"/>
+            <h2 class="mb-0">Add AMC Details</h2>
+            <i><svg onclick="addRemoveAMC()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+          </section>
+  
+          <form class="addProductForm" style=" width: 100% !important;" #amcForm="ngForm" (ngSubmit)="addAmc(amcForm)">
+            <label>Service Provider <span>*</span></label>
+            <input
+                type="text"
+                #serviceProvider="ngModel"
+                ngModel
+                placeholder="LG"
+                class="form-control"
+                required
+                name="serviceProvider" 
+                [ngClass]="{'is-invalid':serviceProvider?.invalid && serviceProvider?.touched}"
+              />
+  
+            <div class="d-flex">
+              <div class="st-date">
+                <label for="start-date">Start Date <span>*</span></label>
+                <input required type="date" id="startDate" style="padding: 10px 5px 10px 15px !important;" #startDate="ngModel" ngModel name="startDate" class="form-control" required [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}"/>
+              </div>
+              
+              <div class="end-date">
+                <label for="start-date">AMC Period <span>*</span></label>
+                <select name="noOfYears" id="noOfYears" #noOfYears [ngModel]="'1'" class="form-control" required >
+                  <option value="1">1 year</option>
+                  <option value="2">2 years</option>
+                  <option value="3">3 years</option>
+                </select>
+              </div>
+            </div>
+            
+            <label for="duration">Service Duration <span>*</span></label>
+            <select name="serviceDuration" id="serviceDuration" #serviceDuration="ngModel" [ngModel]="'quaterly'" class="form-control" required>
+              <option value="quaterly">Quaterly</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+  
+            <label>Vendor's Agreement No. <span>*</span></label>
+            <input
+                type="text"
+                #vendorNo="ngModel" ngModel
+                class="form-control"
+                name="vendorNo" 
+                required 
+                [ngClass]="{'is-invalid':vendorNo?.invalid && vendorNo?.touched}"
+              />
+  
+            <label>Vendor's Contact No. <span>*</span></label>
+            <input
+                type="text"
+                #mobileNo="ngModel" ngModel
+                placeholder="+91 |"
+                class="form-control"
+                name="mobileNo" 
+                required 
+                [ngClass]="{'is-invalid':mobileNo?.invalid && mobileNo?.touched}"
+              />
+              <span class="text-danger">{{errorMessage}}</span>
+            <input
+              class="addDetails-btn"
+              type="submit"
+              value="+ Add AMC Details"
+              onclick="addRemoveAMC()"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="finishTab">
+      <div class="invoice-upload">
+        <h3>Add Product Pictures</h3>
+      </div>
+      
+      <div class="add-prod-img-container mt-5">
+        <div onclick="panelAddRemove()" class="file-input-box">
           <div class="file-box-bg">
-            <input type="file" value="+" placeholder="+" (change)="onSelectFile($event)"/>
             <svg
               width="24"
               height="24"
@@ -103,322 +369,77 @@
             </svg>
           </div>
         </div>
-        <div class="Invoice-img-box">
+  
+        <div class="Product-img-box">
           <img src="{{uploadedFile}}" alt="">
+          <!-- <img class="del-icon" src="./assets/images/del-icon.png" alt=""> -->
         </div>
-      </div>
-    </div>
-    <span class="text-danger">{{fileFormatError}}</span>
-    <form class="addProductForm" #productSecondForm="ngForm" (ngSubmit)="addWaranty(productSecondForm)">
-      <label>Purchase Date</label>
-      <input type="date" #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate" class="form-control" [ngClass]="{'is-invalid':purchaseDate?.invalid && purchaseDate?.touched}">
-
-      <label>Warranty Period</label>
-      <div class="warranty-field">
-        <div class="col-5">
-          <input type="number" #warrantyPeriod="ngModel" [ngModel]="0" name="warrantyPeriod" id="warrantyPeriod" class="form-control" [ngClass]="{'is-invalid':warrantyPeriod?.invalid && warrantyPeriod?.touched}">
+        <span class="text-danger">{{fileFormatError}}</span>
+        <!-- <div class="Product-img-box">
+          <img src="./assets/images/lg-back.png" alt="">
+          <img class="del-icon" src="./assets/images/del-icon.png" alt="">
         </div>
-        <div class="col-5 ml-1">
-          <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control" [ngClass]="{'is-invalid':warrantyType?.invalid && warrantyType?.touched}">
-            <option value="year">Years</option>
-            <option value="month">Month</option>
-          </select>
+  
+        <div class="Product-img-box">
+          <img src="./assets/images/lg-front.png" alt="">
+          <img class="del-icon" src="./assets/images/del-icon.png" alt="">
+        </div> -->
+      </div>  
+  
+      <!-- <div class="img-uploading-container d-flex">
+        <div class="img-uploading-left">
+          <h6>Uploading... <span>3 mins left</span> <span>70%</span></h6>
+          <div class="progress">
+            <div class="progress-bar animated-progress" style="width:70%"></div>
+          </div>
         </div>
-      </div>
-      <label>Serial No.</label>
-      <input type="number" #serialNo="ngModel" ngModel name="serialNo" id="serialNo" placeholder="eg:23562" class="form-control" [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}">
-
-      <label>Model No. </label>
-      <ng-select 
-        bindLabel="model_no"
-        placeholder="Select item"
-        appendTo="body"
-        [searchable]="true" 
-        #modelNo="ngModel" 
-        [ngModel]="modelId"
-        name="modelNo">
-            <ng-option [value]="item.model_no" *ngFor="let item of modelList">
-                {{item.model_no}}
-            </ng-option>
-      </ng-select>
-
-      <div class="int-warr">
-        <input type="checkbox" id="intl-warranty" />
-        <label for="intl-warranty">International Warranty</label>
-      </div>
-
-      <a
-        onclick="addRemoveExWarranty();"
-        id="ex-warr-link"
-        class="extended-warr d-flex"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="feather feather-plus"
-        >
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        <p>Add Extended Warranty Details</p>
-      </a>
-
-      <a onclick="addRemoveAMC()" class="extended-warr d-flex">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="feather feather-plus"
-        >
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        <p>Add AMC Details</p>
-      </a>
-
-      <p>Enter full details to receive warranty reminders!</p>
+        <div class="img-uploading-right">
+          <img src="./assets/images/pause-icon.png" alt="" style="margin-right: 6px;">
+          <img src="./assets/images/cut-icon2.png" alt="">
+        </div>
+      </div> -->
       <span class="text-danger">{{errorMessage}}</span>
-      <div class="addWarranty-btns">
-        <button class="skip-btn">Skip</button>
-        <button class="submit-btn" type="submit">Continue &nbsp; <i class="fa fa-long-arrow-right"></i></button>
-      </div>
-    </form>
-
-    <!-- overlay  -->
-
-    <div
-      onclick="addRemoveExWarranty()"
-      id="ex-warr-b-overlay"
-      class=""
-    ></div>
-
-    <div id="extended-warranty-overlay">
-      <div class="container">
-        
-        <section class="ex-warr-head">
-          <img src="./assets/images/ex-warr-icon.png" alt="" />
-          <h2 class="mb-0">Add Extended Warranty</h2>
-          <i><svg onclick="addRemoveExWarranty()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
-        </section>
-
-        <form class="addProductForm w-100" style="margin: 20px auto 100px; width: 100% !important;" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarranty(extendedWarrantyForm)">
-          <label>Service Provider <span>*</span></label>
-          <input
-              type="text"
-              #serviceProvider="ngModel" ngModel
-              placeholder="LG"
-              class="form-control"
-              required
-              name="serviceProvider"
-               [ngClass]="{'is-invalid':serviceProvider?.invalid && serviceProvider?.touched}"
-            />
-
-          <div class="d-flex">
-            <div class="st-date">
-              <label for="start-date">Start Date <span>*</span></label>
-              <input required type="date" id="startDate" style="padding: 10px 5px 10px 15px !important;" #startDate="ngModel" ngModel name="startDate" class="form-control" required [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}"/>
-            </div>
-
-            <div class="end-date">
-              <label for="end-date">Warranty Period <span>*</span></label>
-              <select name="noOfYears" id="noOfYears" #noOfYears [ngModel]="'1'" class="form-control" required>
-                <option value="1">1 year</option>
-                <option value="2">2 years</option>
-                <option value="3">3 years</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- <div class="addPhoto-wrap position-relative">
-            <label>Add Invoice Photo <span>*</span></label>
-            <input class="addPhotoPlaceholder" type="text" placeholder="Add Photo" />
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <input class="file-input" type="file" />
-          </div> -->
-
-          <label>Vendor's Contact No. <span>*</span></label>
-          <input
-              type="number"
-              id="mobileNo"
-              #mobileNo="ngModel" ngModel
-              placeholder="+91"
-              class="form-control"
-              name="mobileNo" 
-              [ngClass]="{'is-invalid':mobileNo?.invalid && mobileNo?.touched}" 
-              required
-            />
-            <span class="text-danger">{{errorMessage}}</span>
-          <input class="addDetails-btn" type="submit" value="+ Add Details" onclick="addRemoveExWarranty()"/>
-        </form>
-      </div>
-    </div>
-
-    <!-- Add AMC Details  -->
-    <div onclick="addRemoveAMC()" id="AMC-b-overlay" class=""></div>
-
-    <div id="AMC-overlay" class="">
-      
-      <div class="container">
-        <section class="ex-warr-head">
-          <img src="./assets/images/AMC.png" alt="" width="22"/>
-          <h2 class="mb-0">Add AMC Details</h2>
-          <i><svg onclick="addRemoveAMC()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
-        </section>
-
-        <form class="addProductForm" style=" width: 100% !important;" #amcForm="ngForm" (ngSubmit)="addAmc(amcForm)">
-          <label>Service Provider <span>*</span></label>
-          <input
-              type="text"
-              #serviceProvider="ngModel"
-              ngModel
-              placeholder="LG"
-              class="form-control"
-              required
-              name="serviceProvider" 
-              [ngClass]="{'is-invalid':serviceProvider?.invalid && serviceProvider?.touched}"
-            />
-
-          <div class="d-flex">
-            <div class="st-date">
-              <label for="start-date">Start Date <span>*</span></label>
-              <input required type="date" id="startDate" style="padding: 10px 5px 10px 15px !important;" #startDate="ngModel" ngModel name="startDate" class="form-control" required [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}"/>
-            </div>
-            
-            <div class="end-date">
-              <label for="start-date">AMC Period <span>*</span></label>
-              <select name="noOfYears" id="noOfYears" #noOfYears [ngModel]="'1'" class="form-control" required >
-                <option value="1">1 year</option>
-                <option value="2">2 years</option>
-                <option value="3">3 years</option>
-              </select>
-            </div>
-          </div>
+  
+      <div class="btn-container">
+        <div class="addWarranty-btns">
+          <button class="skip-btn" type="button" (click)="addFinish()">Skip</button>
+          <button class="submit-btn" type="submit" (click)="addFinish()">Continue &nbsp; <i class="fa fa-long-arrow-right"></i></button>
           
-          <label for="duration">Service Duration <span>*</span></label>
-          <select name="serviceDuration" id="serviceDuration" #serviceDuration="ngModel" [ngModel]="'quaterly'" class="form-control" required>
-            <option value="quaterly">Quaterly</option>
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-          </select>
-
-          <label>Vendor's Agreement No. <span>*</span></label>
-          <input
-              type="text"
-              #vendorNo="ngModel" ngModel
-              class="form-control"
-              name="vendorNo" 
-              required 
-              [ngClass]="{'is-invalid':vendorNo?.invalid && vendorNo?.touched}"
-            />
-
-          <label>Vendor's Contact No. <span>*</span></label>
-          <input
-              type="text"
-              #mobileNo="ngModel" ngModel
-              placeholder="+91 |"
-              class="form-control"
-              name="mobileNo" 
-              required 
-              [ngClass]="{'is-invalid':mobileNo?.invalid && mobileNo?.touched}"
-            />
-            <span class="text-danger">{{errorMessage}}</span>
-          <input
-            class="addDetails-btn"
-            type="submit"
-            value="+ Add AMC Details"
-            onclick="addRemoveAMC()"
-          />
-        </form>
+        </div>
       </div>
+  
+      <div onclick="panelAddRemove()" id="ex-warr-b-overlay" class=""></div>
+      <section id="takePicturePanel">
+        <i><svg onclick="panelAddRemove()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+        <div class="takePhoto">
+          <img src="./assets/images/takePhoto.png" alt="">
+          <a href="#">Take A Picture</a>
+          <input type="file" placeholder="Take A Photo" (change)="onSelectFile($event)">
+        </div>
+        <div class="pickGallery">
+          <img src="./assets/images/gallery.png" alt="">
+          <a href="#">Import From Gallery</a>
+          <input type="file" placeholder="Import from Gallery" (change)="onSelectFile($event)">
+        </div>
+      </section>
     </div>
   </div>
 
-  <div *ngIf="finishTab">
-    <div class="invoice-upload">
-      <h3>Add Product Pictures</h3>
-    </div>
-    
-    <div class="add-prod-img-container mt-5">
-      <div onclick="panelAddRemove()" class="file-input-box">
-        <div class="file-box-bg">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-plus"
-          >
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
+  <div *ngIf="thankYouTab">
+    <div style="padding-top: 20%;">
+      <div class="">
+        <img src="./assets/images/done3.png" alt="">
+        <div class="mt-5">
+          <h2>
+            Thank You!
+          </h2>
+            <span class="d-block">You have added a product.</span>
+        </div>
+        <div class="btn-container">
+          <div class="home-btn">
+            <button class="submit-btn" type="submit" routerLink="/product/list">Go to products &nbsp; <i class="fa fa-long-arrow-right"></i></button>
+          </div>
         </div>
       </div>
-
-      <div class="Product-img-box">
-        <img src="{{uploadedFile}}" alt="">
-        <!-- <img class="del-icon" src="./assets/images/del-icon.png" alt=""> -->
-      </div>
-      <span class="text-danger">{{fileFormatError}}</span>
-      <!-- <div class="Product-img-box">
-        <img src="./assets/images/lg-back.png" alt="">
-        <img class="del-icon" src="./assets/images/del-icon.png" alt="">
-      </div>
-
-      <div class="Product-img-box">
-        <img src="./assets/images/lg-front.png" alt="">
-        <img class="del-icon" src="./assets/images/del-icon.png" alt="">
-      </div> -->
-    </div>  
-
-    <!-- <div class="img-uploading-container d-flex">
-      <div class="img-uploading-left">
-        <h6>Uploading... <span>3 mins left</span> <span>70%</span></h6>
-        <div class="progress">
-          <div class="progress-bar animated-progress" style="width:70%"></div>
-        </div>
-      </div>
-      <div class="img-uploading-right">
-        <img src="./assets/images/pause-icon.png" alt="" style="margin-right: 6px;">
-        <img src="./assets/images/cut-icon2.png" alt="">
-      </div>
-    </div> -->
-    <span class="text-danger">{{errorMessage}}</span>
-
-    <div class="btn-container">
-      <div class="addWarranty-btns">
-        <button class="skip-btn" type="button" (click)="addFinish()">Skip</button>
-        <button class="submit-btn" type="submit" (click)="addFinish()">Continue &nbsp; <i class="fa fa-long-arrow-right"></i></button>
-        
-      </div>
     </div>
-
-    <div onclick="panelAddRemove()" id="ex-warr-b-overlay" class=""></div>
-    <section id="takePicturePanel">
-      <i><svg onclick="panelAddRemove()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
-      <div class="takePhoto">
-        <img src="./assets/images/takePhoto.png" alt="">
-        <a href="#">Take A Picture</a>
-        <input type="file" placeholder="Take A Photo" (change)="onSelectFile($event)">
-      </div>
-      <div class="pickGallery">
-        <img src="./assets/images/gallery.png" alt="">
-        <a href="#">Import From Gallery</a>
-        <input type="file" placeholder="Import from Gallery" (change)="onSelectFile($event)">
-      </div>
-    </section>
   </div>

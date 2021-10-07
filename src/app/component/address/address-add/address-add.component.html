@@ -1,8 +1,8 @@
-<header>
+<header *ngIf="!thankYouTab">
     <h2 class="mt-2 mx-auto">Add Address</h2>
 </header>
 
-<div id="step_one">
+<div id="step_one" *ngIf="!thankYouTab">
     <form class="addProductForm" #addressForm="ngForm" (ngSubmit)="saveAddress(addressForm)">
         <label for="">Address Line 1 <span class="text-danger">*</span></label>
         <input type="text" name="addressLine1" id="addressLine1" class="form-control" placeholder="Address line 1" #addressLine1="ngModel" ngModel required [ngClass]="{'is-invalid': addressLine1?.invalid && addressLine1?.touched}">
@@ -28,5 +28,24 @@
 
         <button class="submit-btn" type="submit">Save Address</button>
     </form>
+</div>
+
+<div *ngIf="thankYouTab">
+    <div style="padding-top: 20%;">
+      <div class="">
+        <img src="./assets/images/done3.png" alt="">
+        <div class="mt-5">
+          <h2>
+            Thank You!
+          </h2>
+            <span class="d-block">You have added a address.</span>
+        </div>
+        <div class="btn-container">
+          <div class="home-btn">
+            <button class="submit-btn" type="submit" routerLink="/address/list">Manage address &nbsp; <i class="fa fa-long-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
   

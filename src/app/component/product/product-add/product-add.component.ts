@@ -3,6 +3,7 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
 import { Router } from "@angular/router";
 import  Swal  from "sweetalert2";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-add',
@@ -15,6 +16,7 @@ export class ProductAddComponent implements OnInit {
   public productTab : boolean = true;
   public warantyTab : boolean = false;
   public finishTab : boolean = false;
+  public thankYouTab : boolean = false;
   public extdWarrantyStatus : boolean = true;
   public amcStatus : boolean = true;
   public productImage : boolean = false;
@@ -111,12 +113,15 @@ export class ProductAddComponent implements OnInit {
       this.productTab = true;
       this.warantyTab = false;
       this.finishTab = false;
+      this.thankYouTab = false;
     }
     if(this.finishTab == true) {
       window.scrollTo(0, 0);
       this.productTab = false;
       this.warantyTab = true;
       this.finishTab = false;
+      this.thankYouTab = false;
+      this.uploadedFile = this.invoiceImgUrl;
     }
   }
 
@@ -175,12 +180,15 @@ export class ProductAddComponent implements OnInit {
     }
     if (formData?.valid) {
       if (this.category && this.brandId) {
+        
         formData.value.brandId = this.brandName;
         console.log(formData.value);
         this.addProductValue = formData.value;
         this.productTab = false;
         this.warantyTab = true;
         this.finishTab = false;
+        this.thankYouTab = false;
+
         this.errorMessage = "";
       } else {
         this.errorMessage = 'Please fill out all the details';
@@ -208,12 +216,22 @@ export class ProductAddComponent implements OnInit {
           this.productTab = false;
           this.warantyTab = false;
           this.finishTab = true;
+          this.thankYouTab = false;
           this.uploadedFile = '';
           this.errorMessage = "";
           this.fileFormatError = "";
         } else {
           this.errorMessage = "Please fill Extended warranty and amc details"
         }
+        this._api.getProductIcon(this.category).subscribe(
+          res => {
+            console.log('product icon: ',res);
+            if(res.message === 'Success') {
+              this.productImgUrl = environment.hosted_api_url+"icons/"+res.icon.icon;
+              this.uploadedFile = environment.hosted_api_url+"icons/"+res.icon.icon;
+            }
+          }
+        )
       
     } else {
       this.errorMessage = 'Please fill out all the details';
@@ -273,11 +291,10 @@ export class ProductAddComponent implements OnInit {
           "description": "Dear "+userDetail.name+", your product "+this.addProductValue.name+" has successfully been added."
         }
         this._api.addNotification(notificationForm).subscribe();
-        this.Toast.fire({
-          icon: 'success',
-          title: 'Product added successfully!'
-        })
-        this._router.navigate(['/product/list']);
+        this.productTab = false;
+        this.warantyTab = false;
+        this.finishTab = false;
+        this.thankYouTab = true;
       },
       (err) => {
         this.errorMessage = err.error.message;

@@ -43,6 +43,7 @@ export class PackageListComponent implements OnInit {
   public userInfo: any = JSON.parse(localStorage.getItem('userInfo') || '{}');
   public purchaseOptions: any = {};
   public packageName: any = '';
+  public thankYouTab: boolean = false;
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -117,13 +118,7 @@ export class PackageListComponent implements OnInit {
                   confirmButtonText: 'Done!',
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    Swal.fire(
-                      'Redirecting...',
-                      'success'
-                    )
-                    window.location.href = environment.basePath+'profile/details';
-                    location.reload();
-
+                    this.thankYouTab = true;
                   }
                 })
               }, err => {}

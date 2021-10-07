@@ -42,6 +42,10 @@ export class TicketAddComponent implements OnInit {
   public addedTicketDetail : any = new Object();
   public supportExecutives : any = new Array();
   public userAddresses : any = [];
+  public cityData : any = [];
+  public brandId : any = '';
+  public selectedCity : any = '';
+  public serviceCenters : any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -58,6 +62,29 @@ export class TicketAddComponent implements OnInit {
     this.getAddressList();
     this._loader.stopLoader('loader');
     this.getProductDetail();
+    
+  }
+
+  getCities() {
+    this._api.getCities().subscribe(
+      res=> {
+        this.cityData = res.cities;
+        console.log('city', this.cityData);
+        this.selectedCity = res.cities[0].name;
+        this.selectCity();
+      }
+    )
+  }
+
+  selectCity() {
+    console.log(this.selectedCity);
+    
+    this._api.getServiceCenter(this.brandId, this.selectedCity).subscribe(
+      res => {
+        console.log('service center: ', res);
+        this.serviceCenters = res.service_centers;
+      }, err => {}
+    )
   }
 
   getAddressList() {
@@ -73,6 +100,15 @@ export class TicketAddComponent implements OnInit {
     this._api.productDetail(this.productId).subscribe(
       res => {
         this.productDetail = res;
+        this._api.getProductBrands().subscribe(
+          res => {
+            // console.log('brands :', res.brands);
+            this.brandId = res.brands.filter((t : any) => t.name === this.productDetail.brands)[0].id;
+            console.log(this.brandId);
+            this.getCities();
+            
+          }, err => {}
+        )
         this._loader.stopLoader('loader');
         console.log('Product Detail',res);
       }, err => {}
