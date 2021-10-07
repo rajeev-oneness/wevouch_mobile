@@ -133,7 +133,7 @@
             <input type="text" name="addressLine2" id="addressLine2" class="form-control" placeholder="Address line 2" #addressLine2="ngModel" ngModel required [ngClass]="{'is-invalid': addressLine2?.invalid && addressLine2?.touched}">
             
             <label for="">Location <span class="text-danger">*</span></label>
-            <input type="text" name="location" id="location" class="form-control" placeholder="Location" #location="ngModel" ngModel required [ngClass]="{'is-invalid': location?.invalid && location?.touched}">
+            <input type="text" name="location" id="location" class="form-control" placeholder="Location" #location="ngModel" ngModel [ngClass]="{'is-invalid': location?.invalid && location?.touched}">
             
             <label for="">City <span class="text-danger">*</span></label>
             <input type="text" name="city" id="city" class="form-control" placeholder="City" #city="ngModel" ngModel required [ngClass]="{'is-invalid': city?.invalid && city?.touched}">

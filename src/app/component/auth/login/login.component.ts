@@ -80,6 +80,10 @@ export class LoginComponent implements OnInit {
       this._router.navigate(['/home']);
     }
     this._loader.stopLoader('loader');
+    const sliderHide = JSON.parse(localStorage.getItem('sliderStatus') || '{}');
+    if (sliderHide.hidden === true) {
+      this.showSlider = false;
+    }
   }
 
   loginUser(formData :any){
@@ -302,6 +306,7 @@ export class LoginComponent implements OnInit {
   }
 
   hideSlider() {
+    localStorage.setItem('sliderStatus',JSON.stringify({"hidden": true}));
     this.showSlider = false;
   }
 

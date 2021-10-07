@@ -257,8 +257,12 @@
                 class="form-control"
                 name="mobileNo" 
                 [ngClass]="{'is-invalid':mobileNo?.invalid && mobileNo?.touched}" 
+                pattern="(?=.*\d).{10}" 
                 required
               />
+            <small *ngIf="mobileNo?.invalid && mobileNo?.touched" [ngClass]="{'text-danger':mobileNo?.invalid && mobileNo?.touched}">
+              Mobile number must be of 10 digit.
+            </small>
               <span class="text-danger">{{errorMessage}}</span>
             <input class="addDetails-btn" type="submit" value="+ Add Details" onclick="addRemoveExWarranty()"/>
           </form>
@@ -325,14 +329,18 @@
   
             <label>Vendor's Contact No. <span>*</span></label>
             <input
-                type="text"
+                type="number"
                 #mobileNo="ngModel" ngModel
                 placeholder="+91 |"
                 class="form-control"
                 name="mobileNo" 
                 required 
+                pattern="(?=.*\d).{10}" 
                 [ngClass]="{'is-invalid':mobileNo?.invalid && mobileNo?.touched}"
               />
+            <small *ngIf="mobileNo?.invalid && mobileNo?.touched" [ngClass]="{'text-danger':mobileNo?.invalid && mobileNo?.touched}">
+              Mobile number must be of 10 digit.
+            </small>
               <span class="text-danger">{{errorMessage}}</span>
             <input
               class="addDetails-btn"
