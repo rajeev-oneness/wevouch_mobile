@@ -20,8 +20,8 @@
       <label>Issue details <span class="op">*</span></label>
       <select class="form-control" name="issueType" id="issueType" #issueType="ngModel"  [ngModel]="addTicketValue.issueType" required [ngClass]="{'is-invalid':issueType?.invalid && issueType?.touched}" >
           <option value="" hidden>-select-</option>
-          <option value="Repair">Repair</option>
-          <option value="Manufacturer">Manufacturer</option>
+          <option value="Breakage">Breakage</option>
+          <option value="Malfunctioning">Malfunctioning</option>
       </select>
       <label>Function details <span class="op">*</span></label>
       <select class="form-control mt-2" name="functionType" id="functionType" #functionType="ngModel"  [ngModel]="addTicketValue.functionType" required [ngClass]="{'is-invalid':functionType?.invalid && functionType?.touched}">
@@ -32,7 +32,7 @@
       <label>Description <span class="op">*</span></label>
       <textarea class="form-control mt-2" rows="4" placeholder="Describe the problem in detail" name="description" #description="ngModel" [ngModel]="addTicketValue.description"></textarea>
       <span class="text-danger">{{errorMessage}}</span>
-      <button class="submit-btn" type="submit">Raise Ticket</button>
+      <button class="submit-btn" type="submit">Request Service</button>
     </form>
   </div>
   <div id="step_two" *ngIf="stepTwo">
@@ -109,7 +109,7 @@
         </ng-template>
       </div>
       <span class="text-danger">{{errorMessage}}</span>
-      <button class="submit-btn" type="submit">Raise Ticket</button>
+      <button class="submit-btn" type="submit">Request Service</button>
     </form>
     <div
       onclick="addRemoveExWarranty()"
@@ -165,7 +165,7 @@
       <label>Select Time <span class="op">*</span></label>
       <input type="time" id="datetime" style="height: 46px;" name="selectedTime" #selectedTime="ngModel" [ngModel]="addTicketValue.selectedTime" placeholder="time" class=" form-control mb-2">
       <span class="text-danger">{{errorMessage}}</span>
-      <button class="submit-btn" type="submit">Raise Ticket</button>
+      <button class="submit-btn" type="submit">Request Service</button>
     </form>
   </div> 
   <div id="step_four" *ngIf="stepFour" class="pl-3 pr-3 mt-5">

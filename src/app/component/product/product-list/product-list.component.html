@@ -33,7 +33,7 @@
     </ng-container>
     <ng-template carouselSlide>
       <div class="item">
-        <div class="addAnotherProduct">
+        <div class="addAnotherProduct" *ngIf="products.length >= 1">
           <div routerLink="/product/add" class="file-input-box">
             <div class="file-box-bg">
               <svg
@@ -52,6 +52,11 @@
               </svg>
             </div>
           </div>
+        </div>
+        <div *ngIf="products.length == 0">
+          <a href="javascript:void(0);" routerLink="/product/add">
+            <img src="./assets/images/add_product_placeholder.png" style="width: 267px; margin-left: 11%;" alt="">
+          </a>
         </div>
       </div>
     </ng-template> 

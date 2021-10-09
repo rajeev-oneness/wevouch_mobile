@@ -9,9 +9,17 @@ import { ApiService } from "src/app/service/api.service";
 })
 export class TicketListComponent implements OnInit {
 
+  
+
+  constructor(private _loader:NgxUiLoaderService, private _api:ApiService) { }
+  public user : any = {}
+  public tickets : any = ''
+  public categories : any = {}
+  public defaultCategoryId : any = ''
+  public sliderLoop : boolean = false;
+
   title = 'angularowlslider';
-  ticketList: any = {
-    loop: true,
+  public ticketOptions: any = {
     margin: 15,
     nav: false,
     dots: false,
@@ -31,12 +39,6 @@ export class TicketListComponent implements OnInit {
 			}
     },
   }
-
-  constructor(private _loader:NgxUiLoaderService, private _api:ApiService) { }
-  public user : any = {}
-  public tickets : any = ''
-  public categories : any = {}
-  public defaultCategoryId : any = ''
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -65,7 +67,12 @@ export class TicketListComponent implements OnInit {
   getTickets() {
     this._api.ticketList(this.user._id).subscribe(
       res => {
-        this.tickets = res
+        this.tickets = res;
+        if (res.length > 1) {
+          this.ticketOptions.loop = true
+        } else {
+          this.ticketOptions.loop = false
+        }
         this._loader.stopLoader('loader');
       }, err => {}
     )

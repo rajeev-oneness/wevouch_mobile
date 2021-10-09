@@ -355,43 +355,42 @@
   
     <div *ngIf="finishTab">
       <div class="invoice-upload">
-        <h3>Add Product Pictures</h3>
+        <div class="invoice-upload">
+          <h3>Upload Product photo</h3>
+          <p class="text-center">Add a recent photo of your product</p>
+          <div class="d-flex justify-content-around">
+            <div class="file-input-box" style="margin: 0 0 0 auto;">
+              <div class="file-box-bg">
+                <input type="file" value="+" placeholder="+" (change)="onSelectFile($event)"/>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-plus"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </div>
+            </div>
+            <div class="Invoice-img-box">
+              <img src="{{uploadedFile}}" alt="" style="height: 100%;">
+            </div>
+          </div>
+        </div>
+        <span class="text-danger">{{fileFormatError}}</span>
       </div>
       
       <div class="add-prod-img-container mt-5">
-        <div onclick="panelAddRemove()" class="file-input-box">
-          <div class="file-box-bg">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-plus"
-            >
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          </div>
-        </div>
-  
-        <div class="Product-img-box">
-          <img src="{{uploadedFile}}" alt="">
-          <!-- <img class="del-icon" src="./assets/images/del-icon.png" alt=""> -->
-        </div>
-        <span class="text-danger">{{fileFormatError}}</span>
-        <!-- <div class="Product-img-box">
-          <img src="./assets/images/lg-back.png" alt="">
-          <img class="del-icon" src="./assets/images/del-icon.png" alt="">
-        </div>
-  
-        <div class="Product-img-box">
-          <img src="./assets/images/lg-front.png" alt="">
-          <img class="del-icon" src="./assets/images/del-icon.png" alt="">
-        </div> -->
+
+        
+        
+        
       </div>  
   
       <!-- <div class="img-uploading-container d-flex">
@@ -416,7 +415,7 @@
         </div>
       </div>
   
-      <div onclick="panelAddRemove()" id="ex-warr-b-overlay" class=""></div>
+      <!-- <div onclick="panelAddRemove()" id="ex-warr-b-overlay" class=""></div>
       <section id="takePicturePanel">
         <i><svg onclick="panelAddRemove()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
         <div class="takePhoto">
@@ -429,7 +428,7 @@
           <a href="#">Import From Gallery</a>
           <input type="file" placeholder="Import from Gallery" (change)="onSelectFile($event)">
         </div>
-      </section>
+      </section> -->
     </div>
   </div>
 

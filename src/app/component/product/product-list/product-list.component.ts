@@ -14,8 +14,7 @@ import { dateDiffInHours } from "src/app/service/globalFunction";
 export class ProductListComponent implements OnInit {
 
   title = 'angularowlslider';
-  productList: any = {
-    loop: true,
+  public productList: any = {
     margin: 15,
     nav: false,
     dots: false,
@@ -92,6 +91,11 @@ export class ProductListComponent implements OnInit {
       res => {
         console.log(res);
         this.products = res;
+        if (this.products.length > 1) {
+          this.productList.loop = true;
+        } else {
+          this.productList.loop = false;
+        }
         for (let index = 0; index < res.length; index++) {
           if (res[index]?.purchaseDate) {
             let purchaseDate = new Date(res[index].purchaseDate);
