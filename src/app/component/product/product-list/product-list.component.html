@@ -166,7 +166,7 @@
   </div>
   <div class="expiresDate">
     <div class="call-img">
-      <img src="./assets/images/call.png" alt="">
+      <img src="./assets/images/call.png" alt="" *ngIf="productDeatil?.extendedWarranty?.mobileNo">
     </div>
     <h6>mobile No.</h6>
     <p class="text-center">{{productDeatil?.extendedWarranty?.mobileNo || 'N/A'}}</p>
@@ -188,7 +188,7 @@
   </div>
   <div class="expiresDate">
     <div class="call-img">
-      <img src="./assets/images/call.png" alt="">
+      <img src="./assets/images/call.png" alt="" *ngIf="productDeatil?.amcDetails?.vendorNo">
     </div>
     <h6>Contract No.</h6>
     <p class="text-center">{{productDeatil?.amcDetails?.vendorNo || 'N/A'}}</p>

@@ -6,7 +6,7 @@
     height: 100%;
 }
 .slider{
-    background: url(../../../../assets/images/Splash_screen2.jpg) no-repeat;
+    background: url(../../../../assets/images/Splash_screen2.png) no-repeat;
     padding: 5px 0;
     background-size: cover;
     background-position: center top;
@@ -15,13 +15,13 @@
     height: 98vh;
 }
 .sl2{
-    background: url(../../../../assets/images/Splash_screen3.jpg) no-repeat;
+    background: url(../../../../assets/images/Splash_screen1.jpg) no-repeat;
     background-size: cover;
     background-position: center top;
     position: relative;
 }
 .sl3{
-    background: url(../../../../assets/images/Splash_screen1.jpg) no-repeat;
+    background: url(../../../../assets/images/Splash_screen3.jpg) no-repeat;
     background-size: cover;
     background-position: center top;
     position: relative;
