@@ -130,9 +130,8 @@ export class ProductAddComponent implements OnInit {
   public selectedFile : any = '';
   public hasFile : boolean = false;
   public invoiceImgUrl : any = '';
-  public productImgUrl : any = '';
+  public productImgUrl : any = new Array();
   onSelectFile(event: any) {
-    this._loader.startLoader('loader');
     this.fileFormatError = '';this.hasFile = false;
     this.selectedFile = event.target.files[0];
     if(this.selectedFile != undefined && this.selectedFile != null){
@@ -140,6 +139,7 @@ export class ProductAddComponent implements OnInit {
       let fileName = this.selectedFile.name.split('.').pop();
       let data = validFormat.find(ob => ob === fileName);
       if(data != null || data != undefined){
+        this._loader.startLoader('loader');
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]); // read file as data url
         reader.onload = (event) => { // called once readAsDataURL is completed
@@ -163,11 +163,14 @@ export class ProductAddComponent implements OnInit {
         console.log(res);
         if(this.warantyTab === true) {
           this.invoiceImgUrl = res.file_link;
+          this._loader.stopLoader('loader');
         }
         if(this.finishTab === true) {
-          this.productImgUrl = res.file_link;
+          // this.productImgUrl = res.file_link;
+          this.productImgUrl.push(res.file_link);
+          console.log(this.productImgUrl);
+          this._loader.stopLoader('loader');
         }
-        this._loader.stopLoader('loader');
       }
     )
   }
@@ -227,8 +230,10 @@ export class ProductAddComponent implements OnInit {
           res => {
             console.log('product icon: ',res);
             if(res.message === 'Success') {
-              this.productImgUrl = environment.hosted_api_url+"icons/"+res.icon.icon;
+              this._loader.startLoader('loader');
+              this.productImgUrl.push(environment.hosted_api_url+"icons/"+res.icon.icon);
               this.uploadedFile = environment.hosted_api_url+"icons/"+res.icon.icon;
+              this._loader.stopLoader('loader');
             }
           }
         )
@@ -272,9 +277,7 @@ export class ProductAddComponent implements OnInit {
   addFinish() {
     this.errorMessage = "";
     this._loader.startLoader('loader');
-    this.addProductValue.productImagesUrl = [
-      this.productImgUrl
-    ];
+    this.addProductValue.productImagesUrl = this.productImgUrl;
     this.addProductValue.userId = JSON.parse(
       localStorage.getItem('userInfo') || '{}'
     )._id;
@@ -301,5 +304,10 @@ export class ProductAddComponent implements OnInit {
         this._loader.stopLoader('loader');
       }
     );
+  }
+
+  removeImage(imageIndex : any) {
+    this.productImgUrl.splice(imageIndex, 1);
+    console.log(this.productImgUrl);
   }
 }

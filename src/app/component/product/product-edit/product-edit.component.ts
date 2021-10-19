@@ -12,7 +12,9 @@ import { getDateFormat } from "src/app/service/globalFunction";
 })
 export class ProductEditComponent implements OnInit {
 
-  constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router, public _activated:ActivatedRoute) { }
+  constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router, public _activated:ActivatedRoute) { 
+    this._loader.startLoader('loader');
+  }
 
   public getDateFormat = getDateFormat;
 
@@ -83,7 +85,7 @@ export class ProductEditComponent implements OnInit {
         }
         this.invoiceImgUrl = res.invoicePhotoUrl;
         this.uploadedFile1 = res.invoicePhotoUrl;
-        this.productImgUrl = res.productImagesUrl[0];
+        this.productImgUrl = res.productImagesUrl;
         this.uploadedFile2 = res.productImagesUrl[0];
       }, err => {}
     )
@@ -157,7 +159,7 @@ export class ProductEditComponent implements OnInit {
   public selectedFile : any = '';
   public hasFile : boolean = false;
   public invoiceImgUrl : any = '';
-  public productImgUrl : any = '';
+  public productImgUrl : any = new Array();
   onSelectFile1(event: any) {
     this._loader.startLoader('loader');
     this.fileFormatError = '';this.hasFile = false;
@@ -210,7 +212,7 @@ export class ProductEditComponent implements OnInit {
           this._api.storeFile(mainForm).subscribe(
             res => {
               console.log(res);
-              this.productImgUrl = res.file_link;
+              this.productImgUrl.push(res.file_link);
               this._loader.stopLoader('loader');
             }
           )
@@ -307,9 +309,7 @@ export class ProductEditComponent implements OnInit {
   
   addFinish() {
     this._loader.startLoader('loader');
-    this.addProductValue.productImagesUrl = [
-      this.productImgUrl
-    ];
+    this.addProductValue.productImagesUrl = this.productImgUrl;
     this.addProductValue.userId = JSON.parse(
       localStorage.getItem('userInfo') || '{}'
     )._id;
@@ -337,6 +337,11 @@ export class ProductEditComponent implements OnInit {
         this._loader.stopLoader('loader');
       }
     );
+  }
+
+  removeImage(imageIndex : any) {
+    this.productImgUrl.splice(imageIndex, 1);
+    console.log(this.productImgUrl);
   }
 
 }

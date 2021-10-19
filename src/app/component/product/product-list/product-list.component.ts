@@ -36,10 +36,10 @@ export class ProductListComponent implements OnInit {
   }
   productDetailList: any = {
     loop: false,
-    margin: 200,
+    margin: 300,
     nav: false,
     dots: false,
-    autoplay:true,
+    autoplay:false,
 		autoplayTimeout: 5000,
 		autoplayHoverPause: true,
     responsiveClass: true,

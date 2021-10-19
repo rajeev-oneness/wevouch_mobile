@@ -20,7 +20,7 @@
         <div class="item">
           <div (click)="showHideProductDetail(product._id)" class="addedProductBox">
             <div class="cl_image">
-              <img src="{{(product.productImagesUrl != '')? product.productImagesUrl : './assets/images/blank-image.png'}}" alt="Product Image" />
+              <img src="{{(product.productImagesUrl != '')? product.productImagesUrl[0] : './assets/images/blank-image.png'}}" alt="Product Image" />
             </div>
             <h6>{{product.name}}</h6>
             <p class="text-center" *ngIf="product?.expiresOn; else noExpiryDateBlock">Expires on {{product.expiresOn | date:'MMM dd, yyyy'}}</p>
@@ -109,13 +109,19 @@
 </header>
 
 
-<!-- <div class="carousel-body">
-  <owl-carousel-o [options]="productDetailList">
-    <ng-container>
-      <ng-template carouselSlide> -->
+
         <div class="item">
           <div class="claimWarrantyProductBox">
-            <img src="{{(productDeatil?.productImagesUrl != '')? productDeatil.productImagesUrl : './assets/images/blank-image.png'}}" width="200" alt="" />
+            <!-- <img src="{{(productDeatil?.productImagesUrl != '')? productDeatil?.productImagesUrl : './assets/images/blank-image.png'}}" width="200" alt="" /> -->
+            
+            <owl-carousel-o [options]="productDetailList">
+              <ng-template carouselSlide *ngFor="let prodImg of productDeatil?.productImagesUrl">
+                <div class="dl_image">
+                  <img src="{{(prodImg != '')? prodImg : './assets/images/blank-image.png'}}" alt="Product Image" />
+                </div>
+                
+              </ng-template>
+            </owl-carousel-o>
             <div class="claimWarrantyText">
               <div class="brand">
                 <h6>Brand</h6>
@@ -128,10 +134,7 @@
             </div>
           </div>
         </div>
-      <!-- </ng-template>
-    </ng-container> 
-  </owl-carousel-o>
-</div> -->
+      
 
 <div class="warrantyDetailsBox">
   <h3>Warranty Details</h3>
