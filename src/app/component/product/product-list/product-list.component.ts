@@ -55,6 +55,27 @@ export class ProductListComponent implements OnInit {
 			}
     },
   }
+  invoicelist: any = {
+    loop: false,
+    margin: 100,
+    nav: false,
+    dots: false,
+    autoplay:false,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: true,
+    responsiveClass: true,
+    responsive: {
+      0:{
+				items:1,
+			},
+			600:{
+				items:1,
+			},
+			760:{
+				items:1,
+			}
+    },
+  }
   constructor(private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { }
   public user : any = {}
   public products : any = ''
@@ -63,6 +84,7 @@ export class ProductListComponent implements OnInit {
   public warrantyValidTill : any = ''
   public amcValidTill : any = ''
   public amcLeftDays : any = ''
+  public warrantyDaysLeft : any = ''
   public dateNow : any = Date.now(); 
   public tickets : any = []
   public newTickets : any = []
@@ -160,6 +182,7 @@ export class ProductListComponent implements OnInit {
   showHideProductDetail(productId = '') {
     this.amcValidTill = '';
     this.amcLeftDays = '';
+    this.warrantyDaysLeft = '';
     this.showDetail = !this.showDetail;
     this.warrantyValidTill = '';
     if(productId != '') {
@@ -170,6 +193,8 @@ export class ProductListComponent implements OnInit {
           if(res.purchaseDate) {
             let purchaseDate = new Date(res.purchaseDate);
             this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
+
+            this.warrantyDaysLeft = (res.warrantyPeriod > 0) ? dateDiffInDays(this.dateNow, this.warrantyValidTill) : '';
             console.log('warranty valid till' , this.warrantyValidTill);
           }
           if(res.amcDetails?.noOfYears) {

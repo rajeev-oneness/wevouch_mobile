@@ -18,7 +18,12 @@
     <ng-container *ngFor="let product of products">
       <ng-template carouselSlide>
         <div class="item">
+          
           <div (click)="showHideProductDetail(product._id)" class="addedProductBox">
+            <div [ngClass]="{'out-of-waranty':!product?.expiresOn}">
+              <span *ngIf="!product?.expiresOn">Out of warranty</span>
+              <span *ngIf="product?.expiresOn">In warranty</span>
+            </div>
             <div class="cl_image">
               <img src="{{(product.productImagesUrl != '')? product.productImagesUrl[0] : './assets/images/blank-image.png'}}" alt="Product Image" />
             </div>
@@ -90,8 +95,8 @@
 <div class="col-12">
   <div class="d-flex justify-content-between">
     <div class="p-2">
-      <a class="btn btn-primary float-left" routerLink="/product/edit/{{productDeatil?._id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-        <a class="btn btn-danger float-left" (click)="deleteProduct(productDeatil._id)" style="margin-left: 10px;"><i class="fa fa-trash-o ml-2" aria-hidden="true"></i></a>
+      <a class="btn btn-primary float-left rounded-circle" routerLink="/product/edit/{{productDeatil?._id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+      <a class="btn btn-danger float-left rounded-circle" (click)="deleteProduct(productDeatil._id)" style="margin-left: 4px;"><i class="fa fa-trash-o ml-2" aria-hidden="true"></i></a>
     </div>
     <div class="p-2">
       <i style="color: black;"><svg (click)="showHideProductDetail()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
@@ -101,45 +106,62 @@
 
 <div class="scroll-section">
 <header>
-  <h5>{{productDeatil?.name}}</h5>
-  <!-- <h1>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam lacinia, dui ac auctor efficitur,
-  </h1> -->
-  <p style="margin-top: -9px;">{{productDeatil?.category}}</p>
+  <!-- <h5>{{productDeatil?.name}}</h5>
+  <p style="margin-top: -9px;">{{productDeatil?.category}}</p> -->
 </header>
 
-
-
-        <div class="item">
-          <div class="claimWarrantyProductBox">
-            <!-- <img src="{{(productDeatil?.productImagesUrl != '')? productDeatil?.productImagesUrl : './assets/images/blank-image.png'}}" width="200" alt="" /> -->
-            
-            <owl-carousel-o [options]="productDetailList">
-              <ng-template carouselSlide *ngFor="let prodImg of productDeatil?.productImagesUrl">
-                <div class="dl_image">
-                  <img src="{{(prodImg != '')? prodImg : './assets/images/blank-image.png'}}" alt="Product Image" />
-                </div>
-                
-              </ng-template>
-            </owl-carousel-o>
-            <div class="claimWarrantyText">
-              <div class="brand">
-                <h6>Brand</h6>
-                <p class="text-center">{{productDeatil?.brands}}</p>
-              </div>
-              <div class="modelNo">
-                <h6>Model No.</h6>
-                <p class="text-center">{{productDeatil?.modelNo}}</p>
-              </div>
-            </div>
-          </div>
+<div class="item">
+  <div class="claimWarrantyProductBox">
+    <!-- <img src="{{(productDeatil?.productImagesUrl != '')? productDeatil?.productImagesUrl : './assets/images/blank-image.png'}}" width="200" alt="" /> -->
+    
+    <owl-carousel-o [options]="productDetailList">
+      <ng-template carouselSlide *ngFor="let prodImg of productDeatil?.productImagesUrl">
+        <div class="dl_image">
+          <img src="{{(prodImg != '')? prodImg : './assets/images/blank-image.png'}}" alt="Product Image" />
         </div>
+        
+      </ng-template>
+    </owl-carousel-o>
+    <div class="claimWarrantyText">
+      <div class="brand">
+        <h6>Brand</h6>
+        <p class="text-center">{{productDeatil?.brands}}</p>
+      </div>
+      <div class="modelNo">
+        <h6>Model No.</h6>
+        <p class="text-center">{{productDeatil?.modelNo}}</p>
+      </div>
+    </div>
+  </div>
+</div>
       
+<div class="warrantyDetailsBox">
+  <h3>Product Details</h3>
+  <div class="purchaseDate">
+    <h6>Nickname</h6>
+    <p class="text-center">{{productDeatil?.name || 'N/A'}}</p>
 
+    <h6>Category</h6>
+    <p class="text-center">{{productDeatil?.category || 'N/A'}}</p>
+  </div>
+  <div class="expiresDate">
+    <h6>Sub-Category</h6>
+    <p class="text-center">{{productDeatil?.subCategory || 'N/A'}}</p>
+    <h6>Serial No</h6>
+    <p class="text-center">{{productDeatil?.serialNo || 'N/A'}}</p>
+  </div>
+</div>
 <div class="warrantyDetailsBox">
   <h3>Warranty Details</h3>
   <div class="invoice-pic">
-    <img src="{{productDeatil?.invoicePhotoUrl || './assets/images/blank-image.png'}}" alt="">
+    <!-- <img src="{{productDeatil.invoicePhotoUrl || './assets/images/blank-image.png'}}" alt=""> -->
+    <owl-carousel-o [options]="invoicelist">
+      <ng-template carouselSlide *ngFor="let invoiceImage of productDeatil?.invoicePhotoUrl">
+        <div class="inv_image">
+          <img src="{{(invoiceImage != '')? invoiceImage : './assets/images/blank-image.png'}}" alt="Product Image" style="width: 60%;"/>
+        </div>    
+      </ng-template>
+    </owl-carousel-o>
   </div>
   <div class="purchaseDate">
     <h6>Validity</h6>
@@ -151,11 +173,12 @@
   <div class="expiresDate">
     <h6>Validity Till</h6>
     <p class="text-center">{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
-    <!-- <p class="daysLeft">50 Days Left</p> -->
+    <h6>Days Left</h6>
+    <p class="text-center">{{(warrantyDaysLeft == '')? 'N/A': warrantyDaysLeft}} Days Left</p>
   </div>
 </div>
 
-<div class="warrantyDetailsBox">
+<div class="warrantyDetailsBox" *ngIf="productDeatil?.extendedWarranty">
   <h3>Extended Warranty</h3>
   <div class="invoice-pic">
     <img src="./assets/images/blank-image.png" alt="">
@@ -169,14 +192,14 @@
   </div>
   <div class="expiresDate">
     <div class="call-img">
-      <img src="./assets/images/call.png" alt="" *ngIf="productDeatil?.extendedWarranty?.mobileNo">
+      <a href="tel:{{productDeatil?.extendedWarranty?.mobileNo}}"><img src="./assets/images/call.png" alt="" *ngIf="productDeatil?.extendedWarranty?.mobileNo"></a>
     </div>
     <h6>mobile No.</h6>
     <p class="text-center">{{productDeatil?.extendedWarranty?.mobileNo || 'N/A'}}</p>
   </div>
 </div>
 
-<div class="warrantyDetailsBox">
+<div class="warrantyDetailsBox" *ngIf="productDeatil?.amcDetails">
   <h3>Annual maintainance (quaterly)</h3>
   <div class="invoice-pic">
     <img src="./assets/images/blank-image.png" alt="">
@@ -187,11 +210,12 @@
 
     <h6>Validity Till</h6>
     <p class="text-center">{{amcValidTill | date: 'dd MMM yyyy'}}</p>
-    <p class="daysLeft text-center">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
+    <h6>Days Left</h6>
+    <p class="text-center">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
   </div>
   <div class="expiresDate">
     <div class="call-img">
-      <img src="./assets/images/call.png" alt="" *ngIf="productDeatil?.amcDetails?.vendorNo">
+      <a href="tel:{{productDeatil?.amcDetails?.mobileNo}}"><img src="./assets/images/call.png" alt="" *ngIf="productDeatil?.amcDetails?.vendorNo"></a>
     </div>
     <h6>Contract No.</h6>
     <p class="text-center">{{productDeatil?.amcDetails?.vendorNo || 'N/A'}}</p>

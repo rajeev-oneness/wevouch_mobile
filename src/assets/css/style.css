@@ -370,7 +370,8 @@ header h2 {
 }
 #dashboard .dashboard-intro .intro-img img,
 #home .dashboard-intro .intro-img img {
-  width: 50%;
+  width: 60px;
+  height: 60px;
   border-radius: 100%;
 }
 #dashboard .empty-dashboard,

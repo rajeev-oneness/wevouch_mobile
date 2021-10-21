@@ -50,8 +50,9 @@ form .submit-btn {
     position: relative;
     border: 6px solid #202c40;
     border-radius: 15px;
-    width: 98px;
+    width: 85px;
     margin: 0 auto 0 20px;
+    height: 85px;
 }
 .Invoice-img-box img {
     width: 90%;
@@ -145,4 +146,22 @@ label a:hover .tdive{
 .del_icon {
     height: 100px;
     margin: -30px -35px 0 0;
+}
+
+.del_icon_2 {
+    margin: -39px 32px;
+    width: 69%;
+}
+
+#addProductWarranty .addWarranty-btns .rigth-arrow, #addProductFinish .addWarranty-btns .rigth-arrow {
+    position: absolute;
+    right: 103px;
+    z-index: 100;
+    top: 54%;
+    bottom: -5%;
+    transform: translate(-50%, -50%);
+}
+
+#home .addWarranty-btns .submit-btn {
+    width: 100%;
 }

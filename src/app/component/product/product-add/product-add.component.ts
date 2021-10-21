@@ -24,15 +24,16 @@ export class ProductAddComponent implements OnInit {
   public brandList: any = [];
   public subCategoriesList: any = [];
   public modelList: any = [];
-  public category: string = '';
-  public subCategory: string = '';
-  public brandId: string = '';
+  public category: any = null;
+  public subCategory: any = null;
+  public brandId: any = '';
   public brandName: string = '';
   public modelId: string = '';
   public errorMessage: string = '';
   public addProductValue: any = {};
   public userPhn : number = 0;
   public userEmail : any = '';
+  public warrantyShowHide : boolean = true;
   public Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -57,14 +58,20 @@ export class ProductAddComponent implements OnInit {
       res => {
         // console.log('brands :', res.brands);
         this.brandList = res.brands;
-        this.brandId = res.brands[0].id;
+        // this.brandId = res.brands[0].id;
+        this.brandId = null;
         // console.log(this.brandId);
+        this._loader.stopLoader('loader');
         this.fetchCategory();
+
       }, err => {}
     )
   }
 
   fetchCategory() {
+    if (this.brandId) {
+      this._loader.startLoader('loader');
+    }
     console.log(this.brandId);
     this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
     console.log(this.brandName);
@@ -75,7 +82,6 @@ export class ProductAddComponent implements OnInit {
         // console.log(this.categoriesList);
         this.category = this.categoriesList[0].category;
         this.fetchSubCategory();
-        this._loader.stopLoader('loader');
       }, err => {}
     )
   }
@@ -129,7 +135,7 @@ export class ProductAddComponent implements OnInit {
   public fileFormatError = '';
   public selectedFile : any = '';
   public hasFile : boolean = false;
-  public invoiceImgUrl : any = '';
+  public invoiceImgUrl : any = new Array();
   public productImgUrl : any = new Array();
   onSelectFile(event: any) {
     this.fileFormatError = '';this.hasFile = false;
@@ -162,7 +168,7 @@ export class ProductAddComponent implements OnInit {
       res => {
         console.log(res);
         if(this.warantyTab === true) {
-          this.invoiceImgUrl = res.file_link;
+          this.invoiceImgUrl.push(res.file_link);
           this._loader.stopLoader('loader');
         }
         if(this.finishTab === true) {
@@ -309,5 +315,12 @@ export class ProductAddComponent implements OnInit {
   removeImage(imageIndex : any) {
     this.productImgUrl.splice(imageIndex, 1);
     console.log(this.productImgUrl);
+  }
+  removeInvoiceImage(imageIndex : any) {
+    this.invoiceImgUrl.splice(imageIndex, 1);
+    console.log(this.invoiceImgUrl);
+  }
+  showHideWarranty() {
+    this.warrantyShowHide = !this.warrantyShowHide
   }
 }

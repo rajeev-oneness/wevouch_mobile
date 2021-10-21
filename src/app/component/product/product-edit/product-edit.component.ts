@@ -55,6 +55,7 @@ export class ProductEditComponent implements OnInit {
   public secondTimeCall: boolean = false;
   public warrantyTime : any = '';
   public warrantyMode : any = 'year';
+  public warrantyShowHide : boolean = false;
 
   ngOnInit(): void {
     this.productId = this._activated.snapshot.paramMap.get('productId');
@@ -67,7 +68,16 @@ export class ProductEditComponent implements OnInit {
         this.subCategory = res.subCategory;
         this.modelId = res.modelNo;
         // this.fetchSubCategory();
+        this.invoiceImgUrl = res.invoicePhotoUrl;
+        this.uploadedFile1 = res.invoicePhotoUrl[0];
+        
+        this.productImgUrl = res.productImagesUrl;
+        this.uploadedFile2 = res.productImagesUrl[0];
+        if(res.warrantyPeriod === 0) {
+          this.warrantyShowHide = true;
+        }
         this.fetchBrands();
+
         if(res.warrantyPeriod%12 === 0){
           this.warrantyTime = res.warrantyPeriod/12
         } 
@@ -83,10 +93,7 @@ export class ProductEditComponent implements OnInit {
           this.extendedWarrantyStartDate = getDateFormat(res.extendedWarranty.startDate);
           this.extendedWarrantyEndDate = getDateFormat(res.extendedWarranty.endDate);
         }
-        this.invoiceImgUrl = res.invoicePhotoUrl;
-        this.uploadedFile1 = res.invoicePhotoUrl;
-        this.productImgUrl = res.productImagesUrl;
-        this.uploadedFile2 = res.productImagesUrl[0];
+        
       }, err => {}
     )
     // this.fetchBrands()
@@ -158,7 +165,7 @@ export class ProductEditComponent implements OnInit {
   public fileFormatError = '';
   public selectedFile : any = '';
   public hasFile : boolean = false;
-  public invoiceImgUrl : any = '';
+  public invoiceImgUrl : any = new Array();
   public productImgUrl : any = new Array();
   onSelectFile1(event: any) {
     this._loader.startLoader('loader');
@@ -180,7 +187,7 @@ export class ProductEditComponent implements OnInit {
           this._api.storeFile(mainForm).subscribe(
             res => {
               console.log(res);
-              this.invoiceImgUrl = res.file_link;
+              this.invoiceImgUrl.push(res.file_link);
               this._loader.stopLoader('loader');
             }
           )
@@ -343,5 +350,8 @@ export class ProductEditComponent implements OnInit {
     this.productImgUrl.splice(imageIndex, 1);
     console.log(this.productImgUrl);
   }
-
+  removeInvoiceImage(imageIndex : any) {
+    this.invoiceImgUrl.splice(imageIndex, 1);
+    console.log(this.invoiceImgUrl);
+  }
 }

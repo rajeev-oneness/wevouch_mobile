@@ -99,8 +99,39 @@
     margin-left: 85px;
     margin-bottom: 10px;
 }
+.inv_image {
+    width: 140px;
+    height: 140px;
+    padding: 10px;
+    overflow: hidden;
+    margin-left: 0px;
+    margin-bottom: 10px;
+}
 
 .claimWarrantyProductBox img {
     width: 100% !important;
     margin: 0 auto;
+}
+
+.out-of-waranty {
+    background-color: brown;
+    width: 50%;
+    margin-left: -9px;
+    margin-top: -6px;
+    border-radius: 10px 0px;
+    padding: 3px;
+    font-size: 10px;
+}
+
+.item {
+    padding-top: 10px;
+}
+.owl-carousel .owl-item img {
+    display: block;
+    width: 60%;
+}
+
+.warrantyDetailsBox .invoice-pic {
+    width: 25%;
+    height: 115px;
 }
