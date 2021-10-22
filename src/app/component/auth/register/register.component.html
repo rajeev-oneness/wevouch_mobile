@@ -24,7 +24,7 @@
     <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
     
     <label>Mobile</label>
-    <input class="form-control" #mobile="ngModel" ngModel type="text" name="mobile" placeholder="Your mobile" pattern="(?=.*\d).{10}" required [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
+    <input class="form-control" #mobile="ngModel" ngModel type="number" name="mobile" placeholder="Your mobile" pattern="(?=.*\d).{10}" required [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
     <small *ngIf="mobile?.invalid && mobile?.touched" [ngClass]="{'text-danger':mobile?.invalid && mobile?.touched}">
       Mobile number must be of 10 digit.
     </small>
