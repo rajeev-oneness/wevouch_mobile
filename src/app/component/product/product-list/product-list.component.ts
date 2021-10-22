@@ -89,7 +89,7 @@ export class ProductListComponent implements OnInit {
   public tickets : any = []
   public newTickets : any = []
   public ongoingTickets : any = []
-  // public dateNow : any = new Date('2024, 08, 08'); 
+  public progressCount : number = 0; 
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -119,6 +119,45 @@ export class ProductListComponent implements OnInit {
           this.productList.loop = false;
         }
         for (let index = 0; index < res.length; index++) {
+          let progress = res[index];
+          var count=0;
+          if (progress['brands'] !='') {
+            count = count+1;
+          }
+          if (progress['category'] !='') {
+            count = count+1;
+          }
+          if (progress['modelNo'] !='') {
+            count = count+1;
+          }
+          if (progress['name'] !='') {
+            count = count+1;
+          }
+          if (progress['purchaseDate'] !='') {
+            count = count+1;
+          }
+          if (progress['registeredMobileNo'] !='') {
+            count = count+1;
+          }
+          if (progress['serialNo'] !='') {
+            count = count+1;
+          }
+          if (progress['subCategory'] !='') {
+            count = count+1;
+          }
+          if (progress['warrantyPeriod'] !='') {
+            count = count+1;
+          }
+          if (progress['invoicePhotoUrl'].length > 0) {
+            count = count+1;
+          }
+          if (progress['productImagesUrl'].length > 0) {
+            count = count+1;
+          }
+          let progressCount=Math.floor((count/11)*100);
+          console.log("progress("+progress.name+"): ", progressCount);
+          res[index].progressCount = progressCount;
+          
           if (res[index]?.purchaseDate) {
             let purchaseDate = new Date(res[index].purchaseDate);
             res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod);
@@ -190,6 +229,45 @@ export class ProductListComponent implements OnInit {
         res => {
           console.log(res);
           this.productDeatil = res;
+          let progress = this.productDeatil;
+          var count=0;
+          if (progress['brands'] !='') {
+            count = count+1;
+          }
+          if (progress['category'] !='') {
+            count = count+1;
+          }
+          if (progress['modelNo'] !='') {
+            count = count+1;
+          }
+          if (progress['name'] !='') {
+            count = count+1;
+          }
+          if (progress['purchaseDate'] !='') {
+            count = count+1;
+          }
+          if (progress['registeredMobileNo'] !='') {
+            count = count+1;
+          }
+          if (progress['serialNo'] !='') {
+            count = count+1;
+          }
+          if (progress['subCategory'] !='') {
+            count = count+1;
+          }
+          if (progress['warrantyPeriod'] !='') {
+            count = count+1;
+          }
+          if (progress['invoicePhotoUrl'].length > 0) {
+            count = count+1;
+          }
+          if (progress['productImagesUrl'].length > 0) {
+            count = count+1;
+          }
+          let progressCount=Math.floor((count/11)*100);
+          console.log("progress("+progress.name+"): ", progressCount);
+          this.productDeatil.progressCount = progressCount;
+          
           if(res.purchaseDate) {
             let purchaseDate = new Date(res.purchaseDate);
             this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);

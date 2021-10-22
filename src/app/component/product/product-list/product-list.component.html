@@ -32,6 +32,9 @@
             <ng-template #noExpiryDateBlock>
               <p class="text-center">No expiry date</p>
             </ng-template>
+            <div class="progress_bar">
+              <div class="inner_progress_bar" [style.width.%]="product.progressCount"></div>
+            </div>
           </div>
         </div>
       </ng-template>
@@ -114,14 +117,18 @@
   <div class="claimWarrantyProductBox">
     <!-- <img src="{{(productDeatil?.productImagesUrl != '')? productDeatil?.productImagesUrl : './assets/images/blank-image.png'}}" width="200" alt="" /> -->
     
-    <owl-carousel-o [options]="productDetailList">
+    <owl-carousel-o [options]="productDetailList" *ngIf="productDeatil.productImagesUrl != 0">
       <ng-template carouselSlide *ngFor="let prodImg of productDeatil?.productImagesUrl">
         <div class="dl_image">
           <img src="{{(prodImg != '')? prodImg : './assets/images/blank-image.png'}}" alt="Product Image" />
         </div>
-        
       </ng-template>
     </owl-carousel-o>
+    <div *ngIf="productDeatil.productImagesUrl <= 0">
+      <div class="dl_image">
+        <img src="./assets/images/blank-image.png" alt="Product Image" />
+      </div>
+    </div>
     <div class="claimWarrantyText">
       <div class="brand">
         <h6>Brand</h6>
@@ -131,6 +138,9 @@
         <h6>Model No.</h6>
         <p class="text-center">{{productDeatil?.modelNo}}</p>
       </div>
+    </div>
+    <div class="progress_bar">
+      <div class="inner_progress_bar" [style.width.%]="productDeatil.progressCount"></div>
     </div>
   </div>
 </div>
@@ -155,13 +165,14 @@
   <h3>Warranty Details</h3>
   <div class="invoice-pic">
     <!-- <img src="{{productDeatil.invoicePhotoUrl || './assets/images/blank-image.png'}}" alt=""> -->
-    <owl-carousel-o [options]="invoicelist">
+    <owl-carousel-o [options]="invoicelist" *ngIf="productDeatil.invoicePhotoUrl != 0">
       <ng-template carouselSlide *ngFor="let invoiceImage of productDeatil?.invoicePhotoUrl">
         <div class="inv_image">
-          <img src="{{(invoiceImage != '')? invoiceImage : './assets/images/blank-image.png'}}" alt="Product Image" style="width: 60%;"/>
+          <img src="{{(invoiceImage != '')? invoiceImage : './assets/images/blank-image.png'}}" alt="Invoice Image" style="width: 60%;"/>
         </div>    
       </ng-template>
     </owl-carousel-o>
+    <img src="./assets/images/blank-image.png" alt="Invoice Image" *ngIf="productDeatil.invoicePhotoUrl <= 0"/>
   </div>
   <div class="purchaseDate">
     <h6>Validity</h6>

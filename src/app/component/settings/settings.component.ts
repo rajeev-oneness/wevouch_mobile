@@ -52,6 +52,7 @@ export class SettingsComponent implements OnInit {
   }
 
   changeSetting(){
+    console.log('this is my user setting',this.userSettings);
     this._api.getSettings(this.user._id).subscribe(
       res => {
         console.log('settings',res.length);
@@ -63,7 +64,11 @@ export class SettingsComponent implements OnInit {
         } else {
           console.log(res[0]._id);
           this.userSettings.userId = this.user._id
-          this._api.editSettings(res[0]._id, this.userSettings).subscribe();
+          this._api.editSettings(res[0]._id, this.userSettings).subscribe(
+            res => {
+              console.log('This is Server Setting',res);
+            }
+          );
         }
       }
     )

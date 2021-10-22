@@ -139,7 +139,7 @@
         </div>
 
         <label>Serial No.</label>
-        <input type="number" #serialNo="ngModel" ngModel name="serialNo" id="serialNo" placeholder="eg:23562" class="form-control" [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}">
+        <input type="text" #serialNo="ngModel" ngModel name="serialNo" id="serialNo" placeholder="eg:23562" class="form-control" [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}">
   
         <label>Model No. </label>
         <ng-select 
