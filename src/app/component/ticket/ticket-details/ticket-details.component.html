@@ -20,7 +20,7 @@
   <div id="tktProgressBar">
     <ul class="timeline" *ngIf="ticketLogs.length > 0; else noLogsBlock;">
       <li *ngFor="let log of ticketLogs;let i=index;" class="event" [ngClass]="{'processDone' : i < (ticketLogs.length-1), 'processGoing' : i === (ticketLogs.length-1)}">
-        <p>{{log.comment}} <span class="text-muted">({{log.createdAt | date:'dd MMM, yyyy'}})</span></p>
+        <p>{{log.comment}} <span class="text-muted">({{log.createdAt | date:'dd MMM, yyyy'}} - {{log.createdAt | date: 'h:mm a'}})</span></p>
       </li>
       <!-- <li class="event processDone">
           <p>Wevouch got in touch with the {{ticketDetail.brand?.name}} Service team</p>

@@ -10,7 +10,7 @@
 
         <div *ngIf="notificationList.length > 0; else emptyBlock">
             <div class="notification-text" *ngFor="let notification of notificationList">
-                <p>{{notification.createdDate | date: 'dd MMM, yyyy'}}</p>
+                <p>{{notification.createdDate | date: 'dd MMM, yyyy'}} ({{notification.createdDate | date: 'h:mm a'}})</p>
                 <h2 class="mb-0">{{notification.title}}</h2>
                 <p>{{notification.description}}</p>
             </div>
