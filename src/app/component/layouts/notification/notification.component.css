@@ -6,3 +6,22 @@
 #notification h2 {
     font-size: 14px !important;
 }
+
+#notification h2::before {
+    display: none;
+}
+.new_notification_info {
+    width: 11px;
+    height: 11px;
+    left: 267px;
+    bottom: 130%;
+    background-color: #ed4767;
+    margin-left: auto;
+    margin-bottom: -12px;
+    border-radius: 50%;
+
+}
+
+#notification .notification-container .notification-text {
+    padding: 10px 10px 15px 12px;
+}

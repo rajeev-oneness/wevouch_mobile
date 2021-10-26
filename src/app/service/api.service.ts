@@ -165,6 +165,9 @@ export class ApiService {
   addNotification(formData : any) {
     return this._http.post<any>(_apiUrl+'notification/add', formData);
   }
+  updateNotificationStatus(formData : any) {
+    return this._http.post<any>(_apiUrl+'notification/notification-status-change', formData);
+  }
 
   //address management section
   getAddressList() {

@@ -1,15 +1,16 @@
 <!-- Notification -->
 
-<section id="notification" onclick="notificationShowHide()">
+<section id="notification" onclick="notificationShowHide()" (click)="changeNotificationStatus()">
     <div class="notification-container scroll-section">
         <header>
             <img src="./assets/images/trans-bell.png" />
             <h1>Notifications</h1>
-            <span>{{notificationList.length}}</span>
+            <span>{{notificationCount}}</span>
         </header>
 
         <div *ngIf="notificationList.length > 0; else emptyBlock">
             <div class="notification-text" *ngFor="let notification of notificationList">
+                <div class="new_notification_info" *ngIf="notification.status === true"></div>
                 <p>{{notification.createdDate | date: 'dd MMM, yyyy'}} ({{notification.createdDate | date: 'h:mm a'}})</p>
                 <h2 class="mb-0">{{notification.title}}</h2>
                 <p>{{notification.description}}</p>
