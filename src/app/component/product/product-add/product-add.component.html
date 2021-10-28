@@ -35,6 +35,10 @@
                   {{item.name}}
               </ng-option>
         </ng-select>
+        <div *ngIf="brandId === 'Others'">
+          <label>Type your brand <span>*</span></label>
+          <input type="text" name="brandNames" #brandNames="ngModel" [(ngModel)]="brandName">
+        </div>
         
         <label>Category <span>*</span></label>
         <ng-select 
@@ -49,6 +53,10 @@
                   {{item.category}}
               </ng-option>
         </ng-select>
+        <div *ngIf="category === 'Others'">
+          <label>Type your category <span>*</span></label>
+          <input type="text" name="categoryNames" #categoryNames="ngModel" [(ngModel)]="categoryName">
+        </div>
     
         <label>Sub-category </label>
         <ng-select 
@@ -63,6 +71,10 @@
                   {{item.sub_category}}
               </ng-option>
         </ng-select>
+        <div *ngIf="subCategory === 'Others'">
+          <label>Type your sub-category <span>*</span></label>
+          <input type="text" name="subCategoryNames" #subCategoryNames="ngModel" [(ngModel)]="subCategoryName">
+        </div>
     
         <label>Registered Mobile No. <span>*</span>
           <a href="javascript:woid:(0);">i 
@@ -148,12 +160,16 @@
           appendTo="body"
           [searchable]="true" 
           #modelNo="ngModel" 
-          [ngModel]="modelId"
+          [(ngModel)]="modelId"
           name="modelNo">
               <ng-option [value]="item.model_no" *ngFor="let item of modelList">
                   {{item.model_no}}
               </ng-option>
         </ng-select>
+        <div *ngIf="modelId === 'Others'">
+          <label>Type your model <span>*</span></label>
+          <input type="text" name="modelNames" #modelNames="ngModel" [(ngModel)]="modelName">
+        </div>
   
         <!-- <div class="int-warr">
           <input type="checkbox" id="intl-warranty" />

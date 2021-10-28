@@ -85,6 +85,9 @@ export class ApiService {
   userSignupApi(formData : any){
     return this._http.post<any>(_apiUrl+'user/add',formData);
   }
+  userAccountVerify(formData : any) {
+    return this._http.post<any>(_apiUrl+'user/verify-phone-email', formData);
+  }
   userDetails(userId : any) {
     return this._http.get<any>(_apiUrl+'user/get/'+userId);
   }

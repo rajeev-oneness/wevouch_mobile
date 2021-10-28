@@ -16,6 +16,10 @@ export class RegisterComponent implements OnInit {
   }
   public errorMessage = '';
   public confirmPassword : any = '';
+  public mainSignUpForm: boolean = true;
+  public accountConfirmation: boolean = false;
+  public userEmail: any = '';
+
   ngOnInit(): void {
     window.scrollTo(0,0);
     if(this._api.isAuthenticated()){
@@ -47,8 +51,14 @@ export class RegisterComponent implements OnInit {
             this._api.addNotification(notificationForm).subscribe(
               res=> {console.log(res);}
             );
-            this._api.storeUserLocally(res.user);
-            this._router.navigate(['/login']);
+            this.userEmail = res.user.email;
+            if (res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
+              this._api.storeUserLocally(res.user);
+              // this._router.navigate(['/login']);
+            } else {
+              this.accountConfirmation = true;
+              this.mainSignUpForm = false;
+            }
             this._loader.stopLoader('loader');
           },
           err => {
@@ -63,6 +73,28 @@ export class RegisterComponent implements OnInit {
       this.errorMessage = 'Please fill out all the details';
     }
     // console.log('Form Data SUbmitted');
+  }
+
+  verifyAccount(formData : any) {
+    this.errorMessage = '';
+    for( let i in formData.controls ){
+      formData.controls[i].markAsTouched();
+    }
+    if( formData?.valid ){
+      this._loader.startLoader('loader');
+      const mainForm = formData.value;
+      mainForm.email = this.userEmail;
+      this._api.userAccountVerify(mainForm).subscribe(
+        res => {
+          console.log(res);
+          this._api.storeUserLocally(res.data);
+        }, err => {
+          this.errorMessage = "Something went wrong! / Incorrect OTP!";
+        }
+      )
+      this._loader.stopLoader("loader");
+    }
+    
   }
 
   confirmPasswordCheck(e :any) {

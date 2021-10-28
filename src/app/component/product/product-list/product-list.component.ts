@@ -155,13 +155,13 @@ export class ProductListComponent implements OnInit {
             count = count+1;
           }
           let progressCount=Math.floor((count/11)*100);
-          console.log("progress("+progress.name+"): ", progressCount);
+          // console.log("progress("+progress.name+"): ", progressCount);
           res[index].progressCount = progressCount;
           
           if (res[index]?.purchaseDate) {
             let purchaseDate = new Date(res[index].purchaseDate);
             res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod);
-            let warrantyDaysLeft = dateDiffInDays(this.dateNow, res[index].expiresOn);
+            let warrantyDaysLeft = dateDiffInDays(res[index].expiresOn, this.dateNow);
             console.log(warrantyDaysLeft+" days left");
             if(warrantyDaysLeft == 30 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
               let title = '';
@@ -179,7 +179,7 @@ export class ProductListComponent implements OnInit {
           if(res[index]?.amcDetails?.noOfYears) {
             let amcSrtartDate = new Date(res[index].amcDetails.startDate);
             let amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res[index].amcDetails.noOfYears*12));
-            let amcLeftDays = dateDiffInDays(this.dateNow, amcValidTill);
+            let amcLeftDays = dateDiffInDays(amcValidTill, this.dateNow);
             console.log(amcLeftDays+" days left of amc");
             if(amcLeftDays == 7 || amcLeftDays == 0) {
               let title = '';
@@ -197,7 +197,7 @@ export class ProductListComponent implements OnInit {
           if(res[index]?.extendedWarranty?.noOfYears) {
             let extdWarrantyStart = new Date(res[index].extendedWarranty.startDate);
             let extdWarrantyValidTill = extdWarrantyStart.setMonth(extdWarrantyStart.getMonth()+(res[index].extendedWarranty.noOfYears*12));
-            let extdwarrantyLeftDays = dateDiffInDays(this.dateNow, extdWarrantyValidTill);
+            let extdwarrantyLeftDays = dateDiffInDays(extdWarrantyValidTill, this.dateNow);
             console.log(extdwarrantyLeftDays+" days left of Extended warranty");
             if(extdwarrantyLeftDays == 7 || extdwarrantyLeftDays == 0) {
               let title = '';
@@ -265,20 +265,20 @@ export class ProductListComponent implements OnInit {
             count = count+1;
           }
           let progressCount=Math.floor((count/11)*100);
-          console.log("progress("+progress.name+"): ", progressCount);
+          // console.log("progress("+progress.name+"): ", progressCount);
           this.productDeatil.progressCount = progressCount;
           
           if(res.purchaseDate) {
             let purchaseDate = new Date(res.purchaseDate);
             this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
 
-            this.warrantyDaysLeft = (res.warrantyPeriod > 0) ? dateDiffInDays(this.dateNow, this.warrantyValidTill) : '';
+            this.warrantyDaysLeft = (res.warrantyPeriod > 0) ? dateDiffInDays(this.warrantyValidTill, this.dateNow) : '';
             console.log('warranty valid till' , this.warrantyValidTill);
           }
           if(res.amcDetails?.noOfYears) {
             let amcSrtartDate = new Date(res.amcDetails.startDate);
             this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));
-            this.amcLeftDays = dateDiffInDays(this.dateNow, this.amcValidTill);
+            this.amcLeftDays = dateDiffInDays(this.amcValidTill, this.dateNow);
           }
         }, err => {}
       )

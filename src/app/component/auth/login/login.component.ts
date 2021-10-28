@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
   public forgetPassEmail: any = '';
   public forgetPassEmailOtp: any = '';
   public newForgetPassword: any = '';
+  public accountConfirmation: boolean = false;
+  public userEmail: any = '';
 
   public otp1: any = '';
   public otp2: any = '';
@@ -97,26 +99,18 @@ export class LoginComponent implements OnInit {
       this._loader.startLoader('loader');
       this._api.userLoginApi(mainForm).subscribe(
         res => {
-          // let timerInterval: any;
-          // Swal.fire({
-          //   title: 'success!',
-          //   width: 200,
-          //   html: 'Login successfully',
-          //   timer: 20000,
-          //   timerProgressBar: true,
-          //   didOpen: () => {
-          //     Swal.showLoading()
-          //   },
-          //   willClose: () => {
-          //     clearInterval(timerInterval)
-          //   }
-          // }).then((result) => {
-          //   if (result.dismiss === Swal.DismissReason.timer) {
-          //     console.log('I was closed by the timer')
-          //   }
-          // })
           console.log(res);
-          this._api.storeUserLocally(res.user);
+          this.userEmail = res.user.email;
+          if (res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
+            this._api.storeUserLocally(res.user);
+          } else {
+            this.accountConfirmation = true;
+            this.mainLogin = false;
+            this.otpStep1 = false;
+            this.otpStep2 = false;
+            this.forgrtPassStep1 = false;
+            this.forgrtPassStep2 = false;
+          }
           this._loader.stopLoader('loader');
         },
         err => {
@@ -129,6 +123,30 @@ export class LoginComponent implements OnInit {
       this.errorMessage = 'Please fill out all the details';
     }
     // console.log('Form Data SUbmitted');
+  }
+
+  verifyAccount(formData : any) {
+    this.errorMessage = '';
+    for( let i in formData.controls ){
+      formData.controls[i].markAsTouched();
+    }
+    if( formData?.valid ){
+      this._loader.startLoader('loader');
+      const mainForm = formData.value;
+      mainForm.email = this.userEmail;
+      this._api.userAccountVerify(mainForm).subscribe(
+        res => {
+          console.log(res);
+          this._api.storeUserLocally(res.data);
+          this.accountConfirmation = false;
+          this.mainLogin = true;
+        }, err => {
+          this.errorMessage = "Something went wrong! / Incorrect OTP!";
+        }
+      )
+      this._loader.stopLoader("loader");
+    }
+    
   }
 
   signInWithGoogle(): void {
@@ -186,12 +204,14 @@ export class LoginComponent implements OnInit {
     this.errorMessage = '';
 
     if(this.otpStep1 === true || this.otpStep2 === true) {
+      this.accountConfirmation = false;
       this.mainLogin = true;
       this.otpStep1 = false;
       this.otpStep2 = false;
       this.forgrtPassStep1 = false;
       this.forgrtPassStep2 = false;
     } else {
+      this.accountConfirmation = false;
       this.mainLogin = false;
       this.otpStep1 = true;
       this.otpStep2 = false;
@@ -204,6 +224,7 @@ export class LoginComponent implements OnInit {
     this.errorMessage= '';
     console.log(this.otpMobile);
     if(this.otpMobile != ''){
+      this.accountConfirmation = false;
       this.mainLogin = false;
       this.otpStep1 = false;
       this.otpStep2 = true;
@@ -241,7 +262,7 @@ export class LoginComponent implements OnInit {
 
   forgetPassword() {
     this.errorMessage = '';
-
+    this.accountConfirmation = false;
     this.mainLogin = false;
     this.otpStep1 = false;
     this.otpStep2 = false;

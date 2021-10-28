@@ -185,7 +185,8 @@
     <h6>Validity Till</h6>
     <p class="text-center">{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
     <h6>Days Left</h6>
-    <p class="text-center">{{(warrantyDaysLeft == '')? 'N/A': warrantyDaysLeft}} Days Left</p>
+    <p class="text-center" *ngIf="warrantyDaysLeft >= 0">{{(warrantyDaysLeft == '')? '0': warrantyDaysLeft}} Days Left</p>
+    <p class="text-center" *ngIf="warrantyDaysLeft < 0">Warranty Expired</p>
   </div>
 </div>
 
@@ -222,7 +223,8 @@
     <h6>Validity Till</h6>
     <p class="text-center">{{amcValidTill | date: 'dd MMM yyyy'}}</p>
     <h6>Days Left</h6>
-    <p class="text-center">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
+    <p class="text-center" *ngIf="amcLeftDays >= 0">{{(amcLeftDays == '')? '0': amcLeftDays}} Days Left</p>
+    <p class="text-center" *ngIf="amcLeftDays < 0">AMC Expired</p>
   </div>
   <div class="expiresDate">
     <div class="call-img">

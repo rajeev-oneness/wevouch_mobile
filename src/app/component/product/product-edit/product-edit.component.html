@@ -34,6 +34,10 @@
                 {{item.name}}
             </ng-option>
       </ng-select>
+      <div *ngIf="brandId == 'Others'">
+        <label>Type your brand <span>*</span></label>
+        <input type="text" name="brandNames" #brandNames="ngModel" [(ngModel)]="brandName">
+      </div>
   
       <label>Category <span>*</span></label>
       <ng-select 
@@ -48,6 +52,10 @@
                 {{item.category}}
             </ng-option>
       </ng-select>
+      <div *ngIf="category === 'Others'">
+        <label>Type your category <span>*</span></label>
+        <input type="text" name="categoryNames" #categoryNames="ngModel" [(ngModel)]="categoryName">
+      </div>
   
       <label>Sub-category <span>*</span></label>
       <ng-select 
@@ -62,6 +70,10 @@
                 {{item.sub_category}}
             </ng-option>
       </ng-select>
+      <div *ngIf="subCategory == 'Others'">
+        <label>Type your sub-category <span>*</span></label>
+        <input type="text" name="subCategoryNames" #subCategoryNames="ngModel" [(ngModel)]="subCategoryName">
+      </div>
       
       <label>Registered Mobile No.
         <a href="javascript:woid:(0);">i 
@@ -149,6 +161,10 @@
                 {{item.model_no}}
             </ng-option>
       </ng-select>
+      <div *ngIf="modelId === 'Others'">
+        <label>Type your model <span>*</span></label>
+        <input type="text" name="modelNames" #modelNames="ngModel" [(ngModel)]="modelName">
+      </div>
 
       <a
         onclick="addRemoveExWarranty();"

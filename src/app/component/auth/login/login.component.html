@@ -31,9 +31,9 @@
 
     <img class="logo" src="./assets/images/login-logo.png" alt="">
 
-    <h2>Login</h2>
-   
-    <div *ngIf="mainLogin justi">
+    
+    <div *ngIf="mainLogin">
+        <h2>Login</h2>
         <form #userLoginForm="ngForm" (ngSubmit)="loginUser(userLoginForm)">
             <label for="email">Email</label>
             <input #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
@@ -48,7 +48,23 @@
             <!-- <a class="submit-btn" type="submit" value="Login" routerLink="/home">Login</a> -->
         </form>
     </div>
+    <div *ngIf="accountConfirmation">
+        <h2>Verify email and mobile</h2>
+        <form #userVerificationForm="ngForm" (ngSubmit)="verifyAccount(userVerificationForm)">
+            <label for="email">Email OTP</label>
+            <input #email_otp="ngModel" ngModel type="number" name="email_otp" placeholder="Your email otp" required [ngClass]="{'is-invalid':email_otp?.invalid && email_otp?.touched}">
+            <label for="password">Mobile OTP</label>
+            <input #mobile_otp="ngModel" ngModel type="number" name="mobile_otp" placeholder="Your email otp" required [ngClass]="{'is-invalid':mobile_otp?.invalid && mobile_otp?.touched}">
+    
+            <a class="f-pass" href="javascript:void(0);">Resend OTP?</a>
+    
+            <span class="text-danger">{{errorMessage}}</span>
+            <button class="submit-btn" type="submit" value="Login">Login</button>
+            <!-- <a class="submit-btn" type="submit" value="Login" routerLink="/home">Login</a> -->
+        </form>
+    </div>
     <div *ngIf="forgrtPassStep1">
+        <h2>Forgot password</h2>
         <form>
             <label for="email">Registered Email Address</label>
             <input #fogetPassEmailId="ngModel" [(ngModel)]="forgetPassEmail" type="mobile" autocomplete="mobile" name="fogetPassEmailId" placeholder="Your email address">
@@ -58,6 +74,7 @@
         </form>
     </div>
     <div *ngIf="forgrtPassStep2">
+        <h2>Forgot password</h2>
         <form>
             <label for="email">OTP</label>
             <input #fogetPassOTP="ngModel" [(ngModel)]="forgetPassEmailOtp" type="mobile" autocomplete="mobile" name="fogetPassOTP" placeholder="Enter OTP" required>
@@ -72,6 +89,7 @@
         </form>
     </div>
     <div *ngIf="otpStep1">
+        <h2>OTP login</h2>
         <form>
             <label for="email">Registered Mobile</label>
             <input #mobile="ngModel" [(ngModel)]="otpMobile" type="mobile" autocomplete="mobile" name="mobile" placeholder="Your mobile">
@@ -81,6 +99,8 @@
         </form>
     </div>
     <div *ngIf="otpStep2">
+        <h2>OTP login</h2>
+
         <form>
             <div class="d-flex">
                 <div>

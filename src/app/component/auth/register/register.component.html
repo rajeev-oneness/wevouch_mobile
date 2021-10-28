@@ -14,48 +14,64 @@
     </a>
   </header>
 
-  <h2>Create an Account</h2>
+  <div *ngIf="mainSignUpForm">
+    <h2>Create an Account</h2>
+    <form #userSignUpForm="ngForm" (ngSubmit)="signUpUser(userSignUpForm)">
+      <label>Name</label>
+      <input class="form-control" #name="ngModel" ngModel type="text" name="name" placeholder="Your name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
 
-  <form #userSignUpForm="ngForm" (ngSubmit)="signUpUser(userSignUpForm)">
-    <label>Name</label>
-    <input class="form-control" #name="ngModel" ngModel type="text" name="name" placeholder="Your name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+      <label>Email Address</label>
+      <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
+      
+      <label>Mobile</label>
+      <input class="form-control" #mobile="ngModel" ngModel type="number" name="mobile" placeholder="Your mobile" pattern="(?=.*\d).{10}" required [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
+      <small *ngIf="mobile?.invalid && mobile?.touched" [ngClass]="{'text-danger':mobile?.invalid && mobile?.touched}">
+        Mobile number must be of 10 digit.
+      </small>
 
-    <label>Email Address</label>
-    <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
-    
-    <label>Mobile</label>
-    <input class="form-control" #mobile="ngModel" ngModel type="number" name="mobile" placeholder="Your mobile" pattern="(?=.*\d).{10}" required [ngClass]="{'is-invalid':mobile?.invalid && mobile?.touched}">
-    <small *ngIf="mobile?.invalid && mobile?.touched" [ngClass]="{'text-danger':mobile?.invalid && mobile?.touched}">
-      Mobile number must be of 10 digit.
-    </small>
+      <label>Password</label>
+      <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
+      <small *ngIf="password?.invalid && password?.touched" [ngClass]="{'text-danger':password?.invalid && password?.touched}">
+        Must contain at least one number, one uppercase, lowercase letter, and at least 6 characters
+      </small>
 
-    <label>Password</label>
-    <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
-    <small *ngIf="password?.invalid && password?.touched" [ngClass]="{'text-danger':password?.invalid && password?.touched}">
-      Must contain at least one number, one uppercase, lowercase letter, and at least 6 characters
-    </small>
+      <label>Confirm Password</label>
+      <input class="form-control" tabindex="2" [value]="confirmPassword" (blur)="confirmPasswordCheck($event)" type="password" placeholder="Confirm Password">
+      
+      <label>Age</label>
+      <input class="form-control" tabindex="2" #age="ngModel" ngModel type="text" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
+      
+      <label>Gender</label>
+      <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Others">Others</option>
+      </select>
 
-    <label>Confirm Password</label>
-    <input class="form-control" tabindex="2" [value]="confirmPassword" (blur)="confirmPasswordCheck($event)" type="password" placeholder="Confirm Password">
-    
-    <label>Age</label>
-    <input class="form-control" tabindex="2" #age="ngModel" ngModel type="text" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
-    
-    <label>Gender</label>
-    <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      <option value="Others">Others</option>
-    </select>
+      <label>Referral code <span class="text-muted">(if any)</span></label>
+      <input class="form-control" tabindex="2" #userReferralCode="ngModel" ngModel type="text" name="userReferralCode" placeholder="eg: abc123">
 
-    <label>Referral code <span class="text-muted">(if any)</span></label>
-    <input class="form-control" tabindex="2" #userReferralCode="ngModel" ngModel type="text" name="userReferralCode" placeholder="eg: abc123">
+      <!-- <label>Confirm Password</label>
+      <input class="form-control"> -->
+      <span class="text-danger">{{errorMessage}}</span>
+      <button class="submit-btn" type="submit" value="Sign up">Sign Up</button>
+    </form>
+  </div>
+  <div *ngIf="accountConfirmation">
+    <h2>Verify email and mobile</h2>
+    <form #userVerificationForm="ngForm" (ngSubmit)="verifyAccount(userVerificationForm)">
+        <label for="email">Email OTP</label>
+        <input #email_otp="ngModel" ngModel type="number" name="email_otp" placeholder="Your email otp" required [ngClass]="{'is-invalid':email_otp?.invalid && email_otp?.touched}">
+        <label for="password">Mobile OTP</label>
+        <input #mobile_otp="ngModel" ngModel type="number" name="mobile_otp" placeholder="Your email otp" required [ngClass]="{'is-invalid':mobile_otp?.invalid && mobile_otp?.touched}">
 
-    <!-- <label>Confirm Password</label>
-    <input class="form-control"> -->
-    <span class="text-danger">{{errorMessage}}</span>
-    <button class="submit-btn" type="submit" value="Sign up">Sign Up</button>
-  </form>
+        <a class="f-pass" href="javascript:void(0);">Resend OTP?</a>
+
+        <span class="text-danger">{{errorMessage}}</span>
+        <button class="submit-btn" type="submit" value="Login">Login</button>
+        <!-- <a class="submit-btn" type="submit" value="Login" routerLink="/home">Login</a> -->
+    </form>
+  </div>
 
   <div class="register-link mt-4">
     <p>Already a member?</p>
