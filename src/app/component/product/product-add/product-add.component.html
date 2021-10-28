@@ -20,7 +20,7 @@
     <div *ngIf="productTab">
       <form class="addProductForm" #productFirstForm="ngForm" (ngSubmit)="addProduct(productFirstForm)">
         <label>Nickname <span class="op">*</span></label>
-        <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product nickname" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+        <input class="form-control" #name="ngModel" [(ngModel)]="addProductValue.name" type="text" name="name" id="product_name" placeholder="Product nickname" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
     
         <label>Brand Name <span>*</span></label>
         <ng-select 

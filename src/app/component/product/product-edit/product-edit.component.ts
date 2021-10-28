@@ -98,7 +98,7 @@ export class ProductEditComponent implements OnInit {
           this.extendedWarrantyStartDate = getDateFormat(res.extendedWarranty.startDate);
           this.extendedWarrantyEndDate = getDateFormat(res.extendedWarranty.endDate);
         }
-        this._loader.stopLoader('loader');
+        // this._loader.stopLoader('loader');
       }, err => {}
     )
     // this.fetchBrands()
@@ -126,15 +126,34 @@ export class ProductEditComponent implements OnInit {
   
   fetchCategory(callTime : any = '') {
     this.categoriesList = [];
+    if (callTime != '') {
+      this.category = '';
+    }
     console.log(this.brandId);
     console.log(this.brandName);
     if (this.brandId != 'Others') {
       this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
       this._api.getProductCategories(this.brandId).subscribe(
         res => {
+          let isCatogoryList = false;
           this.categoriesList = res.categories;
+          console.log('abc', this.categoriesList);
+          
           if (this.categoriesList === undefined) {
             this.categoriesList = [];
+            this.category = 'Others'
+            this.categoryName = this.productDetail.category
+          } else {
+            this.categoriesList.forEach((e : any) => {
+              if (e.category === this.productDetail.category) {
+                isCatogoryList = true;
+              } 
+            });
+            if (isCatogoryList === false) {
+              // this.categoriesList = [];
+              this.category = 'Others';
+              this.categoryName = this.productDetail.category
+            }
           }
           this.categoriesList.push({category: 'Others'});
           if (callTime != '') {
@@ -142,7 +161,7 @@ export class ProductEditComponent implements OnInit {
             this.secondTimeCall = true;
             this.category = this.categoriesList[0].category;
             console.log('new category', this.category);
-            
+            this.categoryName = this.productDetail.category
           }
           console.log(this.categoriesList);
           this._loader.stopLoader('loader');
@@ -159,14 +178,30 @@ export class ProductEditComponent implements OnInit {
   
   fetchSubCategory(callTime : any = '') {
     this.subCategoriesList = [];
+    if (callTime != '') {
+      this.subCategory = '';
+    }
     console.log(this.category);
     
     if (this.category != 'Others') {
       this._api.getProductSubCategories(this.category).subscribe(
         res => {
+          let isSubCategoryListed = false;
           this.subCategoriesList = res.sub_categories;
           if (this.subCategoriesList === undefined) {
             this.subCategoriesList = [];
+            this.subCategory = 'Others';
+            this.subCategoryName = this.productDetail.subCategory
+          } else {
+            this.subCategoriesList.forEach((e : any) => {
+              if (e.sub_category === this.productDetail.subCategory) {
+                isSubCategoryListed = true;
+              } 
+            });
+            if (isSubCategoryListed === false) {
+              this.subCategory = 'Others';
+              this.subCategoryName = this.productDetail.subCategory
+            }
           }
           this.subCategoriesList.push({sub_category: 'Others'});
           if (callTime != '' || this.secondTimeCall) {
@@ -189,12 +224,30 @@ export class ProductEditComponent implements OnInit {
 
   fetchModel(callTime : any = '') {
     this.modelList = [];
+    if (callTime != '') {
+      this.modelId = '';
+    }
     if (this.subCategory != 'Others') {
       this._api.getProductModels(this.subCategory).subscribe(
         res => {
+          let isModelListed = false;
+
           this.modelList = res.models;
           if (this.modelList === undefined) {
             this.modelList = [];
+            this.modelId = 'Others';
+            this.modelName = this.productDetail.modelNo
+          } else {
+            this.modelList.forEach((e : any) => {
+              if (e.model_no === this.productDetail.modelNo) {
+                isModelListed = true;
+              } 
+            });
+            if (isModelListed === false) {
+              // this.modelList = [];
+              this.modelId = 'Others';
+              this.modelName = this.productDetail.modelNo
+            }
           }
           this.modelList.push({model_no: 'Others'});
           if (callTime != '' || this.secondTimeCall) {
@@ -305,10 +358,10 @@ export class ProductEditComponent implements OnInit {
     }
     if (formData?.valid) {
         formData.value.brandId = this.brandName;
-        if (this.categoryName) {
+        if (this.categoryName && this.category == 'Others') {
           formData.value.category = this.categoryName;
         }
-        if (this.subCategoryName) {
+        if (this.subCategoryName && this.subCategory == 'Others') {
           formData.value.subCategory = this.subCategoryName;
         }
         console.log(formData.value);

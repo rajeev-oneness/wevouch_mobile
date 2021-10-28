@@ -58,6 +58,7 @@ export class ProductAddComponent implements OnInit {
   }
 
   fetchBrands() {
+    this.brandList = [];
     this._api.getProductBrands().subscribe(
       res => {
         // console.log('brands :', res.brands);
@@ -73,6 +74,8 @@ export class ProductAddComponent implements OnInit {
   }
 
   fetchCategory() {
+    this.categoriesList = [];
+
     console.log('brand :', this.brandId)
     if (this.brandId != 'Others') {
       this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
@@ -100,6 +103,7 @@ export class ProductAddComponent implements OnInit {
   }
   
   fetchSubCategory() {
+    this.subCategoriesList = [];
     console.log(this.category);
     if (this.category != 'Others') {
       this._api.getProductSubCategories(this.category).subscribe(
@@ -122,6 +126,8 @@ export class ProductAddComponent implements OnInit {
   }
 
   fetchModel() {
+    this.modelList = [];
+
     if (this.subCategory !== null || this.subCategory != 'Others') {
       this._api.getProductModels(this.subCategory).subscribe(
         res => {
@@ -221,8 +227,12 @@ export class ProductAddComponent implements OnInit {
       if (this.category && this.brandId) {
         
         formData.value.brandId = this.brandName;
-        formData.value.category = this.categoryName;
-        formData.value.subCategory = this.subCategoryName;
+        if (this.categoryName) {
+          formData.value.category = this.categoryName;
+        }
+        if (this.subCategoryName) {
+          formData.value.subCategory = this.subCategoryName;
+        }
         console.log(formData.value);
         this.addProductValue = formData.value;
         this.productTab = false;

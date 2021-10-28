@@ -76,6 +76,9 @@
             </section>
         </ng-template>
       </div>
+      <div *ngIf="addTicketValue.transportationType == 'Pick Up'">
+        <div class="submit-btn" type="submit">Coming Soon</div>
+      </div>
       <div *ngIf="addTicketValue.transportationType == 'Carry In'">
         <label for="">Select City</label>
         <select class="form-control mt-2" id="functionType" (change)="selectCity()" [(ngModel)]="selectedCity" name="city">
@@ -109,7 +112,7 @@
         </ng-template>
       </div>
       <span class="text-danger">{{errorMessage}}</span>
-      <button class="submit-btn" type="submit">Request Service</button>
+      <button class="submit-btn" type="submit" *ngIf="addTicketValue.transportationType == 'On Site'">Request Service</button>
     </form>
     <div
       onclick="addRemoveExWarranty()"
