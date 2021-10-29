@@ -97,6 +97,9 @@ export class ApiService {
   changePassword(formData : any) {
     return this._http.post<any>(_apiUrl+'user/change-password', formData);
   }
+  sendSupportMessage(formData: any) {
+    return this._http.post<any>(_apiUrl+'user/support/send', formData);
+  }
 
   //product
   productList(userId : any) {

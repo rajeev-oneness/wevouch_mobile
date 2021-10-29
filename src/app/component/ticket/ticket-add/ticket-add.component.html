@@ -161,7 +161,7 @@
     <form class="addProductForm" #ticketThirdForm="ngForm" (ngSubmit)="thirdTab(ticketThirdForm)">
       <label>Select Date <span class="op">*</span></label>
       <mat-form-field appearance="fill">
-        <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" class="datepicker" name="selectedDate" #selectedDate="ngModel" [ngModel]="addTicketValue.selectedDate">
+        <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" class="datepicker" name="selectedDate" #selectedDate="ngModel" [ngModel]="addTicketValue.selectedDate" [min]="minDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>

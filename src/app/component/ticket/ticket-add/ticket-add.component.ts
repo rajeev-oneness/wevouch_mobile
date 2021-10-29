@@ -3,7 +3,7 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import  Swal  from "sweetalert2";
-
+import { getDateFormat } from "src/app/service/globalFunction";
 @Component({
   selector: 'app-ticket-add',
   templateUrl: './ticket-add.component.html',
@@ -23,6 +23,9 @@ export class TicketAddComponent implements OnInit {
   public productDetail : any = {};
   public errorMessage : any = '';
   public addresErrorMessage : any = '';
+  public minDate : any = getDateFormat(Date.now());
+  
+  
   public Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -59,6 +62,7 @@ export class TicketAddComponent implements OnInit {
         console.log('Product List', this.products);
       }, err => {}
     )
+    console.log(this.minDate);
     this.getAddressList();
     this._loader.stopLoader('loader');
     this.getProductDetail();

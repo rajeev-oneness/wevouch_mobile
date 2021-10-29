@@ -1,31 +1,16 @@
-<!-- <section id="chats-container">
-    <div class="date-container">
-      <p class="text-uppercase">Yesterday, 2:30 pm</p>
-      <div class="sent-box">
-        <img src="./assets/images/customer-avatar.png" alt="">
-        <p>Hi there, My Living room TV just got smashed, It is under warranty. Can someone please help me claim it.</p>
-      </div>
-      <div class="recieved-box">
-        <img src="./assets/images/executive-avatar.png" alt="">
-        <p>Hello <span>Santosh</span>! We’ll be happy to help you. Can you share a picture of the TV?</p>
-      </div>
-    </div>
-    
-    <div class="date-container">
-      <p class="text-uppercase">Yesterday, 7:43 pm</p>
-      <div class="sent-box">
-        <img src="./assets/images/customer-avatar.png" alt="">
-        <p>Sure, It cracked from the top right corner.</p>
-      </div>
-      <div class="img-sent-box">
-        <img class="broken-tv" src="./assets/images/brokenTV.png" alt="">
-      </div>
-    </div>
+<form #supportForm="ngForm" (ngSubmit)="sendSupport(supportForm)">
+  <label for="name">Name</label>
+  <input type="text" name="name" #name="ngModel" [ngModel]="userDetail.name" placeholder="Your name" required>
+  <label for="name">Email</label>
+  <input type="text" name="email" #email="ngModel" [ngModel]="userDetail.email" placeholder="Your email" required>
+  <label for="name">Subject</label>
+  <input type="text" name="subject" #subject="ngModel" ngModel placeholder="Your subject" required>
+  <label for="name">Message</label>
+  <textarea name="text" id="text" #text="ngModel" ngModel cols="30" rows="5" class="form-control" placeholder="Your text..." required></textarea>
 
-    <div class="chat-input-container">
-      <input class="chat-input" type="text" placeholder="Type here" >
-      <a href="javascript:void(0);">
-        <img src="./assets/images/send-btn.png" alt="" >
-      </a>
-    </div>
-</section> -->
+  
+  <span class="text-danger">{{errorMessage}}</span>
+  <div class="addWarranty-btns">
+    <button class="submit-btn" type="submit">Send message</button>
+  </div>
+</form>
