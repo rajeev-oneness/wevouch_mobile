@@ -207,6 +207,13 @@ export class ApiService {
   assignTicketToExecutive(formData : any) {
     return this._http.post<any>(_apiUrl+'ticket/assign-executive', formData);
   }
+  changeAllAssignStatus() {
+    return this._http.get<any>(_apiUrl+'support-executive/all-assign-status-false');
+  }
+  changeExecutiveAssignStatus(supportExecId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'support-executive/change-assign-status/'+supportExecId, formData);
+  }
+
 
   //forgot password
   forgotPasswordReqSend(formData : any) {
