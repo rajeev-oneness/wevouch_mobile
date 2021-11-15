@@ -263,11 +263,21 @@
           <input
               type="number"
               id="mobileNo"
-              #mobileNo="ngModel" [ngModel]="productDetail.extendedWarranty.mobileNo"
+              #mobileNo="ngModel" [(ngModel)]="productDetail.extendedWarranty.mobileNo"
               placeholder="+91"
               class="form-control"
               name="mobileNo"
             />
+
+            <label>Policy No.</label>
+            <input
+                type="text"
+                id="policyNumber"
+                #policyNumber="ngModel" [(ngModel)]="productDetail.extendedWarranty.policyNumber"
+                class="form-control"
+                name="policyNumber" 
+                [ngClass]="{'is-invalid':policyNumber?.invalid && policyNumber?.touched}" 
+              />
             <span class="text-danger">{{errorMessage}}</span>
           <input class="addDetails-btn" type="submit" value="+ Add Details" onclick="addRemoveExWarranty()"/>
         </form>
@@ -306,6 +316,15 @@
               placeholder="+91"
               class="form-control"
               name="mobileNo"
+            />
+          <label>Policy No.</label>
+          <input
+              type="text"
+              id="policyNumber"
+              #policyNumber="ngModel" ngModel
+              class="form-control"
+              name="policyNumber" 
+              [ngClass]="{'is-invalid':policyNumber?.invalid && policyNumber?.touched}" 
             />
             <span class="text-danger">{{errorMessage}}</span>
           <input class="addDetails-btn" type="submit" value="+ Add Details" onclick="addRemoveExWarranty()"/>
@@ -356,6 +375,7 @@
             <option value="quarterly">Quarterly</option>
             <option value="monthly">Monthly</option>
             <option value="yearly">Yearly</option>
+            <option value="on demand">On demand</option>
           </select>
 
           <label>Vendor's Agreement No. <span>*</span></label>
@@ -413,6 +433,7 @@
             <option value="quaterly">Quaterly</option>
             <option value="monthly">Monthly</option>
             <option value="yearly">Yearly</option>
+            <option value="on demand">On demand</option>
           </select>
 
           <label>Vendor's Agreement No. <span>*</span></label>

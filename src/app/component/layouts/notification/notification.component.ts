@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "src/app/service/api.service";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -11,7 +12,7 @@ export class NotificationComponent implements OnInit {
   public notificationList : any = [];
   public notificationCount : number = 0;
 
-  constructor(private _api:ApiService) { 
+  constructor(private _api:ApiService, private _loader: NgxUiLoaderService) { 
     localStorage.setItem('is_notification', 'false');
   }
 
@@ -29,13 +30,16 @@ export class NotificationComponent implements OnInit {
           res => {
             let array = Array()
             for (let index = (res.length-1); index >= 0; index--) {
-              array.push(res[index]);
-              if(res[index].status === true) {
-                this.notificationCount += 1;
-                localStorage.setItem('is_notification', 'true');
+              if (res[index].cleared === false) {
+                array.push(res[index]);
+                if(res[index].status === true) {
+                  this.notificationCount += 1;
+                  localStorage.setItem('is_notification', 'true');
+                }
               }
             }
             this.notificationList = array;
+            console.log(this.notificationList);
             
           }, err => {}
         )
@@ -58,6 +62,25 @@ export class NotificationComponent implements OnInit {
         }, err => {}
       )
     }
+  }
+
+  clearAllNotification(notificationId: any = '', cleared: boolean = true) {
+    this._loader.startLoader('loader');
+    let mainForm: any = {};
+    mainForm = {
+      notificationId: notificationId,
+      userId : this.userInfo._id, 
+      cleared: cleared
+    };
+    
+    this._api.clearNotification(mainForm).subscribe(
+      res => {
+        console.log(res);
+        this._loader.stopLoader('loader');
+      }, err => {
+        this._loader.stopLoader('loader');
+      }
+    )
   }
 
 }

@@ -4,6 +4,7 @@ import { ApiService } from "src/app/service/api.service";
 import { Router } from "@angular/router";
 import  Swal  from "sweetalert2";
 import { environment } from 'src/environments/environment';
+import { getDateFormat } from "src/app/service/globalFunction";
 
 @Component({
   selector: 'app-product-add',
@@ -39,6 +40,7 @@ export class ProductAddComponent implements OnInit {
   public userPhn : number = 0;
   public userEmail : any = '';
   public warrantyShowHide : boolean = true;
+  public maxDate : any = getDateFormat(Date.now());
   public Toast = Swal.mixin({
     toast: true,
     position: 'top-end',

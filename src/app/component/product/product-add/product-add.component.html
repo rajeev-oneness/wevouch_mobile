@@ -134,7 +134,7 @@
 
         <div *ngIf="warrantyShowHide">
           <label>Purchase Date</label>
-          <input type="date" #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate" class="form-control" [ngClass]="{'is-invalid':purchaseDate?.invalid && purchaseDate?.touched}">
+          <input type="date" #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate" class="form-control" [ngClass]="{'is-invalid':purchaseDate?.invalid && purchaseDate?.touched}" [max]="maxDate">
     
           <label>Warranty Period</label>
           <div class="warranty-field">
@@ -256,7 +256,7 @@
             <div class="d-flex">
               <div class="st-date">
                 <label for="start-date">Start Date <span>*</span></label>
-                <input required type="date" id="startDate" style="padding: 10px 5px 10px 15px !important;" #startDate="ngModel" ngModel name="startDate" class="form-control" required [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}"/>
+                <input required type="date" id="startDate" style="padding: 10px 5px 10px 15px !important;" #startDate="ngModel" ngModel name="startDate" class="form-control" required [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}" [max]="maxDate"/>
               </div>
   
               <div class="end-date">
@@ -291,6 +291,16 @@
             <small *ngIf="mobileNo?.invalid && mobileNo?.touched" [ngClass]="{'text-danger':mobileNo?.invalid && mobileNo?.touched}">
               Mobile number must be of 10 digit.
             </small>
+            
+            <label>Policy No.</label>
+            <input
+                type="text"
+                id="policyNumber"
+                #policyNumber="ngModel" ngModel
+                class="form-control"
+                name="policyNumber" 
+                [ngClass]="{'is-invalid':policyNumber?.invalid && policyNumber?.touched}" 
+              />
               <span class="text-danger">{{errorMessage}}</span>
             <input class="addDetails-btn" type="submit" value="+ Add Details" onclick="addRemoveExWarranty()"/>
           </form>
@@ -325,7 +335,7 @@
             <div class="d-flex">
               <div class="st-date">
                 <label for="start-date">Start Date <span>*</span></label>
-                <input required type="date" id="startDate" style="padding: 10px 5px 10px 15px !important;" #startDate="ngModel" ngModel name="startDate" class="form-control" required [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}"/>
+                <input required type="date" id="startDate" style="padding: 10px 5px 10px 15px !important;" #startDate="ngModel" ngModel name="startDate" class="form-control" required [ngClass]="{'is-invalid':startDate?.invalid && startDate?.touched}" [max]="maxDate"/>
               </div>
               
               <div class="end-date">
@@ -343,6 +353,7 @@
               <option value="quarterly">Quarterly</option>
               <option value="monthly">Monthly</option>
               <option value="yearly">Yearly</option>
+              <option value="on demand">On demand</option>
             </select>
   
             <label>Vendor's Agreement No. <span>*</span></label>

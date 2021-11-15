@@ -177,13 +177,16 @@
   <div class="purchaseDate">
     <h6>Validity</h6>
     <p class="text-center">{{productDeatil && productDeatil?.warrantyPeriod}} Months</p>
-
-    <h6>Purchase Date</h6>
-    <p class="text-center">{{productDeatil?.purchaseDate | date:'dd MMM yyyy'}}</p>
+    <div *ngIf="productDeatil?.purchaseDate">
+      <h6>Purchase Date</h6>
+      <p class="text-center">{{productDeatil?.purchaseDate | date:'dd MMM yyyy'}}</p>
+    </div>
   </div>
   <div class="expiresDate">
-    <h6>Validity Till</h6>
-    <p class="text-center">{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
+    <div *ngIf="warrantyValidTill">
+      <h6>Validity Till</h6>
+      <p class="text-center">{{warrantyValidTill | date: 'dd MMM yyyy'}}</p>
+    </div>
     <h6>Days Left</h6>
     <p class="text-center" *ngIf="warrantyDaysLeft >= 0">{{(warrantyDaysLeft == '')? '0': warrantyDaysLeft}} Days Left</p>
     <p class="text-center" *ngIf="warrantyDaysLeft < 0">Warranty Expired</p>
@@ -201,12 +204,17 @@
 
     <h6>Validity </h6>
     <p class="text-center">{{productDeatil?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
+    
+    <div *ngIf="productDeatil?.extendedWarranty?.policyNumber">
+      <h6>Policy Number </h6>
+      <p class="text-center">{{productDeatil?.extendedWarranty?.policyNumber || 'N/A'}}</p>
+    </div>
   </div>
   <div class="expiresDate">
     <div class="call-img">
       <a href="tel:{{productDeatil?.extendedWarranty?.mobileNo}}"><img src="./assets/images/call.png" alt="" *ngIf="productDeatil?.extendedWarranty?.mobileNo"></a>
     </div>
-    <h6>mobile No.</h6>
+    <h6>Mobile No.</h6>
     <p class="text-center">{{productDeatil?.extendedWarranty?.mobileNo || 'N/A'}}</p>
   </div>
 </div>

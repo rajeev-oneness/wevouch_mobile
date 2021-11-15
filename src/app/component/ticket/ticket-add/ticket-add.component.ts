@@ -24,6 +24,8 @@ export class TicketAddComponent implements OnInit {
   public errorMessage : any = '';
   public addresErrorMessage : any = '';
   public minDate : any = getDateFormat(Date.now());
+  public someDate = new Date();
+  public maxDate : any = getDateFormat(this.someDate.setDate(this.someDate.getDate() + 10));
   
   
   public Toast = Swal.mixin({

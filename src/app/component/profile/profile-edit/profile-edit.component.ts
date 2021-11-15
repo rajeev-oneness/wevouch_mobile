@@ -91,34 +91,38 @@ export class ProfileEditComponent implements OnInit {
     for( let i in formData.controls ){
       formData.controls[i].markAsTouched();
     }
-    if( formData?.valid ){
-      console.log(formData.value);
-      const mainForm = formData.value;
-      mainForm.image = this.profilePicUrl;
-      this._loader.startLoader('loader');
-      this._api.updateUserDetails(this.user_id, mainForm).subscribe(
-        res => {
-          this.errorMessage = res.message;
-          this.getUser(this.user_id);
-          this.Toast.fire({
-            icon: 'success',
-            title: 'Profile updated successfully!'
-          })
-          // this._router.navigate(['/profile/details']);
-          // window.location.href = environment.basePath+'profile/details';
-          window.location.hash = environment.basePath+'profile/details';
-          // location.reload();
-
-          this._loader.stopLoader('loader');
-        },
-        err => {
-          this.errorMessage = "something went wrong please check credentials and try after sometimes";
-          this._loader.stopLoader('loader');
-        }
-        
-      )
-    }else{
-      this.errorMessage = 'Please fill out all the details';
+    if (this.userDetail.age >= 18) {
+      if( formData?.valid ){
+        console.log(formData.value);
+        const mainForm = formData.value;
+        mainForm.image = this.profilePicUrl;
+        this._loader.startLoader('loader');
+        this._api.updateUserDetails(this.user_id, mainForm).subscribe(
+          res => {
+            this.errorMessage = res.message;
+            this.getUser(this.user_id);
+            this.Toast.fire({
+              icon: 'success',
+              title: 'Profile updated successfully!'
+            })
+            // this._router.navigate(['/profile/details']);
+            // window.location.href = environment.basePath+'profile/details';
+            window.location.hash = environment.basePath+'profile/details';
+            // location.reload();
+  
+            this._loader.stopLoader('loader');
+          },
+          err => {
+            this.errorMessage = "something went wrong please check credentials and try after sometimes";
+            this._loader.stopLoader('loader');
+          }
+          
+        )
+      }else{
+        this.errorMessage = 'Please fill out all the details';
+      }
+    } else {
+      this.errorMessage = "User must be 18+ years old"
     }
   }
 

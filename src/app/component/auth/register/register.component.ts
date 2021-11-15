@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   public mainSignUpForm: boolean = true;
   public accountConfirmation: boolean = false;
   public userEmail: any = '';
+  public ageRestriction: number = 0;
 
   ngOnInit(): void {
     window.scrollTo(0,0);
@@ -33,45 +34,48 @@ export class RegisterComponent implements OnInit {
     for( let i in formData.controls ){
       formData.controls[i].markAsTouched();
     }
-    if( formData?.valid ){
-      if (this.confirmPassword == formData.value.password) {
-        console.log(formData.value);
-        const mainForm = formData.value;
-        mainForm.image = 'https://ui-avatars.com/api/?background=random&name='+formData.value.name;
-        this._loader.startLoader('loader');
-        this._api.userSignupApi(mainForm).subscribe(
-          res => {
-            // this.errorMessage = res.message;
-            console.log(res);
-            const notificationForm = {
-              "title": "Free Ticket Earn", 
-              "userId": res.user._id, 
-              "description": "You earn "+res.user.subscription.ticketCount+" tickets."
+    if (this.ageRestriction >= 18) {
+      if( formData?.valid ){
+        if (this.confirmPassword == formData.value.password) {
+          console.log(formData.value);
+          const mainForm = formData.value;
+          mainForm.image = 'https://ui-avatars.com/api/?background=random&name='+formData.value.name;
+          this._loader.startLoader('loader');
+          this._api.userSignupApi(mainForm).subscribe(
+            res => {
+              // this.errorMessage = res.message;
+              console.log(res);
+              const notificationForm = {
+                "title": "Free Ticket Earn", 
+                "userId": res.user._id, 
+                "description": "You earn "+res.user.subscription.ticketCount+" tickets."
+              }
+              this._api.addNotification(notificationForm).subscribe(
+                res=> {console.log(res);}
+              );
+              this.userEmail = res.user.email;
+              if (res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
+                this._api.storeUserLocally(res.user);
+                // this._router.navigate(['/login']);
+              } else {
+                this.accountConfirmation = true;
+                this.mainSignUpForm = false;
+              }
+              this._loader.stopLoader('loader');
+            },
+            err => {
+              this.errorMessage = "something went wrong please try after sometimes";
+              this._loader.stopLoader('loader');
             }
-            this._api.addNotification(notificationForm).subscribe(
-              res=> {console.log(res);}
-            );
-            this.userEmail = res.user.email;
-            if (res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
-              this._api.storeUserLocally(res.user);
-              // this._router.navigate(['/login']);
-            } else {
-              this.accountConfirmation = true;
-              this.mainSignUpForm = false;
-            }
-            this._loader.stopLoader('loader');
-          },
-          err => {
-            this.errorMessage = "something went wrong please try after sometimes";
-            this._loader.stopLoader('loader');
-          }
-        )
-      } else {
-        this.errorMessage = "Password not matched";
+          )
+        } else {
+          this.errorMessage = "Password not matched";
+        }
+      }else{
+        this.errorMessage = 'Please fill out all the details';
       }
-    }else{
-      this.errorMessage = 'Please fill out all the details';
     }
+    
     // console.log('Form Data SUbmitted');
   }
 

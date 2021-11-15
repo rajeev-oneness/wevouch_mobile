@@ -39,8 +39,11 @@
       <input class="form-control" tabindex="2" [value]="confirmPassword" (blur)="confirmPasswordCheck($event)" type="password" placeholder="Confirm Password">
       
       <label>Age</label>
-      <input class="form-control" tabindex="2" #age="ngModel" ngModel type="text" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
-      
+      <input class="form-control" tabindex="2" #age="ngModel" [(ngModel)]="ageRestriction" type="number" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
+      <small *ngIf="age?.touched && ageRestriction < 18" [ngClass]="{'text-danger':age?.touched && ageRestriction < 18}">
+        User must be 18+ years old
+      </small>
+
       <label>Gender</label>
       <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">
         <option value="Male">Male</option>

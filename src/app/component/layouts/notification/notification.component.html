@@ -5,7 +5,8 @@
         <header>
             <img src="./assets/images/trans-bell.png" />
             <h1>Notifications</h1>
-            <span>{{notificationCount}}</span>
+            <span *ngIf="notificationCount > 0">{{notificationCount}}</span>
+            <button class="btn btn-sm btn-danger" *ngIf="notificationCount <= 0" (click)="clearAllNotification()">Clear All</button>
         </header>
 
         <div *ngIf="notificationList.length > 0; else emptyBlock">

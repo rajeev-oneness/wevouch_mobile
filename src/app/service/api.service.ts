@@ -76,6 +76,9 @@ export class ApiService {
   userLoginApi(formData : any) {
     return this._http.post<any>(_apiUrl+'user/login',formData);
   }
+  getLoginOtp(formData : any) {
+    return this._http.post<any>(_apiUrl+'user/get-otp',formData);
+  }
   loginWithOtp(formData : any) {
     return this._http.post<any>(_apiUrl+'user/phone-otp',formData);
   }
@@ -173,6 +176,9 @@ export class ApiService {
   }
   updateNotificationStatus(formData : any) {
     return this._http.post<any>(_apiUrl+'notification/notification-status-change', formData);
+  }
+  clearNotification(formData : any) {
+    return this._http.post<any>(_apiUrl+'notification/notification-clear', formData);
   }
 
   //address management section
