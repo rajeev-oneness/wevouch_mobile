@@ -166,11 +166,7 @@
         <input type="text" name="modelNames" #modelNames="ngModel" [(ngModel)]="modelName">
       </div>
 
-      <a
-        onclick="addRemoveExWarranty();"
-        id="ex-warr-link"
-        class="extended-warr d-flex"
-      >
+      <a onclick="addRemoveExWarranty();" id="ex-warr-link" class="extended-warr d-flex" (click)="extdWarrantyShowHide()">
         <svg
           width="24"
           height="24"
@@ -188,7 +184,7 @@
         <p>Add Extended Warranty Details</p>
       </a>
 
-      <a onclick="addRemoveAMC()" class="extended-warr d-flex">
+      <a onclick="addRemoveAMC()" class="extended-warr d-flex" (click)="amcShowHide()">
         <svg
           width="24"
           height="24"
@@ -223,12 +219,12 @@
     ></div>
 
     <div id="extended-warranty-overlay" class="">
-      <div class="container">
+      <div class="container scroll-section">
         
         <section class="ex-warr-head">
           <img src="./assets/images/ex-warr-icon.png" alt="" />
           <h2>Add Extended Warranty</h2>
-          <i style="float: right; margin-top: -35px;"><svg onclick="addRemoveExWarranty()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+          <i style="float: right; margin-top: -35px;"><svg onclick="addRemoveExWarranty()" (click)="extdWarrantyShowHide()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
         </section>
 
         <form class="addProductForm" style="margin: 20px auto 100px; width: 100% !important;" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarrantyPopuup(extendedWarrantyForm)" *ngIf="productDetail.extendedWarranty">
@@ -256,6 +252,22 @@
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
               </select>
+            </div>
+          </div>
+
+          <div class="addPhoto-wrap position-relative">
+            <label>Add Extended Warranty Photo <span>*</span></label>
+            <input class="addPhotoPlaceholder" type="text" placeholder="Add Photo" />
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <input class="file-input" type="file" (change)="onSelectFile3($event)"/>
+          </div>
+
+          <div class="d-flex justify-content-around flex-wrap" style="width: 100%; padding: 0px;">
+            <div class="Invoice-img-box mt-2" *ngFor="let extdImg of extdImgUrl; let i=index;">
+              <img src="{{extdImg}}" alt="" style="height: 100%;width: 100%;">
+              <div class="del_icon_2" (click)="removeExtdImage(i)">
+                <img src="./assets/images/del-icon.png" alt="">
+              </div>
             </div>
           </div>
 
@@ -308,6 +320,22 @@
             </div>
           </div>
 
+          <div class="addPhoto-wrap position-relative">
+            <label>Add Extended Warranty Photo <span>*</span></label>
+            <input class="addPhotoPlaceholder" type="text" placeholder="Add Photo" />
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <input class="file-input" type="file" (change)="onSelectFile3($event)"/>
+          </div>
+
+          <div class="d-flex justify-content-around flex-wrap" style="width: 100%; padding: 0px;">
+            <div class="Invoice-img-box mt-2" *ngFor="let extdImg of extdImgUrl; let i=index;">
+              <img src="{{extdImg}}" alt="" style="height: 100%;width: 100%;">
+              <div class="del_icon_2" (click)="removeExtdImage(i)">
+                <img src="./assets/images/del-icon.png" alt="">
+              </div>
+            </div>
+          </div>
+
           <label>Vendor's Contact No. <span>*</span></label>
           <input
               type="number"
@@ -341,7 +369,7 @@
         <section class="ex-warr-head">
           <img src="./assets/images/AMC.png" alt="" />
           <h2>Add AMC Details</h2>
-          <i style="float: right; margin-top: -35px;"><svg onclick="addRemoveAMC()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
+          <i style="float: right; margin-top: -35px;"><svg onclick="addRemoveAMC()" (click)="amcShowHide()" id="close-btn" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></i>
         </section>
 
         <form class="addProductForm" #amcForm="ngForm" (ngSubmit)="addAmc(amcForm)" style="margin: 20px auto 100px; width: 100% !important;" *ngIf="productDetail.amcDetails">
@@ -385,6 +413,22 @@
               class="form-control"
               name="vendorNo"
             />
+
+            <div class="addPhoto-wrap position-relative">
+              <label>Add AMC Photo <span>*</span></label>
+              <input class="addPhotoPlaceholder" type="text" placeholder="Add Photo" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <input class="file-input" type="file" (change)="onSelectFile4($event)"/>
+            </div>
+
+            <div class="d-flex justify-content-around flex-wrap" style="width: 100%; padding: 0px;">
+              <div class="Invoice-img-box mt-2" *ngFor="let amcImg of amcImgUrl; let i=index;">
+                <img src="{{amcImg}}" alt="" style="height: 100%;width: 100%;">
+                <div class="del_icon_2" (click)="removeAmcImage(i)">
+                  <img src="./assets/images/del-icon.png" alt="">
+                </div>
+              </div>
+            </div>
 
           <label>Vendor's Contact No. <span>*</span></label>
           <input
@@ -443,6 +487,22 @@
               class="form-control"
               name="vendorNo"
             />
+
+            <div class="addPhoto-wrap position-relative">
+              <label>Add AMC Photo <span>*</span></label>
+              <input class="addPhotoPlaceholder" type="text" placeholder="Add Photo" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <input class="file-input" type="file" (change)="onSelectFile4($event)"/>
+            </div>
+
+            <div class="d-flex justify-content-around flex-wrap" style="width: 100%; padding: 0px;">
+              <div class="Invoice-img-box mt-2" *ngFor="let amcImg of amcImgUrl; let i=index;">
+                <img src="{{amcImg}}" alt="" style="height: 100%;width: 100%;">
+                <div class="del_icon_2" (click)="removeAmcImage(i)">
+                  <img src="./assets/images/del-icon.png" alt="">
+                </div>
+              </div>
+            </div>
 
           <label>Vendor's Contact No. <span>*</span></label>
           <input

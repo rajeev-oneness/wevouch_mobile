@@ -35,6 +35,8 @@ export class ProductEditComponent implements OnInit {
   public amcStartDate: any = '';
   public extendedWarrantyStartDate: any = '';
   public extendedWarrantyEndDate: any = '';
+  public extdWarrantyBlock : boolean = false;
+  public amcBlock : boolean = false;
   public brandName: any = '';
 
   public categoryName: string = '';
@@ -75,6 +77,8 @@ export class ProductEditComponent implements OnInit {
         // this.fetchSubCategory();
         this.invoiceImgUrl = res.invoicePhotoUrl;
         this.uploadedFile1 = res.invoicePhotoUrl[0];
+        this.extdImgUrl = res.extendedWarranty.extendedWarrantyImages;
+        this.amcImgUrl = res.amcDetails.amcImages;
         
         this.productImgUrl = res.productImagesUrl;
         this.uploadedFile2 = res.productImagesUrl[0];
@@ -268,6 +272,8 @@ export class ProductEditComponent implements OnInit {
   public selectedFile : any = '';
   public hasFile : boolean = false;
   public invoiceImgUrl : any = new Array();
+  public extdImgUrl : any = new Array();
+  public amcImgUrl : any = new Array();
   public productImgUrl : any = new Array();
   onSelectFile1(event: any) {
     this._loader.startLoader('loader');
@@ -322,6 +328,70 @@ export class ProductEditComponent implements OnInit {
             res => {
               console.log(res);
               this.productImgUrl.push(res.file_link);
+              this._loader.stopLoader('loader');
+            }
+          )
+        }
+        return true;
+      }
+      this.fileFormatError = 'This File Format is not accepted';
+    }
+    return false;
+  }
+
+  onSelectFile3(event: any) {
+    this._loader.startLoader('loader');
+    this.fileFormatError = '';this.hasFile = false;
+    this.selectedFile = event.target.files[0];
+    if(this.selectedFile != undefined && this.selectedFile != null){
+      let validFormat = ['png','jpeg','jpg'];
+      let fileName = this.selectedFile.name.split('.').pop();
+      let data = validFormat.find(ob => ob === fileName);
+      if(data != null || data != undefined){
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]); // read file as data url
+        reader.onload = (event) => { // called once readAsDataURL is completed
+          this.uploadedFile2 = event.target?.result;
+          this.hasFile = true;
+          const mainForm = new FormData();
+          mainForm.append('file',this.selectedFile);
+          console.log(this.selectedFile);
+          this._api.storeFile(mainForm).subscribe(
+            res => {
+              console.log(res);
+              this.extdImgUrl.push(res.file_link);
+              this._loader.stopLoader('loader');
+            }
+          )
+        }
+        return true;
+      }
+      this.fileFormatError = 'This File Format is not accepted';
+    }
+    return false;
+  }
+
+  onSelectFile4(event: any) {
+    this._loader.startLoader('loader');
+    this.fileFormatError = '';this.hasFile = false;
+    this.selectedFile = event.target.files[0];
+    if(this.selectedFile != undefined && this.selectedFile != null){
+      let validFormat = ['png','jpeg','jpg'];
+      let fileName = this.selectedFile.name.split('.').pop();
+      let data = validFormat.find(ob => ob === fileName);
+      if(data != null || data != undefined){
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]); // read file as data url
+        reader.onload = (event) => { // called once readAsDataURL is completed
+          this.uploadedFile2 = event.target?.result;
+          this.hasFile = true;
+          const mainForm = new FormData();
+          mainForm.append('file',this.selectedFile);
+          console.log(this.selectedFile);
+          this._api.storeFile(mainForm).subscribe(
+            res => {
+              console.log(res);
+              this.amcImgUrl.push(res.file_link);
               this._loader.stopLoader('loader');
             }
           )
@@ -397,12 +467,14 @@ export class ProductEditComponent implements OnInit {
   }
 
   addWarrantyPopuup(formData : any) {
+    this.extdWarrantyBlock = false;
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
       console.log(formData.value);
       this.addProductValue.extendedWarranty = formData.value;
+      this.addProductValue.extendedWarranty.extendedWarrantyImages = this.extdImgUrl;
       this.errorMessage = "";
     } else {
       this.errorMessage = 'Please fill out all the details';
@@ -410,12 +482,14 @@ export class ProductEditComponent implements OnInit {
   }
   
   addAmc(formData : any) {
+    this.amcBlock = false;
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
       console.log(formData.value);
       this.addProductValue.amcDetails = formData.value;
+      this.addProductValue.amcDetails.amcImages = this.amcImgUrl;
       this.errorMessage = "";
     } else {
       this.errorMessage = 'Please fill out all the details';
@@ -461,5 +535,25 @@ export class ProductEditComponent implements OnInit {
   removeInvoiceImage(imageIndex : any) {
     this.invoiceImgUrl.splice(imageIndex, 1);
     console.log(this.invoiceImgUrl);
+  }
+
+  extdWarrantyShowHide() {
+    this.extdWarrantyBlock = !this.extdWarrantyBlock
+    console.log('extdBlock:',this.extdWarrantyBlock);
+    
+  }
+  amcShowHide() {
+    this.amcBlock = !this.amcBlock
+    console.log('amcBlock:',this.amcBlock);
+
+  }
+
+  removeExtdImage(index : any) {
+    this.extdImgUrl.splice(index, 1);
+    console.log(this.extdImgUrl);
+  }
+  removeAmcImage(index : any) {
+    this.amcImgUrl.splice(index, 1);
+    console.log(this.amcImgUrl);
   }
 }

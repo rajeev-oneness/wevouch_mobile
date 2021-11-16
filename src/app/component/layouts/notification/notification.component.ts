@@ -39,7 +39,7 @@ export class NotificationComponent implements OnInit {
               }
             }
             this.notificationList = array;
-            console.log(this.notificationList);
+            // console.log(this.notificationList);
             
           }, err => {}
         )

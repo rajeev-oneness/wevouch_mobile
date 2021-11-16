@@ -46,8 +46,11 @@ export class ProfileEditComponent implements OnInit {
   getUser(userId : any) {
     this._api.userDetails(userId).subscribe(
       res => {
-        this.userDetail = res;
         this._api.updateUserLocally(res);
+        this.userDetail = res;
+        this.userDetail.name = this.userDetail.name.split(" ");
+        console.log(res);
+        
         this._loader.stopLoader('loader');
       }, err => {}
     )
@@ -96,6 +99,9 @@ export class ProfileEditComponent implements OnInit {
         console.log(formData.value);
         const mainForm = formData.value;
         mainForm.image = this.profilePicUrl;
+        mainForm.name = this.userDetail.name.join(" ");
+        console.log(mainForm);
+        
         this._loader.startLoader('loader');
         this._api.updateUserDetails(this.user_id, mainForm).subscribe(
           res => {

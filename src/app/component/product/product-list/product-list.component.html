@@ -164,7 +164,6 @@
 <div class="warrantyDetailsBox">
   <h3>Warranty Details</h3>
   <div class="invoice-pic">
-    <!-- <img src="{{productDeatil.invoicePhotoUrl || './assets/images/blank-image.png'}}" alt=""> -->
     <owl-carousel-o [options]="invoicelist" *ngIf="productDeatil.invoicePhotoUrl != 0">
       <ng-template carouselSlide *ngFor="let invoiceImage of productDeatil?.invoicePhotoUrl">
         <div class="inv_image">
@@ -196,7 +195,14 @@
 <div class="warrantyDetailsBox" *ngIf="productDeatil?.extendedWarranty">
   <h3>Extended Warranty</h3>
   <div class="invoice-pic">
-    <img src="./assets/images/blank-image.png" alt="">
+    <owl-carousel-o [options]="invoicelist" *ngIf="productDeatil?.extendedWarranty?.extendedWarrantyImages != 0">
+      <ng-template carouselSlide *ngFor="let extdImage of productDeatil?.extendedWarranty?.extendedWarrantyImages">
+        <div class="inv_image">
+          <img src="{{(extdImage != '')? extdImage : './assets/images/blank-image.png'}}" alt="Invoice Image" style="width: 60%;"/>
+        </div>    
+      </ng-template>
+    </owl-carousel-o>
+    <img src="./assets/images/blank-image.png" alt="Invoice Image" *ngIf="productDeatil?.extendedWarranty?.extendedWarrantyImages <= 0"/>
   </div>
   <div class="purchaseDate">
     <h6>Service Provider</h6>
@@ -222,7 +228,14 @@
 <div class="warrantyDetailsBox" *ngIf="productDeatil?.amcDetails">
   <h3>Annual maintainance ({{productDeatil?.amcDetails?.serviceDuration}})</h3>
   <div class="invoice-pic">
-    <img src="./assets/images/blank-image.png" alt="">
+    <owl-carousel-o [options]="invoicelist" *ngIf="productDeatil?.amcDetails?.amcImages != 0">
+      <ng-template carouselSlide *ngFor="let amcImage of productDeatil?.amcDetails?.amcImages">
+        <div class="inv_image">
+          <img src="{{(amcImage != '')? amcImage : './assets/images/blank-image.png'}}" alt="Invoice Image" style="width: 60%;"/>
+        </div>    
+      </ng-template>
+    </owl-carousel-o>
+    <img src="./assets/images/blank-image.png" alt="Invoice Image" *ngIf="productDeatil?.amcDetails?.amcImages <= 0"/>
   </div>
   <div class="purchaseDate">
     <h6>Service Provider</h6>

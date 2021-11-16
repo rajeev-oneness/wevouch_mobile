@@ -17,8 +17,11 @@
   <div *ngIf="mainSignUpForm">
     <h2>Create an Account</h2>
     <form #userSignUpForm="ngForm" (ngSubmit)="signUpUser(userSignUpForm)">
-      <label>Name</label>
-      <input class="form-control" #name="ngModel" ngModel type="text" name="name" placeholder="Your name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+      <label>First Name</label>
+      <input class="form-control" #firstName="ngModel" [(ngModel)]="firstNameVal" type="text" name="firstName" placeholder="Your first name" required [ngClass]="{'is-invalid':firstName?.invalid && firstName?.touched}">
+      
+      <label>Last Name</label>
+      <input class="form-control" #lastName="ngModel" [(ngModel)]="lastNameVal" type="text" name="lastName" placeholder="Your last name" required [ngClass]="{'is-invalid':lastName?.invalid && lastName?.touched}">
 
       <label>Email Address</label>
       <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">

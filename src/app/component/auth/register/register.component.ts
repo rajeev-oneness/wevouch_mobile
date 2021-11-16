@@ -20,6 +20,8 @@ export class RegisterComponent implements OnInit {
   public accountConfirmation: boolean = false;
   public userEmail: any = '';
   public ageRestriction: number = 0;
+  public firstNameVal: any = '';
+  public lastNameVal: any = '';
 
   ngOnInit(): void {
     window.scrollTo(0,0);
@@ -38,9 +40,12 @@ export class RegisterComponent implements OnInit {
       if( formData?.valid ){
         if (this.confirmPassword == formData.value.password) {
           console.log(formData.value);
-          const mainForm = formData.value;
+          let mainForm = formData.value;
+          mainForm.name = this.firstNameVal+' '+this.lastNameVal
           mainForm.image = 'https://ui-avatars.com/api/?background=random&name='+formData.value.name;
           this._loader.startLoader('loader');
+          console.log(mainForm);
+          
           this._api.userSignupApi(mainForm).subscribe(
             res => {
               // this.errorMessage = res.message;

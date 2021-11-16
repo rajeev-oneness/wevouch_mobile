@@ -8,8 +8,11 @@
   </div>
 
   <form #userUpadteForm="ngForm" (ngSubmit)="updateUser(userUpadteForm)">
-    <label for="fullName">Full Name</label>
-    <input class="" type="text" name="name" #name="ngModel" [(ngModel)]="userDetail.name" [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+    <label>First Name</label>
+      <input class="form-control" #firstName="ngModel" [(ngModel)]="userDetail.name[0]" type="text" name="firstName" placeholder="Your first name" required [ngClass]="{'is-invalid':firstName?.invalid && firstName?.touched}">
+      
+      <label>Last Name</label>
+      <input class="form-control" #lastName="ngModel" [(ngModel)]="userDetail.name[1]" type="text" name="lastName" placeholder="Your last name" required [ngClass]="{'is-invalid':lastName?.invalid && lastName?.touched}">
     <!-- <label for="fullName">Eamil</label>
     <input class="" type="email" name="email" #email="ngModel" [(ngModel)]="userDetail.email" [ngClass]="{'is-invalid':email?.invalid && email?.touched}"> -->
     

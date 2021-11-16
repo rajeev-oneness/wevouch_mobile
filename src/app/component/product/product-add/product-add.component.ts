@@ -40,6 +40,8 @@ export class ProductAddComponent implements OnInit {
   public userPhn : number = 0;
   public userEmail : any = '';
   public warrantyShowHide : boolean = true;
+  public extdWarrantyBlock : boolean = false;
+  public amcBlock : boolean = false;
   public maxDate : any = getDateFormat(Date.now());
   public Toast = Swal.mixin({
     toast: true,
@@ -174,6 +176,8 @@ export class ProductAddComponent implements OnInit {
   public selectedFile : any = '';
   public hasFile : boolean = false;
   public invoiceImgUrl : any = new Array();
+  public extdImgUrl : any = new Array();
+  public amcImgUrl : any = new Array();
   public productImgUrl : any = new Array();
   onSelectFile(event: any) {
     this.fileFormatError = '';this.hasFile = false;
@@ -205,7 +209,7 @@ export class ProductAddComponent implements OnInit {
     this._api.storeFile(mainForm).subscribe(
       res => {
         console.log(res);
-        if(this.warantyTab === true) {
+        if(this.warantyTab === true && this.extdWarrantyBlock === false && this.amcBlock === false) {
           this.invoiceImgUrl.push(res.file_link);
           this._loader.stopLoader('loader');
         }
@@ -213,6 +217,16 @@ export class ProductAddComponent implements OnInit {
           // this.productImgUrl = res.file_link;
           this.productImgUrl.push(res.file_link);
           console.log(this.productImgUrl);
+          this._loader.stopLoader('loader');
+        }
+        if (this.extdWarrantyBlock === true) {
+          this.extdImgUrl.push(res.file_link);
+          console.log(this.extdImgUrl);
+          this._loader.stopLoader('loader');
+        }
+        if (this.amcBlock === true) {
+          this.amcImgUrl.push(res.file_link);
+          console.log(this.amcImgUrl);
           this._loader.stopLoader('loader');
         }
       }
@@ -295,6 +309,7 @@ export class ProductAddComponent implements OnInit {
   }
 
   addWarranty(formData : any) {
+    this.extdWarrantyBlock = false;
     this.errorMessage = "";
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
@@ -302,6 +317,7 @@ export class ProductAddComponent implements OnInit {
     if (formData?.valid) {
       console.log(formData.value);
       this.addProductValue.extendedWarranty = formData.value;
+      this.addProductValue.extendedWarranty.extendedWarrantyImages = this.extdImgUrl;
       this.extdWarrantyStatus = true
       this.errorMessage = "";
     } else {
@@ -310,13 +326,14 @@ export class ProductAddComponent implements OnInit {
   }
   
   addAmc(formData : any) {
+    this.amcBlock = false;
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
       console.log(formData.value);
       this.addProductValue.amcDetails = formData.value;
-      // this.addProductValue.amcDetails.enddate = formData.value;
+      this.addProductValue.amcDetails.amcImages = this.amcImgUrl;
       this.amcStatus = true;
       this.errorMessage = "";
     } else {
@@ -366,5 +383,25 @@ export class ProductAddComponent implements OnInit {
   }
   showHideWarranty() {
     this.warrantyShowHide = !this.warrantyShowHide
+  }
+
+  extdWarrantyShowHide() {
+    this.extdWarrantyBlock = !this.extdWarrantyBlock
+    console.log('extdBlock:',this.extdWarrantyBlock);
+    
+  }
+  amcShowHide() {
+    this.amcBlock = !this.amcBlock
+    console.log('amcBlock:',this.amcBlock);
+
+  }
+
+  removeExtdImage(index : any) {
+    this.extdImgUrl.splice(index, 1);
+    console.log(this.extdImgUrl);
+  }
+  removeAmcImage(index : any) {
+    this.amcImgUrl.splice(index, 1);
+    console.log(this.amcImgUrl);
   }
 }
