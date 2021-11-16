@@ -167,7 +167,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <!-- <label>Select Time <span class="op">*</span></label> -->
-      <input type="time" id="datetime" style="height: 46px;" name="selectedTime" #selectedTime="ngModel" [ngModel]="addTicketValue.selectedTime" placeholder="time" required class=" form-control mb-2">
+      <input type="time" id="datetime" style="height: 46px;" name="selectedTime" #selectedTime="ngModel" [ngModel]="addTicketValue.selectedTime" placeholder="time" required class=" form-control mb-2" [min]="'10:00'" [max]="'17:00'">
       <span class="text-danger">{{errorMessage}}</span>
       <button class="submit-btn" type="submit">Request Service</button>
     </form>
@@ -181,7 +181,7 @@
               Service request raised!
               <span class="d-block">We'll reach shortly.</span>
           </h3>
-          <p class="text-center">Disclaimer: Subject to the availability of Service Provider* </p>
+          <p class="text-center" style="font-size: 15px;">Disclaimer: Subject to the availability of Service Provider* </p>
         </div>
       </div>
       <div class="ticketBottom text-center">

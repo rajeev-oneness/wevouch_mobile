@@ -198,54 +198,58 @@ export class TicketAddComponent implements OnInit {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      Object.keys(formData.value).forEach((key)=>{
-        this.addTicketValue[key] = formData.value[key];
-      });
-      this.addTicketValue.productId = this.productId;
-      this.addTicketValue.userId = this.user._id;
-      this.addTicketValue.category = this.productDetail.category
-      this.addTicketValue.brandId = this.productDetail.brands;
-      // let mainForm = this.addTicketValue;
-      const mainForm = this.addTicketValue;
-      console.log(mainForm);
-      this._api.ticketAdd(mainForm).subscribe(
-        (res) => {
-          this._api.userDetails(this.user._id).subscribe(
-            res => {
-              this._api.updateUserLocally(res);
+      if (formData.value.selectedTime >= '10:00' && formData.value.selectedTime <= '17:00') {
+        Object.keys(formData.value).forEach((key)=>{
+          this.addTicketValue[key] = formData.value[key];
+        });
+        this.addTicketValue.productId = this.productId;
+        this.addTicketValue.userId = this.user._id;
+        this.addTicketValue.category = this.productDetail.category
+        this.addTicketValue.brandId = this.productDetail.brands;
+        // let mainForm = this.addTicketValue;
+        const mainForm = this.addTicketValue;
+        console.log(mainForm);
+        this._api.ticketAdd(mainForm).subscribe(
+          (res) => {
+            this._api.userDetails(this.user._id).subscribe(
+              res => {
+                this._api.updateUserLocally(res);
+              }
+            )
+            this.addedTicketDetail = res.ticket;
+            this.assignTicket(res.ticket._id);
+            console.log(this.addedTicketDetail);
+            this.Toast.fire({
+              icon: 'success',
+              title: 'Ticket raised successfully!'
+            });
+            const notificationForm = {
+              "title": "Ticket raised", 
+              "userId": this.user._id, 
+              "description": "Dear "+this.user.name+", your ticket "+this.addedTicketDetail.uniqueId+" has been raised for the product "+this.productDetail.name+"."
             }
-          )
-          this.addedTicketDetail = res.ticket;
-          this.assignTicket(res.ticket._id);
-          console.log(this.addedTicketDetail);
-          this.Toast.fire({
-            icon: 'success',
-            title: 'Ticket raised successfully!'
-          });
-          const notificationForm = {
-            "title": "Ticket raised", 
-            "userId": this.user._id, 
-            "description": "Dear "+this.user.name+", your ticket "+this.addedTicketDetail.uniqueId+" has been raised for the product "+this.productDetail.name+"."
+            this._api.addNotification(notificationForm).subscribe();
+            this._loader.stopLoader('loader');
+          },
+          (err) => {
+            this.errorMessage = err;
+            this.Toast.fire({
+              icon: 'error',
+              title: 'Something went wrong!'
+            })
+            this._loader.stopLoader('loader');
           }
-          this._api.addNotification(notificationForm).subscribe();
-          this._loader.stopLoader('loader');
-        },
-        (err) => {
-          this.errorMessage = err;
-          this.Toast.fire({
-            icon: 'error',
-            title: 'Something went wrong!'
-          })
-          this._loader.stopLoader('loader');
-        }
-      );
-      // console.log(this.addTicketValue);
-
-      this.stepOne = false;
-      this.stepTwo = false;
-      this.stepThree = false;
-      this.stepFour = true;
-      this.errorMessage = "";
+        );
+        // console.log(this.addTicketValue);
+  
+        this.stepOne = false;
+        this.stepTwo = false;
+        this.stepThree = false;
+        this.stepFour = true;
+        this.errorMessage = "";
+      } else {
+        this.errorMessage="Time should be from 10 am to 5 pm";
+      }
     } else {
       this.errorMessage = 'Please fill out all the details';
     }
