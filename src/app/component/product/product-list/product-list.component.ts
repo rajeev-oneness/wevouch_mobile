@@ -160,6 +160,8 @@ export class ProductListComponent implements OnInit {
           
           if (res[index]?.purchaseDate) {
             let purchaseDate = new Date(res[index].purchaseDate);
+            purchaseDate.setDate(purchaseDate.getDate()-1);
+
             res[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+res[index].warrantyPeriod);
             let warrantyDaysLeft = dateDiffInDays(res[index].expiresOn, this.dateNow);
             console.log(warrantyDaysLeft+" days left");
@@ -178,6 +180,8 @@ export class ProductListComponent implements OnInit {
           }
           if(res[index]?.amcDetails?.noOfYears) {
             let amcSrtartDate = new Date(res[index].amcDetails.startDate);
+            amcSrtartDate.setDate(amcSrtartDate.getDate()-1);
+            
             let amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res[index].amcDetails.noOfYears*12));
             let amcLeftDays = dateDiffInDays(amcValidTill, this.dateNow);
             console.log(amcLeftDays+" days left of amc");
@@ -270,6 +274,8 @@ export class ProductListComponent implements OnInit {
           
           if(res.purchaseDate) {
             let purchaseDate = new Date(res.purchaseDate);
+            purchaseDate.setDate(purchaseDate.getDate()-1);
+
             this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
 
             this.warrantyDaysLeft = (res.warrantyPeriod > 0) ? dateDiffInDays(this.warrantyValidTill, this.dateNow) : '';
@@ -277,6 +283,8 @@ export class ProductListComponent implements OnInit {
           }
           if(res.amcDetails?.noOfYears) {
             let amcSrtartDate = new Date(res.amcDetails.startDate);
+            amcSrtartDate.setDate(amcSrtartDate.getDate()-1);
+
             this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));
             this.amcLeftDays = dateDiffInDays(this.amcValidTill, this.dateNow);
           }

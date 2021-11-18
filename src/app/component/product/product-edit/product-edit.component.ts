@@ -77,8 +77,8 @@ export class ProductEditComponent implements OnInit {
         // this.fetchSubCategory();
         this.invoiceImgUrl = res.invoicePhotoUrl;
         this.uploadedFile1 = res.invoicePhotoUrl[0];
-        this.extdImgUrl = res.extendedWarranty.extendedWarrantyImages;
-        this.amcImgUrl = res.amcDetails.amcImages;
+        this.extdImgUrl = res.extendedWarranty?.extendedWarrantyImages;
+        this.amcImgUrl = res.amcDetails?.amcImages;
         
         this.productImgUrl = res.productImagesUrl;
         this.uploadedFile2 = res.productImagesUrl[0];

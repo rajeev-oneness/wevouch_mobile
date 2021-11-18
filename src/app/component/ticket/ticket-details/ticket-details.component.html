@@ -9,6 +9,9 @@
       </div>
     </div>
     <div class="ticketBottom text-center">
+      <p class="text-center mt-0 mb-0 text-dark">Funtion Type :<b>{{ticketDetail?.functionType}}</b></p>
+      <p class="text-center mt-0 mb-0 text-dark">Issue Type :<b>{{ticketDetail?.issueType}}</b></p>
+      <p class="text-center mt-0 mb-0 text-dark">Description :<b>{{ticketDetail?.description}}</b></p>
       <p class="text-center mt-0 mb-0 text-dark">Issued on <b>{{ticketDetail?.createdAt | date:'dd MMM yyyy'}}</b></p>
       <p class="text-center text-dark">Your wevouch ticket no.</p>
       <h1>{{ticketDetail.uniqueId}}</h1>

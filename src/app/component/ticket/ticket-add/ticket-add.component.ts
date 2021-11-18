@@ -106,6 +106,20 @@ export class TicketAddComponent implements OnInit {
     this._api.productDetail(this.productId).subscribe(
       res => {
         this.productDetail = res;
+        console.log("product detail of the ticket",this.productDetail);
+        if(this.productDetail?.brands == '' || this.productDetail?.category == '' || this.productDetail?.modelNo == '' || this.productDetail?.subCategory == '') {
+          Swal.fire({
+            title: 'Failed!',
+            text: 'You need to add brand, category, sub category, model no to your product.',
+            icon: 'error',
+            confirmButtonText: 'Edit product',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this._router.navigate(['/product/edit/'+this.productId])
+            }
+          })
+        }
+        
         this._api.getProductBrands().subscribe(
           res => {
             // console.log('brands :', res.brands);
