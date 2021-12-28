@@ -1,48 +1,103 @@
-<div class="ticketBox">
-    <div class="ticketTop">
-      <img src="{{(ticketDetail.products && ticketDetail.products.productImagesUrl != '')? ticketDetail.products.productImagesUrl[0] : './assets/images/blank-image.png'}}" alt="product image" />
-      <div class="ticketTopTxt">
-        <h3>{{(ticketDetail.products && ticketDetail.products.name) || 'N/A'}}</h3>
-        
-        <a href="javascript:void(0);">{{ticketDetail?.transportationType}} Address</a>
-        <p class="text-center mt-0 text-dark">{{ticketDetail.address?.addressLine1}}, {{ticketDetail.address?.addressLine2}}, {{ticketDetail.address?.city}}, {{ticketDetail.address?.country}}, {{ticketDetail.address?.state}}, pin-{{ticketDetail.address?.pin}}</p>
+<header>
+  <a href="javascript:void(0);" routerLink="/ticket/list" *ngIf="!feedbackTab">
+    <img src="./assets/images/back.png" alt="">
+  </a>
+  <a href="javascript:void(0);" (click)="toggleFeedback()" *ngIf="feedbackTab">
+    <img src="./assets/images/back.png" alt="">
+  </a>
+  <h2 *ngIf="!feedbackTab" class="m-auto">Ticket Detail</h2>
+  <h2 *ngIf="feedbackTab" class="m-auto">Add Feedback</h2>
+  <a href="javascript:void(0);" routerLink="/ticket/list">
+    <img src="./assets/images/cut-icon.png" alt="">
+  </a>
+  
+</header>
+<div class="ticketBox" *ngIf="!feedbackTab">
+  <div class="ticketTop">
+    <img src="{{(ticketDetail.products && ticketDetail.products.productImagesUrl != '')? ticketDetail.products.productImagesUrl[0] : './assets/images/blank-image.png'}}" alt="product image" />
+    <div class="ticketTopTxt">
+      <h3>{{(ticketDetail.products && ticketDetail.products.name) || 'N/A'}}</h3>
+      
+      <a href="javascript:void(0);">{{ticketDetail?.transportationType}} Address</a>
+      <p class="text-center mt-0 text-dark">{{ticketDetail.address?.addressLine1}}, {{ticketDetail.address?.addressLine2}}, {{ticketDetail.address?.city}}, {{ticketDetail.address?.country}}, {{ticketDetail.address?.state}}, pin-{{ticketDetail.address?.pin}}</p>
+    </div>
+  </div>
+  <div class="ticketBottom text-center">
+    <p class="text-center mt-0 mb-0 text-dark">Funtion Type :<b>{{ticketDetail?.functionType}}</b></p>
+    <p class="text-center mt-0 mb-0 text-dark">Issue Type :<b>{{ticketDetail?.issueType}}</b></p>
+    <p class="text-center mt-0 mb-0 text-dark">Description :<b>{{ticketDetail?.description}}</b></p>
+    <p class="text-center mt-0 mb-0 text-dark">Issued on <b>{{ticketDetail?.createdAt | date:'dd MMM yyyy'}}</b></p>
+    <p class="text-center text-dark">Your wevouch ticket no.</p>
+    <h1>{{ticketDetail.uniqueId}}</h1>
+    <!-- <a href="javascript:void(0);">Issue Recieved?</a><br> -->
+    
+  </div>
+</div>
+
+<!-- Step progress bar -->
+<div id="tktProgressBar" *ngIf="!feedbackTab">
+  <ul class="timeline" *ngIf="ticketLogs.length > 0; else noLogsBlock;">
+    <li *ngFor="let log of ticketLogs;let i=index;" class="event" [ngClass]="{'processDone' : i < (ticketLogs.length-1), 'processGoing' : i === (ticketLogs.length-1)}">
+      <p>{{log.comment}} <span class="text-muted">({{log.createdAt | date:'dd MMM, yyyy'}} - {{log.createdAt | date: 'h:mm a'}})</span></p>
+      <div class="serviceQuestion" *ngIf="log.userApproval && (log.approved === undefined)">
+        <p>{{log?.approvalQuestion || 'Are you agree?'}}</p>
+        <a href="javascript:void(0);" class="SerQstYes" (click)="approveLog(log._id, true)">Yes</a>
+        <a href="javascript:void(0);" class="SerQstNo" (click)="approveLog(log._id, false)">No</a>
+      </div>
+    </li>
+    <!-- <li class="event processDone">
+        <p>Wevouch got in touch with the {{ticketDetail.brand?.name}} Service team</p>
+    </li>
+    <li class="event processGoing">
+        <p>Service Request No. (SRN) #6657982</p>
+    </li> -->
+  </ul>
+  <ng-template #noLogsBlock>
+    <h4 class="text-center mt-2">No logs yet!</h4>
+  </ng-template>
+
+  <div class="addFeedback" *ngIf="(ticketDetail.status === 'completed') && (ticketDetail.rating === undefined)">
+    <p>Give your feedback, about the experience</p>
+    <a href="javascript:void(0);" class="SerQstYes" (click)="toggleFeedback()">Add Feedback</a>
+  </div>
+
+  <div *ngIf="(ticketDetail.status === 'completed') && ticketDetail.rating">
+    <h3>Feedback</h3>
+    <div class="row" class="feedback-sec">
+      <div class="col-sm-12">
+        <ul class="list-inline rating-list" 
+        *ngFor="let star of stars" style="display: inline-block" >
+          <li [ngClass]="{'selected': (star <= ticketDetail?.rating)}">
+            <i class="fa fa-star fs"></i>
+          </li> 
+        </ul>
+      </div>
+      <div class="col-sm-12">
+        <span class="text-muted">{{ticketDetail.feedback}}</span>
       </div>
     </div>
-    <div class="ticketBottom text-center">
-      <p class="text-center mt-0 mb-0 text-dark">Funtion Type :<b>{{ticketDetail?.functionType}}</b></p>
-      <p class="text-center mt-0 mb-0 text-dark">Issue Type :<b>{{ticketDetail?.issueType}}</b></p>
-      <p class="text-center mt-0 mb-0 text-dark">Description :<b>{{ticketDetail?.description}}</b></p>
-      <p class="text-center mt-0 mb-0 text-dark">Issued on <b>{{ticketDetail?.createdAt | date:'dd MMM yyyy'}}</b></p>
-      <p class="text-center text-dark">Your wevouch ticket no.</p>
-      <h1>{{ticketDetail.uniqueId}}</h1>
-      <!-- <a href="javascript:void(0);">Issue Recieved?</a><br> -->
-      
+  </div>
+</div>
+<!-- Step progress bar ends -->
+
+<!-- feedback tab starts here -->
+<div *ngIf="feedbackTab">
+  <form class="addProductForm">
+    <label>Rating <span class="op">*</span></label>
+    <div class="row">
+      <div class="col-sm-12">
+        <ul class="list-inline rating-list" 
+        *ngFor="let star of stars" style="display: inline-block" >
+          <li (click)="countStar(star)" [ngClass]="{'selected': (star <= rating)}">
+            <i class="fa fa-star"></i>
+          </li> 
+        </ul>
+      </div>
     </div>
-  </div>
-
-  <!-- Step progress bar -->
-  <div id="tktProgressBar">
-    <ul class="timeline" *ngIf="ticketLogs.length > 0; else noLogsBlock;">
-      <li *ngFor="let log of ticketLogs;let i=index;" class="event" [ngClass]="{'processDone' : i < (ticketLogs.length-1), 'processGoing' : i === (ticketLogs.length-1)}">
-        <p>{{log.comment}} <span class="text-muted">({{log.createdAt | date:'dd MMM, yyyy'}} - {{log.createdAt | date: 'h:mm a'}})</span></p>
-      </li>
-      <!-- <li class="event processDone">
-          <p>Wevouch got in touch with the {{ticketDetail.brand?.name}} Service team</p>
-      </li>
-      <li class="event processGoing">
-          <p>Service Request No. (SRN) #6657982</p>
-      </li> -->
-    </ul>
-    <ng-template #noLogsBlock>
-      <h4 class="text-center mt-2">No logs yet!</h4>
-    </ng-template>
-
-    <!-- <div class="serviceQuestion">
-      <p>Has the {{ticketDetail.brand?.name}} team reach out to you yet?</p>
-      <a href="rateExperience.html" class="SerQstYes">Yes</a>
-      <a href="javascript:void(0);" class="SerQstYes">Yes</a>
-      <a href="javascript:void(0);" class="SerQstNo">No</a>
-    </div> -->
-  </div>
-  
-  <!-- Step progress bar ends -->
+    <label>Feedback <span class="op">*</span></label>
+    <textarea class="form-control mt-2" rows="4" placeholder="Describe your experience in detail" name="description" [(ngModel)]="feedback"></textarea>
+    <span class="text-danger"></span>
+    <button class="submit-btn" type="submit" (click)="submitFeedback()">Add Feedback</button>
+  </form>
+</div>
+<!-- feedback tab ends here -->

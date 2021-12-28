@@ -155,6 +155,10 @@ export class ApiService {
   ticketDelete(ticketId : any) {
     return this._http.delete<any>(_apiUrl+'ticket/delete/'+ticketId);
   }
+  ticketFeedbackAdd(ticketId : any, formData: any) {
+    return this._http.patch<any>(_apiUrl+'ticket/add-feedback/'+ticketId, formData);
+  }
+
   
   //package
   packageList() {
@@ -204,6 +208,9 @@ export class ApiService {
   //ticket log
   getTicketLog(ticketId : any) {
     return this._http.get<any>(_apiUrl+'ticket-log/get-by-ticket/'+ticketId);
+  }
+  approveTicketLog(ticketLogId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'ticket-log/user-approval/'+ticketLogId, formData);
   }
 
   //support executive

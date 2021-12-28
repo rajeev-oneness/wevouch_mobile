@@ -1,4 +1,13 @@
 #tktProgressBar .serviceQuestion {
+    width: 100%;
+    margin: 0px auto;
+    padding: 10px 15px;
+    border: 2px dotted #00c2cb;
+    border-radius: 10px;
+    background-color: #202c40;
+}
+
+#tktProgressBar .addFeedback {
     width: 75%;
     margin: 0px auto;
     padding: 10px 15px;
@@ -9,4 +18,64 @@
 #tktProgressBar .timeline .event p {
     font-size: 12px;
     margin: 0px;
+}
+
+.addFeedback .SerQstYes {
+    background-color: #00c2cb;
+    color: #2e3d56;
+}
+
+#tktProgressBar .addFeedback a {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-top: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.rating-list li {
+    float: right;
+    color: #ddd;
+    padding: 0px 17px;
+}
+  
+.rating-list li:hover,
+.rating-list li:hover ~ li,
+.rating-list li.selected {
+    color: #ffd700;
+}
+
+.rating-list {
+    display: inline-block;
+    list-style: none;
+}
+
+.fa-star {
+    font-size: 30px;
+}
+
+textarea{
+    width: 100%;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 0;
+    background-color: #202c40;
+    color: #fff;
+    resize: none;
+}
+textarea:focus{
+    background-color: #202c40;
+    color: #fff;
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+
+.feedback-sec {
+    width: 75%;
+    margin: auto;
+}
+.fs {
+    font-size: 15px!important;
 }

@@ -23,7 +23,7 @@ export class AppComponent {
         this.showHeader = true;
         this.showTab = true;
 
-        if((urlArr.includes("ticket") && urlArr.includes("add")) || (urlArr.includes("product") && urlArr.includes("edit"))) {
+        if((urlArr.includes("ticket") && urlArr.includes("add")) || (urlArr.includes("product") && urlArr.includes("edit")) || (urlArr.includes("ticket") && urlArr.includes("details"))) {
           this.showHeader = false;
         }
         if (event['url'] == '/login' || event['url'] == '/register' || event['url'] == '/') {
