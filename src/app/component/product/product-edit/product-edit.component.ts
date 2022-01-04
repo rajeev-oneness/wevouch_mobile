@@ -188,7 +188,7 @@ export class ProductEditComponent implements OnInit {
     console.log(this.category);
     
     if (this.category != 'Others') {
-      this._api.getProductSubCategories(this.category).subscribe(
+      this._api.getProductSubCategories(this.category, this.brandId).subscribe(
         res => {
           let isSubCategoryListed = false;
           this.subCategoriesList = res.sub_categories;
@@ -232,7 +232,7 @@ export class ProductEditComponent implements OnInit {
       this.modelId = '';
     }
     if (this.subCategory != 'Others') {
-      this._api.getProductModels(this.subCategory).subscribe(
+      this._api.getProductModels(this.subCategory, this.category, this.brandId).subscribe(
         res => {
           let isModelListed = false;
 

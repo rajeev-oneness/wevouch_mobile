@@ -110,7 +110,7 @@ export class ProductAddComponent implements OnInit {
     this.subCategoriesList = [];
     console.log(this.category);
     if (this.category != 'Others') {
-      this._api.getProductSubCategories(this.category).subscribe(
+      this._api.getProductSubCategories(this.category, this.brandId).subscribe(
         res => {
           this.subCategoriesList = [];
           this.subCategoriesList = res.sub_categories;
@@ -133,7 +133,7 @@ export class ProductAddComponent implements OnInit {
     this.modelList = [];
 
     if (this.subCategory !== null || this.subCategory != 'Others') {
-      this._api.getProductModels(this.subCategory).subscribe(
+      this._api.getProductModels(this.subCategory, this.category, this.brandId).subscribe(
         res => {
           this.modelList = [];
           this.modelList = res.models;

@@ -36,7 +36,7 @@ export class TicketDetailsComponent implements OnInit {
     this._api.ticketDetail(ticketId).subscribe(
       res => {
         console.log(res);
-        this.ticketDetail = res
+        this.ticketDetail = res;
         this._loader.stopLoader('loader');
       }, err => {}
     );
@@ -95,7 +95,7 @@ export class TicketDetailsComponent implements OnInit {
     })
   }
 
-  approveLog(logId:string, approved:boolean = true) {
+  approveLog(logId:string, approved:boolean = true, index:any) {
     Swal.fire({
       title: 'Approval',
       text: 'Are you sure to change approval status',
@@ -112,7 +112,28 @@ export class TicketDetailsComponent implements OnInit {
                 icon: 'success',
                 title: 'Log approval changed!'
               });
-              this.fetchTicketLogs();
+              if (this.ticketLogs[index] && approved === true) {
+                console.log(this.ticketLogs[index]);
+                this._api.ticketLogActive(this.ticketLogs[index]._id, {activeLog:true}).subscribe(
+                  res => {
+                    console.log(res);
+                    this.Toast.fire({
+                      icon: 'success',
+                      title: 'Log active status changed',
+                    })
+                    this.fetchTicketLogs();
+                  }, err => {
+                    console.log(err);
+                    this.Toast.fire({
+                      icon: 'error',
+                      title: 'Failed',
+                    })
+                  }
+                );
+              } else {
+                this.fetchTicketLogs();
+              }
+              
             } else {
               this.Toast.fire({
                 icon: 'error',

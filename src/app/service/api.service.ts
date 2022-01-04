@@ -212,6 +212,9 @@ export class ApiService {
   approveTicketLog(ticketLogId : any, formData : any) {
     return this._http.patch<any>(_apiUrl+'ticket-log/user-approval/'+ticketLogId, formData);
   }
+  ticketLogActive(ticketLogId:any, formData:any) {
+    return this._http.patch<any>(_apiUrl+'ticket-log/activate-log/'+ticketLogId, formData);
+  }
 
   //support executive
   getSupportExcutives() {
@@ -243,11 +246,11 @@ export class ApiService {
   getProductCategories(brandId : any) {
     return this._http.get<any>(productAssets+'?action=fetchCategories&brand='+brandId);
   }
-  getProductSubCategories(categoryName : any) {
-    return this._http.get<any>(productAssets+'?action=fetchSubcategories&category='+categoryName);
+  getProductSubCategories(categoryName : any, brandId: any) {
+    return this._http.get<any>(productAssets+'?action=fetchSubcategories&category='+categoryName+'&brand='+brandId);
   }
-  getProductModels(subCategoryName : any) {
-    return this._http.get<any>(productAssets+'?action=fetchModels&sub_category='+subCategoryName);
+  getProductModels(subCategoryName : any, categoryName : any, brandId: any) {
+    return this._http.get<any>(productAssets+'?action=fetchModels&&category='+categoryName+'&brand='+brandId+'&sub_category='+subCategoryName);
   }
 
   //site/notification settings
